@@ -1,0 +1,93 @@
+type: object
+description: Detailed information for a delivered subscription item, shared structure.
+properties:
+  numberOfDelivered:
+    type: number
+    format: double
+    description: Quantity delivered.
+    example: 1.0
+  numberOfRequest:
+    type: number
+    format: double
+    description: Quantity originally requested.
+    example: 2.0
+  numberOfPeriod:
+    type: number
+    format: double
+    description: Number of periods for the medication.
+    example: 1.0
+  description:
+    type: string
+    description: Description of the item.
+    example: "آمپول ویتامین D3"
+  amount:
+    type: number
+    format: double
+    description: Total amount for the delivered quantity.
+    example: 150000.0
+  patientPayment:
+    type: number
+    format: double
+    description: Amount paid by the patient for the delivered quantity.
+    example: 30000.0
+  consumption:
+    type: string
+    nullable: true
+    description: Consumption instructions.
+    example: "یک عدد عضلانی"
+  consumptionSNOMEDCode:
+    type: string
+    nullable: true
+    description: SNOMED code for consumption.
+    example: "SCT98765"
+  consumptionInstruction:
+    type: string
+    nullable: true
+    description: Detailed consumption instructions.
+    example: "هر دو هفته یکبار تزریق شود"
+  shape:
+    type: string
+    nullable: true
+    description: Form of the medication (e.g., Ampoule).
+    example: "AMP"
+  bulkId:
+    type: integer
+    nullable: true
+    description: Bulk ID if applicable.
+    example: 5543
+  serviceFullName:
+    type: string
+    description: Full name of the service/medication.
+    example: "ویتامین د3 300000 واحد آمپول"
+  serviceShortName:
+    type: string
+    description: Short name of the service/medication.
+    example: "ویتامین د3"
+  serviceInterfaceName:
+    type: string
+    description: Interface name for the service.
+    example: "VitaminD3_300000U_Amp"
+  serviceGenericCode:
+    type: string
+    nullable: true
+    description: Generic code of the service.
+    example: "G9012"
+  serviceNationalNumber:
+    type: string
+    nullable: true
+    description: National number (IRC/GTIN) of the service.
+    example: "N9012"
+  serviceDescription:
+    type: string
+    description: Description of the service.
+    example: "ویتامین د3 300000 واحد آمپول"
+  serviceOrderGenericCode:
+    type: string
+    nullable: true
+    description: Generic code from the original service order, if different.
+    example: "G9012-ORD"
+  serviceOrderNationalNumber:
+    type: string
+    nullable: true
+    description: National number from the original service order, if different.
+    example: "N9012-ORD" 

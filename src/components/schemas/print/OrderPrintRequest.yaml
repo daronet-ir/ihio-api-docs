@@ -1,0 +1,22 @@
+type: object
+description: Request to generate a printable version of an order.
+required:
+  - cpartySessionId
+  - citizenSessionId
+  - samadCode
+  - type
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID from authentication of the calling party.
+  citizenSessionId:
+    type: string
+    description: Session ID of the citizen/patient.
+  samadCode:
+    type: string
+    description: SAMAD code of the prescription order to be printed.
+  type:
+    type: string
+    description: Type of print order required.
+    enum: ["drug", "physiotherapy", "test", "imaging", "reference", "doctor"]
+    example: "drug"

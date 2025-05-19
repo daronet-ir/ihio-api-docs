@@ -1,0 +1,9 @@
+type: object
+description: Detailed messages or additional information related to the response, structure can vary.
+additionalProperties: true
+# Example usage (actual properties depend on context):
+# properties:
+#   reasonCode:
+#     type: string
+#   detailedText:
+#     type: string 

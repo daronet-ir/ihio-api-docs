@@ -1,0 +1,24 @@
+type: object
+description: Information about the partner who originally ordered the prescription.
+properties:
+  partnerName:
+    type: string
+    nullable: true
+    description: Name of the ordering partner (doctor/clinic).
+  partnerPhone:
+    type: string
+    nullable: true
+    description: Phone number of the ordering partner.
+  contractPartyName:
+    type: string
+    nullable: true
+    description: Name of the contracting party (e.g., insurer) for the order.
+  noMedicalSystem:
+    type: integer
+    format: int64 # Medical system number can be long
+    nullable: true
+    description: Medical system number of the ordering partner.
+  licenseName:
+    type: string
+    nullable: true
+    description: License name of the ordering partner (e.g., "عمومی"). 

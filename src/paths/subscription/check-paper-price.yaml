@@ -1,0 +1,53 @@
+post:
+  tags:
+    - Subscription Management
+  summary: Check Paper Subscription Price
+  description: Check the price for a paper-based subscription item
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/subscription/SubscriptionPaperPriceCheckRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/subscription/SubscriptionCheckDeliverResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            successPaperPrice:
+              summary: Successful paper price check
+              value:
+                # This response structure is from SubscriptionCheckDeliverResponse
+                resCode: 1 
+                resMessage: "Paper price check successful."
+                info:
+                  isAllowed: true
+                  hasContract: true
+                  shouldSendToEsalat: false # Typically false for paper
+                  message: { detail: "Price for paper item calculated." }
+                  checkCode: "PAPERCHECK789"
+                  priceInfo: { totalPrice: 70.0, coveredPrice: 50.0, payablePrice: 20.0, discountAmount: 0.0 }
+                  maxCoveredCount: 1
+            invalidBasePricePaper:
+              summary: Invalid basePrice for paper item
+              value:
+                resCode: -15201 # From output_21.json
+                message: "Invalid basePrice for paper item (e.g., null, out of range)."
+            invalidCheckCodePaper:
+              summary: Invalid checkCode for paper price check
+              value:
+                resCode: -15212 # From output_21.json
+                message: "Provided checkCode is invalid or not found for paper price check."

@@ -1,0 +1,29 @@
+type: object
+properties:
+  orderCount:
+    type: integer
+    format: int32
+  deliverCount:
+    type: integer
+    format: int32
+  orderNationalNumber:
+    type: string
+  deliverNationalNumber:
+    type: string
+  type:
+    type: string
+  description:
+    type: string
+  consumption:
+    type: string
+  consumptionInstruction:
+    type: string
+  numberOfPeriod:
+    type: number
+    format: float
+  bulkId:
+    type: integer
+    format: int32
+  isOutOfPrescription:
+    type: boolean
+# required: # Add if known 

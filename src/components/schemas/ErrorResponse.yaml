@@ -1,0 +1,11 @@
+type: object
+properties:
+  resCode:
+    type: integer
+    description: The specific error code.
+  resMessage:
+    type: string
+    description: A human-readable message describing the error.
+required:
+  - resCode
+  - resMessage 

@@ -1,0 +1,8 @@
+terminalId:
+  $ref: './terminalId.yaml'
+token:
+  $ref: './token.yaml'
+clientIPAddress:
+  $ref: './clientIPAddress.yaml'
+clientAgentInfo:
+  $ref: './clientAgentInfo.yaml' 

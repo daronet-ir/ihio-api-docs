@@ -1,0 +1,24 @@
+type: object
+properties:
+  resCode:
+    type: integer
+    description: Response code (e.g., 1 for success).
+  resMessage:
+    type: string
+    description: Response message.
+  info:
+    type: object
+    properties:
+      trackingCode:
+        type: string
+        description: Tracking code for the updated prescription.
+      message:
+        $ref: './PrescriptionResponseMessageDetails.yaml' # Reusing the schema from save response
+        description: Detailed informational and snack messages for the update operation.
+    # required: 
+      # - trackingCode 
+      # - message # Depending on whether these are always present in info
+# required:
+  # - resCode
+  # - resMessage
+  # - info # Info itself might be optional on overall error 

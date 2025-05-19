@@ -1,0 +1,14 @@
+type: object
+properties:
+  resCode:
+    type: integer
+    description: Overall response code for the API call
+  resMessage:
+    type: string
+    description: Overall response message for the API call
+  info:
+    $ref: './SimpleStatusInfo.yaml'
+required:
+  - resCode
+  - resMessage
+  # info might be optional depending on overall resCode 

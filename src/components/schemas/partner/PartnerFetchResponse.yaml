@@ -1,0 +1,23 @@
+type: object
+properties:
+  resCode:
+    type: integer
+    description: Response code, 1 for success
+  resMessage:
+    type: string
+    description: Response message
+  info:
+    type: array
+    description: Array of partner information
+    items:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID of the partner
+        parentId:
+          type: integer
+          description: ID of the parent partner
+        partnerName:
+          type: string
+          description: Name of the partner 

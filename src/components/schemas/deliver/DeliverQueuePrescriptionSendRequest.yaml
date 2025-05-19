@@ -1,0 +1,16 @@
+type: object
+description: Request to send a prescription to the delivery queue.
+required:
+  - cpartySessionId
+  - citizenSessionId
+  - trackingCode
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID from authentication of the calling party.
+  citizenSessionId:
+    type: string
+    description: Session ID of the citizen/patient whose prescription is being queued.
+  trackingCode:
+    type: string
+    description: Tracking code of the prescription to send to the delivery queue. 

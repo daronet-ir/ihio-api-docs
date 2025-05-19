@@ -1,0 +1,123 @@
+post:
+  tags:
+    - Prescription Management
+  summary: Save Prescription
+  description: Save a new electronic prescription
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/prescription/PrescriptionSaveRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/prescription/PrescriptionSaveResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful prescription save
+              value:
+                resCode: 1 # Assuming 1 for overall success
+                resMessage: "Prescription saved successfully."
+                info:
+                  trackingCode: "TRK123456789"
+                  sequenceNumber: 1
+                  message:
+                    infoMessage: [
+                      { "text": "Prescription processed.", "type": "INFO" }
+                    ]
+                    snackMessage: [
+                      { "text": "Saved!", "type": "SUCCESS" }
+                    ]
+            invalidCheckCode:
+              summary: Invalid CheckCode
+              description: One or more checkCodes provided are invalid, have the wrong status, or mismatch other details.
+              value:
+                resCode: -7211 # Example primary code for checkCode issues
+                resMessage: "Invalid checkCode provided."
+            invalidSamadCode:
+              summary: Invalid SamadCode
+              description: The samadCode is invalid, not found, archived, or has other issues.
+              value:
+                resCode: -7241 # Example primary code for samadCode issues
+                resMessage: "Invalid samadCode provided."
+            samadCodeCheckCodeMismatch:
+              summary: SamadCode and CheckCode Mismatch
+              description: Mismatch between samadCode and checkCode details (e.g., patient).
+              value:
+                resCode: -7251
+                resMessage: "Mismatch between samadCode and checkCode."
+            alreadyUsedOrProcessed:
+              summary: SamadCode or CheckCode Already Used/Processed
+              description: The samadCode or a checkCode has already been used or processed.
+              value:
+                resCode: -7270 # or -7271
+                resMessage: "SamadCode or CheckCode already processed."
+            internalProcessingError:
+              summary: Internal Processing Error
+              description: An internal error occurred while saving the prescription.
+              value:
+                resCode: -7407
+                resMessage: "Internal error processing prescription save."
+            subscriptionServiceInteractionError:
+              summary: Subscription Service Interaction Error
+              description: An error occurred while interacting with the subscription service.
+              value:
+                resCode: -7555
+                resMessage: "Error with subscription service during save."
+    # Full list of error codes from output_24.json for reference:
+    # -7211: Invalid checkCode (format, null, empty)
+    # -7212: checkCode status not 'delivered'
+    # -7213: checkCode not for electronic prescription
+    # -7214: checkCode not for this pharmacy
+    # -7215: checkCode not related to patient
+    # -7216: checkCode not related to doctor
+    # -7217: checkCode not related to prescription date
+    # -7236: checkCode not related to samadCode
+    # -7241: Invalid samadCode (format, null, empty, length)
+    # -7242: samadCode content type mismatch
+    # -7243: samadCode not found
+    # -7244: samadCode is archived
+    # -7245: Error fetching details from other systems (for samadCode)
+    # -7246: samadCode status prevents saving
+    # -7247: No valid items found for samadCode
+    # -7248: samadCode does not match pharmacy's insurance
+    # -7249: samadCode cannot be processed by this pharmacy
+    # -7250: Duplicate samadCode in request
+    # -7251: samadCode and checkCode mismatch regarding patient
+    # -7252: Multiple samadCode not allowed for this service type
+    # -7253: Max item count for samadCode exceeded
+    # -7254: Total price limit for samadCode exceeded
+    # -7255: samadCode is for a different branch
+    # -7256: samadCode not usable for current patient age/gender
+    # -7257: Conflict: samadCode requires specific conditions not met
+    # -7258: samadCode has expired
+    # -7259: samadCode usage frequency exceeded
+    # -7260: samadCode not active yet
+    # -7261: Physician related to samadCode has restrictions
+    # -7262: Service related to samadCode has restrictions
+    # -7263: referenceFeedback is invalid
+    # -7270: samadCode already used
+    # -7271: checkCode already processed
+    # -7272: Operation not allowed due to previous related transaction
+    # -7407: Internal processing error
+    # -7555: Subscription service error
+    # '-26211':
+    #   description: Invalid input data
+    # '-26407':
+    #   description: Internal error processing request - contact system administrator
+    # '-26114':
+    #   description: Prescription already exists 

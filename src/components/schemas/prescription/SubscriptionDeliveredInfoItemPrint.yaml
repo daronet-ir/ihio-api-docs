@@ -1,0 +1,70 @@
+type: object
+description: Details of a delivered subscription item when fetching by print code.
+properties:
+  checkCode:
+    type: integer # Note: output_33 parameter list says 'ددع' which is numeric/integer
+    description: Check code of the specific delivery transaction (if applicable).
+  description:
+    type: string
+    description: Description of the delivered item.
+  numberOfDelivered:
+    type: number
+    format: float
+    description: Quantity of the item delivered.
+  consumption:
+    type: string
+    description: Consumption method for the delivered item.
+  consumptionSNOMEDCode:
+    type: string
+    nullable: true
+    description: SNOMED code for the consumption method.
+  delivery:
+    type: string
+    nullable: true
+    description: Information about the delivery (e.g., pharmacy name if different).
+  deliverDate:
+    type: string
+    format: date-time # Assuming, though example is '1399/01/01'
+    nullable: true
+    description: Date of delivery.
+  shape:
+    type: string
+    nullable: true
+    description: Shape of the delivered medicine.
+  consumptionInstruction:
+    type: string
+    nullable: true
+    description: Consumption instructions for the delivered item.
+  serviceDescription:
+    type: string
+    nullable: true
+    description: Description of the delivered service/item.
+  serviceFullName:
+    type: string
+    nullable: true
+    description: Full name of the delivered service/item.
+  serviceGenericCode:
+    type: string
+    nullable: true
+    description: Generic code of the delivered service/item.
+  serviceInterfaceName:
+    type: string
+    nullable: true
+    description: Interface name of the delivered service/item.
+  serviceNationalNumber:
+    type: string
+    nullable: true
+    description: National number (IRC/GTIN) of the delivered service/item.
+  serviceShortName:
+    type: string
+    nullable: true
+    description: Short name of the delivered service/item.
+  ihioBasePrice:
+    type: integer
+    nullable: true
+    description: IHIO base price for the delivered item.
+  numberOfPeriod:
+    type: number
+    format: float
+    nullable: true
+    description: Number of periods for the delivered item (if applicable). 

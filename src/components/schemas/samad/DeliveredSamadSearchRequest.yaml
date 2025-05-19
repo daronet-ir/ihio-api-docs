@@ -1,0 +1,34 @@
+type: object
+required:
+  - cpartySessionId
+  - fromDate
+  - toDate
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID received from user authentication or two-factor authentication service
+  nationalNumber:
+    type: string
+    description: National number to filter by (optional). If empty, search is at the national level.
+    example: "007..."
+  fromDate:
+    type: string
+    description: Start date for search range (format YYYYMMDD).
+    example: "13980101"
+    pattern: '^\\d{8}$'
+  toDate:
+    type: string
+    description: End date for search range (format YYYYMMDD).
+    example: "13981212"
+    pattern: '^\\d{8}$'
+  index:
+    type: integer
+    description: Page index for pagination (0-based).
+    minimum: 0
+    default: 0
+  count:
+    type: integer
+    description: Number of items per page (max 50).
+    maximum: 50
+    minimum: 1
+    default: 50 # As per output_7.json example 

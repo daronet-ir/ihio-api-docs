@@ -1,0 +1,50 @@
+post:
+  tags:
+    - Prescription Management
+  summary: Confirm Prescription Delivery
+  description: Confirm the delivery of an electronic prescription
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/prescription/PrescriptionDeliverConfirmRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/common/SuccessResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful operation
+              value:
+                resCode: 0 # Or appropriate success code
+                message: "Electronic prescription delivery confirmed."
+            invalidInput:
+              summary: Invalid input data
+              description: Invalid input data
+              value:
+                resCode: -20201
+                message: Invalid input data
+            internalError:
+              summary: Internal processing error
+              description: Internal error processing request
+              value:
+                resCode: -20301
+                message: Internal error processing request
+    # '-20201':
+    #   description: Invalid input data
+    # '-20301':
+    #   description: Internal error processing request 

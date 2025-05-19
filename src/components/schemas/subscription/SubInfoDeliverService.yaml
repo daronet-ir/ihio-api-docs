@@ -1,0 +1,28 @@
+type: object
+properties:
+  count:
+    type: integer
+    format: int32
+  nationalNumber:
+    type: string
+    description: National number of the service
+  type:
+    type: string
+    description: Type of the service
+  # mode: string # Mode is missing in output_18's service object for deliver
+  description:
+    type: string
+  consumption:
+    type: string
+  consumptionInstruction:
+    type: string
+  numberOfPeriod:
+    type: number
+    format: float
+  isOutOfPrescription:
+    type: boolean
+    description: Indicates if the item is outside the prescription
+  referenceCheckCode:
+    type: string
+    description: Reference check code for the service
+# required: # Add if known 

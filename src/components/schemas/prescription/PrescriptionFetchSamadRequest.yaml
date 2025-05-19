@@ -1,0 +1,15 @@
+type: object
+required:
+  - cpartySessionId
+  - citizenSessionId
+  - samadCode
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID from authentication
+  citizenSessionId:
+    type: string
+    description: Citizen session ID
+  samadCode:
+    type: string
+    description: SAMAD code of the prescription to fetch 

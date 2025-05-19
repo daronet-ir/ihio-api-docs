@@ -1,0 +1,35 @@
+type: object
+properties:
+  nationalNumber:
+    type: string
+    description: National number of the item (service or product)
+  type:
+    type: string
+    description: Type of item (SERVICE or PRODUCT)
+    enum: [SERVICE, PRODUCT]
+  mode:
+    type: string
+    description: Mode of item (ELECTRONIC or PAPER or PHYSICAL)
+    enum: [ELECTRONIC, PAPER, PHYSICAL]
+  count:
+    type: integer
+    description: Number of items
+  consumption:
+    type: string
+    description: Consumption details
+  consumptionInstruction:
+    type: string
+    description: Instructions for consumption
+  description:
+    type: string
+    description: Item description
+  numberOfPeriod:
+    type: number
+    format: float
+    description: Number of periods
+  bulkId:
+    type: integer
+    description: Bulk ID
+  activeFrom:
+    type: integer
+    description: Active from date (epoch timestamp) 

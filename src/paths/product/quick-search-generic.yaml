@@ -1,0 +1,52 @@
+post:
+  tags:
+    - Product Management
+  summary: Quick Search Product by Generic Name
+  description: Quickly search for products using their generic name
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/product/ProductSearchRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/product/ProductSearchResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful operation
+              value:
+                # Example of a successful ProductSearchResponse
+                resCode: 0 # Or appropriate success code
+                # ... other fields ...
+                products: [] # or example products
+            invalidInput:
+              summary: Invalid input data
+              description: Invalid input data
+              value:
+                resCode: -21211
+                message: Invalid input data
+            internalSearchError:
+              summary: Internal search error
+              description: Internal search error - contact system administrator
+              value:
+                resCode: -21401
+                message: Internal search error - contact system administrator
+    # '-21211':
+    #   description: Invalid input data
+    # '-21401':
+    #   description: Internal search error - contact system administrator 

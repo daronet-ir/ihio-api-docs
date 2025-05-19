@@ -1,0 +1,21 @@
+type: object
+required:
+  - cpartySessionId
+  - citizenSessionId
+  - searchClause
+  - maxResultCount
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID received from user authentication or two-factor authentication service.
+  citizenSessionId:
+    type: string
+    description: Citizen session ID received from citizen session creation service.
+  searchClause:
+    type: string
+    description: The search term (part of IRC or product name) to query for.
+    example: "Anti"
+  maxResultCount:
+    type: integer
+    description: Maximum number of results to return.
+    example: 5 

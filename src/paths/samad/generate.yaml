@@ -1,0 +1,101 @@
+post:
+  tags:
+    - SAMAD
+  summary: Generate Electronic SAMAD Code
+  description: Generate a new electronic SAMAD code for a citizen
+  parameters:
+    - $ref: '../../components/headers/terminalId.yaml'
+    - $ref: '../../components/headers/token.yaml'
+    - $ref: '../../components/headers/clientIPAddress.yaml'
+    - $ref: '../../components/headers/clientAgentInfo.yaml'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/samad/SamadGenerateRequest.yaml'
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/samad/SamadGenerateResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful operation
+              value:
+                # Example of a successful SamadGenerateResponse
+                resCode: 1 
+                resMessage: "SAMAD code generated successfully."
+                info:
+                  message:
+                    infoMessage: ["Prescription is ready for submission"]
+                    snackMessage: [
+                      {
+                        "type": "I",
+                        "text": "SAMAD code XXXXX generated."
+                      }
+                    ]
+                  samadCode: "SAMAD6789012345"
+            partnerNotFound:
+              summary: Partner not found
+              description: Partner not found
+              value:
+                resCode: -5401
+                resMessage: Partner not found
+            samadGenPropNotSet:
+              summary: SAMAD generation or sub-partner property not set
+              description: SAMAD code generation property or sub-partner acceptance property not set for the specified partner
+              value:
+                resCode: -5413
+                resMessage: SAMAD code generation property or sub-partner acceptance property not set for the specified partner
+            oneAppointmentPerDay:
+              summary: One appointment per day limit
+              description: Cannot get more than one appointment per day for a person
+              value:
+                resCode: -5414
+                resMessage: Cannot get more than one appointment per day for a person
+            dailySamadLimitReached:
+              summary: Daily SAMAD limit reached
+              description: Daily SAMAD code generation limit reached for the insured person
+              value:
+                resCode: -5415
+                resMessage: Daily SAMAD code generation limit reached for the insured person
+            concurrencyError:
+              summary: Concurrency error
+              description: Cannot generate SAMAD code due to concurrency
+              value:
+                resCode: -5666
+                resMessage: Cannot generate SAMAD code due to concurrency
+            samadAlreadyGenerated:
+              summary: SAMAD already generated
+              description: SAMAD code already generated for this insured person by the selected partner
+              value:
+                resCode: -5861
+                resMessage: SAMAD code already generated for this insured person by the selected partner
+            permissionNotGranted:
+              summary: Permission not granted
+              description: Permission not granted by the online processing system
+              value:
+                resCode: -5888
+                resMessage: Permission not granted by the online processing system
+    # '5401':
+    #   description: Partner not found
+    # '5413':
+    #   description: SAMAD code generation property or sub-partner acceptance property not set for the specified partner
+    # '5414':
+    #   description: Cannot get more than one appointment per day for a person
+    # '5415':
+    #   description: Daily SAMAD code generation limit reached for the insured person
+    # '5666':
+    #   description: Cannot generate SAMAD code due to concurrency
+    # '5861':
+    #   description: SAMAD code already generated for this insured person by the selected partner
+    # '5888':
+    #   description: Permission not granted by the online processing system 

@@ -1,0 +1,42 @@
+type: object
+required:
+  - cpartySessionId
+  - citizenSessionId
+  - samadCode
+  - subscriptions
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID from authentication
+  citizenSessionId:
+    type: string
+    description: Citizen session ID
+  samadCode:
+    type: string
+    description: SAMAD code
+  subscriptions:
+    type: array
+    description: Array of subscriptions to deliver
+    items:
+      type: object
+      required:
+        - checkCode
+      properties:
+        checkCode:
+          type: string
+          description: Check code of the subscription
+        uIds:
+          type: array
+          description: Array of UIDs for authenticity verification
+          items:
+            type: object
+            required:
+              - uId
+              - count
+            properties:
+              uId:
+                type: string
+                description: Unique ID for authenticity verification
+              count:
+                type: integer
+                description: Count for this UID 

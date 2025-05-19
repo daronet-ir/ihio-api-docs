@@ -1,0 +1,64 @@
+post:
+  tags:
+    - Product Management
+  summary: Quick Search Product by IRC
+  description: Quickly search for products using their IRC code
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/product/ProductQuickSearchIRCRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/product/ProductQuickSearchIRCResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful quick search by IRC
+              value:
+                resCode: 1
+                resMessage: "عملیات با موفقیت انجام شد"
+                info:
+                  -
+                    fullName: "TINYPHEN 125mg|(...)"
+                    shortName: "ACETAMINOPHEN 125mg TINYPHEN (-5952)"
+                    nationalNumber: "2157131736861839" # IRC
+                    genericCode: "123"
+                    interfaceName: "ACETAMINOPHEN 125mg TINYPHEN (-5952)"
+                    description: "ACETAMINOPHEN TABLET, FOR SOLUTION ORAL 125 mg"
+                    NORepeat: 1
+                    state:
+                      isCovered: true
+                      shape: "TABLET"
+            internalError:
+              summary: Internal server error
+              description: Internal error. Please contact system administrator.
+              value:
+                resCode: -18115
+                resMessage: ".دیریگب سامت هناماس ربهار اب اًفطل .یلخاد یاطخ"
+            noProductFound:
+              summary: No product found
+              description: No medicine found for the given criteria.
+              value:
+                resCode: -18116
+                resMessage: ".دشن تفای ییوراد"
+            invalidInputOrData:
+              summary: Invalid input data
+              description: Invalid product specifications or null searchClause.
+              value:
+                resCode: -18241
+                resMessage: ".تسین ربتعم هدش لاسرا یوراد تاصخشم :دهد خر ریز دراوم زا یکی :حیضوت null searchClause"

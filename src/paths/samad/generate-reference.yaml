@@ -1,0 +1,74 @@
+post:
+  tags:
+    - SAMAD
+  summary: Generate Reference SAMAD Code
+  description: Generate a SAMAD code for a referred prescription
+  parameters:
+    - $ref: '../../components/headers/terminalId.yaml'
+    - $ref: '../../components/headers/token.yaml'
+    - $ref: '../../components/headers/clientIPAddress.yaml'
+    - $ref: '../../components/headers/clientAgentInfo.yaml'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/samad/ReferenceGenerateRequest.yaml'
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/samad/SamadGenerateResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful operation
+              value:
+                resCode: 1 
+                resMessage: "Reference SAMAD code generated successfully."
+                info:
+                  message:
+                    infoMessage: ["Prescription is ready for submission via reference."]
+                    snackMessage: [
+                      {
+                        "type": "I",
+                        "text": "Reference SAMAD code YYYYY generated."
+                      }
+                    ]
+                  samadCode: "SAMADREFYYYYY"
+            invalidPrintCode:
+              summary: Invalid print code
+              description: Invalid input data - Print code is invalid, empty, non-numeric, wrong length, or forged
+              value:
+                resCode: -24212
+                resMessage: Invalid input data - Print code is invalid, empty, non-numeric, wrong length, or forged
+            samadGenPropNotSet:
+              summary: SAMAD generation property not set
+              description: SAMAD code generation property not set for the specified partner
+              value:
+                resCode: -24413
+                resMessage: SAMAD code generation property not set for the specified partner
+            oneAppointmentPerDay:
+              summary: One appointment per day limit
+              description: Cannot get more than one appointment per day for a person
+              value:
+                resCode: -24414
+                resMessage: Cannot get more than one appointment per day for a person
+            dailySamadLimitReached:
+              summary: Daily SAMAD limit reached
+              description: Daily SAMAD code generation limit reached for the insured person
+              value:
+                resCode: -24415
+                resMessage: Daily SAMAD code generation limit reached for the insured person
+            allReferenceServicesProvided:
+              summary: All reference services provided
+              description: All reference services for this SAMAD code have been provided
+              value:
+                resCode: -24666
+                resMessage: All reference services for this SAMAD code have been provided

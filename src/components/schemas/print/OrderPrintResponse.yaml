@@ -1,0 +1,23 @@
+type: object
+description: Response containing the printable version of an order.
+properties:
+  resCode:
+    type: integer
+    description: Response code (e.g., 1 for success).
+  resMessage:
+    type: string
+    description: Response message.
+  info:
+    type: object
+    nullable: true # Info might not be present on error
+    properties:
+      print:
+        type: string
+        format: byte # Indicates Base64 encoded content
+        description: Base64 encoded string representing the printable version of the order.
+    required:
+      - print
+required:
+  - resCode
+  - resMessage
+  - info # Info might not be present on error 

@@ -1,0 +1,14 @@
+type: object
+description: Represents a subscription item for prescription delivery, including its check code and associated UIDs.
+properties:
+  checkCode:
+    type: string
+    description: The check code for this subscription item.
+  uIds:
+    type: array
+    items:
+      $ref: './PrescriptionDeliverUIdItem.yaml'
+    description: List of UIDs and their counts associated with this check code.
+required:
+  - checkCode
+  - uIds 

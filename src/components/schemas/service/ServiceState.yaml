@@ -1,0 +1,7 @@
+type: object
+properties:
+  isCovered:
+    type: boolean
+    description: Whether the service is covered by insurance
+# required:
+#  - isCovered # Depending on if it's always present 

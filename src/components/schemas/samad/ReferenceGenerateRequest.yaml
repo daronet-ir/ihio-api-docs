@@ -1,0 +1,16 @@
+type: object
+required:
+  - cpartySessionId
+  - citizenSessionId
+  - printCode
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID received from user authentication or two-factor authentication service
+  citizenSessionId:
+    type: string
+    description: Citizen session ID received from citizen session creation service
+  printCode:
+    type: string
+    description: Tracking code of the referred prescription
+    example: "00903" 

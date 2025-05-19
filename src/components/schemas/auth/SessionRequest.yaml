@@ -1,0 +1,11 @@
+type: object
+required:
+  - cpartyUsername
+  - cpartyPassword
+properties:
+  cpartyUsername:
+    type: string
+    description: User username
+  cpartyPassword:
+    type: string
+    description: User password 

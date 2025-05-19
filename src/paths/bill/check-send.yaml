@@ -1,0 +1,57 @@
+post:
+  summary: Check and Send Bill Status
+  tags:
+    - Billing
+  description: Checks the status of a bill, specifically if it is viewable, and effectively sends it for this check. Used to query if a bill can be displayed to the user.
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/bill/BillCheckSendRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` in the JSON response body indicates the specific outcome.
+        `resCode: 1` generally indicates a successful query. The `info` object details bill viewability.
+        Refer to the examples for details on different `resCode` values and `info` states.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: ../../components/schemas/bill/BillCheckSendResponse.yaml
+              - $ref: ../../components/schemas/ErrorResponse.yaml # For general errors not covered by specific examples
+          examples:
+            successIsBillViewTrue:
+              summary: Bill is viewable
+              value:
+                resCode: 1
+                resMessage: ".دش یبایشزراو تیاعفش تاعلاطا" # "Information retrieved successfully."
+                info:
+                  isBillView: true
+                  billType: ".تسا هدش هداد شیامن بصحتوص" # "Bill is displayed."
+            successIsBillViewFalse:
+              summary: Bill is not viewable (e.g., specialized credits not active)
+              value:
+                resCode: 1 # Assuming resCode 1 still, but info shows not viewable
+                resMessage: ".دش یبایشزراو تیاعفش تاعلاطا" # "Information retrieved successfully."
+                info:
+                  isBillView: false
+                  billType: ".تسین لاعف یصصخت تارابتعا" # "Specialized credits are not active."
+            internalError:
+              summary: Internal server error
+              value:
+                resCode: -31115
+                resMessage: ".دیریگب سامت هناماس ربهار اب اطفل .یلخاد یاطخ" # "Internal error. Please contact system administrator."
+    default:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: ../../components/schemas/ErrorResponse.yaml

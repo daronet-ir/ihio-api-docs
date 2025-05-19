@@ -1,0 +1,26 @@
+type: object
+required:
+  - cpartySessionId
+  - citizenSessionId
+  - searchClause
+  - serviceTypeId
+  - maxResultCount
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID received from user authentication or two-factor authentication service
+  citizenSessionId:
+    type: string
+    description: Citizen session ID received from citizen session creation service
+  searchClause:
+    type: string
+    description: Search term
+    example: "Anti"
+  serviceTypeId:
+    type: integer
+    description: Type of services to return (2:Lab, 3:Pharmaceutical, 4:Physiotherapy, 5:Physician Services, 6:Reference Services)
+    enum: [2, 3, 4, 5, 6]
+  maxResultCount:
+    type: integer
+    description: Maximum number of results to return
+    example: 5 

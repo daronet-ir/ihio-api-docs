@@ -1,0 +1,18 @@
+terminalId:
+  $ref: './terminalId.yaml'
+token:
+  $ref: './token.yaml'
+clientIPAddress:
+  $ref: './clientIPAddress.yaml'
+clientAgentInfo:
+  $ref: './clientAgentInfo.yaml'
+cpartySessionId:
+  $ref: './cpartySessionId.yaml'
+nationalNumber:
+  $ref: './nationalNumber.yaml'
+citizenSessionId: # Assuming this might be another common one, adding placeholder
+  $ref: './citizenSessionId.yaml' # If you create this file
+printCode:
+  $ref: './printCode.yaml' # If you create this file
+otp:
+  $ref: './otp.yaml' # If you create this file 

@@ -1,0 +1,16 @@
+description: Successful operation
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        resCode:
+          type: integer
+          example: 1
+          description: Response code (1 for success)
+        resMessage:
+          type: string
+          description: Success message
+        info:
+          type: object
+          description: Response data object, structure varies by endpoint 

@@ -1,0 +1,15 @@
+type: object
+required:
+  - cpartySessionId
+  - citizenSessionId
+  - genCode
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID received from user authentication or two-factor authentication service
+  citizenSessionId:
+    type: string
+    description: Citizen session ID received from citizen session creation service
+  genCode:
+    type: string
+    description: Generic code of the product to fetch co-family for 

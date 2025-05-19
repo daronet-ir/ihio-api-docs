@@ -1,0 +1,25 @@
+type: object
+description: Response for the bill check/send operation.
+required:
+  - resCode
+  - resMessage
+properties:
+  resCode:
+    type: integer
+    description: Response code (e.g., 1 for success).
+  resMessage:
+    type: string
+    description: Response message.
+  info:
+    type: object
+    nullable: true # Assuming info can be null if resCode indicates an error not related to bill status
+    description: Information about the bill view status.
+    properties:
+      isBillView:
+        type: boolean
+        description: Indicates if the bill is available for viewing.
+        example: true
+      billType: # In output_46.json, this field seems to hold a descriptive string related to isBillView status
+        type: string
+        description: Descriptive status of the bill view availability.
+        example: "صورتحساب نمایش داده شده است." 

@@ -1,0 +1,85 @@
+type: object
+description: Details of a prescription subscription item when fetching by print code.
+properties:
+  checkCode:
+    type: string
+    description: Check code of the prescription item.
+  bulkId:
+    type: integer
+    nullable: true
+    description: Bulk ID or compound medicine ID, if applicable.
+  description:
+    type: string
+    description: Description of the prescription item.
+  numberOfRequest:
+    type: number
+    format: float # Based on output_33
+    description: Number of items requested.
+  numberOfPeriod:
+    type: number
+    format: float # Based on output_33
+    description: Number of periods for the request.
+  consumption:
+    type: string
+    nullable: true
+    description: Consumption method.
+  consumptionSNOMEDCode:
+    type: string
+    nullable: true
+    description: SNOMED code for the consumption method.
+  typeId:
+    type: integer
+    description: Type ID of the service/item (e.g., drug, service, consumable).
+  serviceDescription:
+    type: string
+    nullable: true
+    description: Description of the service/item.
+  serviceFullName:
+    type: string
+    nullable: true
+    description: Full name of the service/item.
+  serviceInterfaceName:
+    type: string
+    nullable: true
+    description: Interface name of the service/item.
+  serviceNationalNumber:
+    type: string
+    nullable: true
+    description: National number (IRC/GTIN) of the service/item.
+  serviceShortName:
+    type: string
+    nullable: true
+    description: Short name of the service/item.
+  serviceGenericCode:
+    type: string
+    nullable: true
+    description: Generic code of the service/item.
+  countOfReference:
+    type: integer
+    nullable: true
+    description: Count of reference for the item (e.g., for refills).
+  status:
+    type: string
+    description: Status of the prescription item (e.g., O for Order, D for Delivered).
+  consumptionInstruction:
+    type: string
+    nullable: true
+    description: Consumption instructions.
+  shape:
+    type: string
+    nullable: true
+    description: Shape of the medicine, if applicable.
+  ihioBasePrice:
+    type: integer
+    nullable: true
+    description: IHIO base price for the item.
+  activeFrom:
+    type: integer # Example 14001001, could be string date
+    format: int64 # Assuming it might represent a timestamp or specific date format like YYYYMMDD
+    nullable: true
+    description: Date from which the item is active.
+  subscriptionDeliveredInfos:
+    type: array
+    description: List of delivered instances for this subscription item.
+    items:
+      $ref: './SubscriptionDeliveredInfoItemPrint.yaml' 

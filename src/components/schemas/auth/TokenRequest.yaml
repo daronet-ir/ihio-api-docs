@@ -1,0 +1,18 @@
+type: object
+required:
+  - terminalId
+  - username
+  - password
+properties:
+  terminalId:
+    type: integer
+    description: Terminal ID of the service caller
+    example: 123
+  username:
+    type: string
+    description: Username of the service caller
+    example: "test"
+  password:
+    type: string
+    description: Password of the service caller
+    example: "Test123" 

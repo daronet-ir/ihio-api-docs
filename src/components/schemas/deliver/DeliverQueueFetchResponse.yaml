@@ -1,0 +1,29 @@
+type: object
+properties:
+  resCode:
+    type: integer
+    description: Response code, 1 for success
+  resMessage:
+    type: string
+    description: Response message
+  info:
+    type: array
+    description: Array of prescriptions in the delivery queue
+    items:
+      type: object
+      properties:
+        trackingCode:
+          type: string
+          description: Tracking code of the prescription
+        memberNN:
+          type: string
+          description: National number of the insured member
+        fullName:
+          type: string
+          description: Full name of the insured member
+        gender:
+          type: string
+          description: Gender of the insured member (M for Male, F for Female)
+        picture:
+          type: string
+          description: Base64 encoded picture of the insured member 

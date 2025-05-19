@@ -1,0 +1,8 @@
+type: object
+properties:
+  isCovered:
+    type: boolean
+    description: Whether the product is covered by insurance
+  shape:
+    type: string
+    description: Shape/form of the product 

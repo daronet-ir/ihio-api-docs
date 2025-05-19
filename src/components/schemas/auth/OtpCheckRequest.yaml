@@ -1,0 +1,11 @@
+type: object
+required:
+  - cpartySessionId
+  - otp
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID to verify
+  otp:
+    type: integer
+    description: One-time password code 

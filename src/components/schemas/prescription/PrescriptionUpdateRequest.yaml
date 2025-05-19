@@ -1,0 +1,29 @@
+type: object
+required:
+  - cpartySessionId
+  - citizenSessionId
+  - samadCode
+  # subscriptions and deleteSubscriptions might be optional depending on whether it's purely a delete or add, 
+  # or if at least one must be present. Assuming for now they can be empty arrays if not used, or one is required.
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID from authentication.
+  citizenSessionId:
+    type: string
+    description: Citizen session ID.
+  samadCode:
+    type: string
+    description: SAMAD code of the prescription to be updated.
+  subscriptions:
+    type: array
+    items:
+      $ref: './PrescriptionSaveSubscriptionItem.yaml' # Reusing the item schema from save
+    description: List of new or existing subscription items (check codes) to be part of the updated prescription. Items not in deleteSubscriptions will be kept/added.
+    nullable: true
+  deleteSubscriptions:
+    type: array
+    items:
+      $ref: './PrescriptionSaveSubscriptionItem.yaml' # Reusing the item schema from save
+    description: List of subscription items (check codes) to be explicitly removed from the prescription.
+    nullable: true 

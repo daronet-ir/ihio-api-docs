@@ -1,0 +1,6 @@
+type: object
+properties:
+  checkCode:
+    type: string
+# required:
+#  - checkCode 

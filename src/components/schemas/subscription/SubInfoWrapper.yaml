@@ -1,0 +1,10 @@
+type: object
+properties:
+  service:
+    $ref: './SubInfoService.yaml'
+  otherServices:
+    type: array
+    items:
+      $ref: './SubInfoOtherService.yaml'
+# required:
+#  - service 

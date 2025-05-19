@@ -1,0 +1,59 @@
+post:
+  tags:
+    - Subscription Management
+  summary: Check Subscription for Paper
+  description: Check if a paper-based subscription order can be fulfilled
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/subscription/SubscriptionCheckPaperRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/subscription/SubscriptionCheckDeliverResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            successPaperAllowed:
+              summary: Successful paper check, allowed
+              value:
+                # This response structure is from SubscriptionCheckDeliverResponse
+                resCode: 1 
+                resMessage: "Paper check successful."
+                info:
+                  isAllowed: true
+                  hasContract: true
+                  shouldSendToEsalat: false # Typically false for paper
+                  message: { detail: "Paper subscription is permitted." }
+                  checkCode: "PAPERCHK123"
+                  priceInfo: { totalPrice: 50.0, coveredPrice: 40.0, payablePrice: 10.0, discountAmount: 0.0 }
+                  maxCoveredCount: 2
+            invalidSamadCodePaper:
+              summary: Invalid SAMAD code for paper check
+              value:
+                resCode: -26111 # From output_20.json
+                message: "Invalid SAMAD code for paper subscription check."
+            serviceNotCoveredPaper:
+              summary: Service not covered for paper subscription
+              value:
+                resCode: -26113 # From output_20.json
+                message: "Service is not covered for paper subscription."
+    # '-23211':
+    #   description: Invalid input data
+    # '-23407':
+    #   description: Internal error processing request - contact system administrator
+    # '-23113':
+    #   description: Service/Product is not available for paper subscription 

@@ -1,0 +1,14 @@
+type: object
+properties:
+  resCode:
+    type: integer
+    description: Response code (1 for success)
+  resMessage:
+    type: string
+    description: Response message
+  info:
+    type: object
+    properties:
+      genericCode:
+        type: string
+        description: Generic code of the product 

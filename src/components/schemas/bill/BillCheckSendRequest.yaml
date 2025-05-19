@@ -1,0 +1,9 @@
+type: object
+description: Request to send a bill for checking.
+required:
+  - cpartySessionId
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID from authentication of the calling party.
+# checkCode property removed as it's not in output_46.json 

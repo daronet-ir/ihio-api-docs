@@ -1,0 +1,33 @@
+type: object
+properties:
+  count:
+    type: integer
+    format: int32
+  nationalNumber:
+    type: string
+    description: National number of the service
+  type:
+    type: string
+    description: Type of the service
+  mode:
+    type: string
+    description: Mode of the service
+  description:
+    type: string
+  consumption:
+    type: string
+  consumptionInstruction:
+    type: string
+  numberOfPeriod:
+    type: number
+    format: float
+  bulkId:
+    type: integer
+    format: int32
+  activeFrom:
+    type: integer
+    format: int32 # Assuming YYYYMMDD or epoch, might need date-time if more specific
+    description: Date from which service is active
+# required: # Add if known, e.g. from output_17 'parameters' table if it detailed this level
+#  - count
+#  - nationalNumber 

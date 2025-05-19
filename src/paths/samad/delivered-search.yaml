@@ -1,0 +1,83 @@
+post:
+  tags:
+    - SAMAD
+  summary: Search Delivered SAMAD Codes
+  description: Search and retrieve a list of delivered SAMAD codes based on various criteria
+  parameters:
+    - $ref: '../../components/headers/terminalId.yaml'
+    - $ref: '../../components/headers/token.yaml'
+    - $ref: '../../components/headers/clientIPAddress.yaml'
+    - $ref: '../../components/headers/clientAgentInfo.yaml'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/samad/DeliveredSamadSearchRequest.yaml'
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/samad/DeliveredSamadSearchResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful delivered SAMAD search
+              value:
+                resCode: 1
+                resMessage: "Search for delivered SAMAD codes completed successfully."
+                info:
+                  -
+                    age: 22
+                    deliveredDate: "1398/07/04 11:39:40"
+                    gender: "F"
+                    lastName: "LastNameDelivered"
+                    name: "NameDelivered"
+                    nationalNumber: "009..."
+                    picture: "base64string..."
+                    productName: "Product Delivered"
+                    samadStatus: "R" # Example from output_7.json
+                    trackingCode: "14785"
+                    rowNum: 1
+                    prescriptionType: "E"
+                    sequenceNumber: 1
+                    checkCode: "CHK123"
+                    relationType: "R"
+                    validTo: "1402/03/16"
+                    dto: "1402/03/16"
+            invalidDateFormatOrRange:
+              summary: Invalid date format or range
+              description: Date format is incorrect or fromDate is after toDate.
+              value:
+                resCode: -23251 # From output_7.json
+                resMessage: "Invalid date format or logical range for fromDate/toDate."
+            invalidPagination:
+              summary: Invalid pagination parameters
+              description: Index or count is invalid (e.g., index < 0, count < 1).
+              value:
+                resCode: -23252 # From output_7.json
+                resMessage: "Invalid pagination parameters (index < 0 or count < 1)."
+            pageSizeExceedsLimit:
+              summary: Page size exceeds limit
+              description: Requested count exceeds the maximum allowed (e.g., 50).
+              value:
+                resCode: -23253 # From output_7.json
+                resMessage: "Requested count exceeds maximum limit of 50."
+            invalidNationalNumber:
+              summary: Invalid national number format
+              description: National number format is incorrect or fails validation.
+              value:
+                resCode: -23254 # From output_7.json
+                resMessage: "Invalid national number format."
+            noDataFound:
+              summary: No data found
+              description: No delivered SAMAD codes found matching the criteria.
+              value:
+                resCode: -23325 # From output_7.json
+                resMessage: "No data found for the specified criteria."

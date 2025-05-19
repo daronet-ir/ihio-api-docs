@@ -1,0 +1,58 @@
+type: object
+description: Response schema for fetching a prescription by print code.
+properties:
+  resCode:
+    type: integer
+    description: Response code (e.g., 1 for success).
+  resMessage:
+    type: string
+    description: Response message.
+  info:
+    type: object
+    description: Detailed information about the fetched prescription.
+    properties:
+      creationDate:
+        type: string
+        format: date-time # Assuming, though example like "1398/07/05 17:58:51" is not standard
+        description: Date and time when the prescription was created.
+      subscriptionInfos:
+        type: array
+        description: List of prescription items (subscriptions).
+        items:
+          $ref: './SubscriptionInfoItemPrint.yaml'
+      partnerName:
+        type: string
+        nullable: true
+        description: Name of the partner (doctor/clinic) who created the prescription.
+      partnerPhone:
+        type: string
+        nullable: true
+        description: Phone number of the partner.
+      contractPartyName:
+        type: string
+        nullable: true
+        description: Name of the contracting party (e.g., insurer).
+      samadCode:
+        type: string
+        description: SAMAD code associated with the prescription.
+      typeId:
+        type: integer
+        nullable: true
+        description: Overall type ID of the prescription.
+      noMedicalSystem:
+        type: integer
+        format: int64 # Medical system number can be long
+        nullable: true
+        description: Medical system number of the doctor/clinic.
+      licenseName:
+        type: string
+        nullable: true
+        description: Name of the license (e.g., "عمومی" for General Practitioner).
+    required: # Based on output_33, these seem to be core fields
+      - creationDate
+      - subscriptionInfos
+      - samadCode
+# required:
+  # - resCode
+  # - resMessage
+  # - info # info itself might be optional only if resCode indicates total failure to find anything 

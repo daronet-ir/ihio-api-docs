@@ -1,0 +1,7 @@
+name: citizenSessionId
+in: header
+schema:
+  type: string
+required: true
+description: Citizen session ID received from citizen session creation service
+ 

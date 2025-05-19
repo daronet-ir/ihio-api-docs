@@ -1,0 +1,39 @@
+type: object
+properties:
+  resCode:
+    type: integer
+    description: Response code
+  resMessage:
+    type: string
+    description: Response message
+  info:
+    type: object
+    properties:
+      isAllowed:
+        type: boolean
+        description: Indicates if the delivery is allowed
+      hasContract:
+        type: boolean
+        description: Indicates if a contract exists relevant to delivery
+      shouldSendToEsalat:
+        type: boolean
+        description: Indicates if the delivery information should be sent to Esalat system
+      message:
+        $ref: './ResponseMessageDetails.yaml'
+        description: Detailed message object
+      checkCode:
+        type: string
+        description: Check code associated with the delivery process
+      priceInfo:
+        $ref: './PriceInfo.yaml'
+        description: Detailed pricing information for the delivery
+      maxCoveredCount:
+        type: integer
+        format: int32
+        description: Maximum covered count for the item in this delivery context
+    # required: # Add if known
+    #   - isAllowed
+required:
+  - resCode
+  - resMessage
+  # - info # Info might be optional on error 

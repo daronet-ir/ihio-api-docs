@@ -1,0 +1,38 @@
+type: object
+required:
+  - count
+  - nationalNumber
+  - type
+  - mode
+properties:
+  count:
+    type: integer
+    description: Number of services
+  nationalNumber:
+    type: string
+    description: National number of the service
+  type:
+    type: string
+    description: Type of service
+  mode:
+    type: string
+    description: Mode of service
+  description:
+    type: string
+    description: Service description
+  consumption:
+    type: string
+    description: Consumption details
+  consumptionInstruction:
+    type: string
+    description: Instructions for consumption
+  numberOfPeriod:
+    type: number
+    format: float
+    description: Number of periods
+  bulkId:
+    type: integer
+    description: Bulk ID
+  activeFrom:
+    type: integer
+    description: Active from date 

@@ -1,0 +1,21 @@
+type: object
+properties:
+  resCode:
+    type: integer
+    description: Response code (1 for success)
+  resMessage:
+    type: string
+    description: Response message
+  info:
+    type: object
+    properties:
+      token:
+        type: string
+        description: Generated token string
+      ttl:
+        type: integer
+        description: Token time to live in hours
+      dto:
+        type: string
+        description: Token expiration time
+        example: "2020-10-01 10:04:17" 

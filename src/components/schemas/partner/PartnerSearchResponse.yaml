@@ -1,0 +1,41 @@
+type: object
+properties:
+  resCode:
+    type: integer
+    description: Response code, 1 for success
+  resMessage:
+    type: string
+    description: Response message
+  info:
+    type: object
+    properties:
+      totalCount:
+        type: integer
+        description: Total number of records matching the search criteria
+      pageIndex:
+        type: integer
+        description: Current page index
+      pageSize:
+        type: integer
+        description: Number of items per page
+      items:
+        type: array
+        description: List of partners matching the search criteria
+        items:
+          type: object
+          properties:
+            partnerId:
+              type: integer
+              description: ID of the partner
+            partnerName:
+              type: string
+              description: Name of the partner
+            partnerType:
+              type: string
+              description: Type of the partner
+            partnerStatus:
+              type: string
+              description: Status of the partner
+            address:
+              type: string
+              description: Address of the partner 

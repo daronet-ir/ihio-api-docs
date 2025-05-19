@@ -1,0 +1,111 @@
+post:
+  tags:
+    - Prescription Management
+  summary: Deliver Prescription
+  description: Mark an electronic prescription as delivered
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/prescription/PrescriptionDeliverRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/prescription/PrescriptionDeliverResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful prescription delivery
+              value:
+                resCode: 1 # Assuming 1 for overall success
+                resMessage: "Prescription delivered successfully."
+                info:
+                  sequenceNumber: 12345
+                  checkCode: "CHKDEL789"
+                  message: { detail: "Delivery recorded." }
+            invalidCheckCode:
+              summary: Invalid CheckCode in subscriptions
+              description: A checkCode in the subscriptions array is invalid, has wrong status, or mismatch.
+              value:
+                resCode: -11211 # Example
+                resMessage: "Invalid checkCode in subscriptions."
+            invalidUidOrCount:
+              summary: Invalid UID or Count in uIds array
+              description: A uId or its count is invalid within the uIds array for a subscription item.
+              value:
+                resCode: -11221 # or -11222
+                resMessage: "Invalid UID or count for a subscription item."
+            invalidPrintCode:
+              summary: Invalid Print Code
+              description: The printCode is invalid, not found, expired, used, or mismatched.
+              value:
+                resCode: -11231 # Example
+                resMessage: "Invalid print code."
+            uidNotPartOfPrescription:
+              summary: UID not part of prescription for given CheckCode
+              value:
+                resCode: -11239
+                resMessage: "UID not part of the prescription for the provided checkCode."
+            deliveryCountExceeded:
+              summary: Delivery count for UID exceeded
+              value:
+                resCode: -11240
+                resMessage: "Sum of count for a UID exceeds available quantity for delivery."
+            alreadyDelivered:
+              summary: UID or CheckCode Already Delivered
+              description: A UID has been delivered in another transaction or the checkCode is fully delivered.
+              value:
+                resCode: -11242 # or -11246
+                resMessage: "Item or checkCode already delivered."
+            archivedPrescription:
+              summary: Archived Prescription
+              value:
+                resCode: -11244
+                resMessage: "Prescription is archived and cannot be delivered."
+            internalProcessingError:
+              summary: Internal Processing Error during delivery
+              value:
+                resCode: -11407
+                resMessage: "Internal error processing prescription delivery."
+            subscriptionServiceError:
+              summary: Subscription Service Error during delivery
+              value:
+                resCode: -11555
+                resMessage: "Error with subscription service during delivery."
+    # Error codes from output_26.json for reference:
+    # -11211: Invalid subscriptions[i].checkCode
+    # -11212: subscriptions[i].checkCode status not 'delivered'
+    # ... many more checkCode issues ...
+    # -11221: Invalid subscriptions[i].uIds[j].uId
+    # -11222: Invalid subscriptions[i].uIds[j].count
+    # -11231: printCode invalid (format, null, empty)
+    # -11232: printCode not found
+    # -11233: printCode expired
+    # -11234: printCode already used
+    # -11235: printCode does not match pharmacy
+    # -11236: printCode does not match patient
+    # -11237: printCode does not match checkCode
+    # -11238: printCode for different prescription type
+    # -11239: uId not part of prescription for checkCode
+    # -11240: Sum of count for uId exceeds available
+    # -11241: Total items in request exceeds limit
+    # -11242: UID already delivered in another transaction
+    # -11243: UID count mismatch with confirmed data
+    # -11244: Prescription is archived
+    # -11245: System error during delivery
+    # -11246: checkCode already fully delivered
+    # -11407: Internal processing error
+    # -11555: Subscription service error

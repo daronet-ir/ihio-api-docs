@@ -1,0 +1,72 @@
+type: object
+description: Response containing detailed information about a partner and their contracting party.
+required:
+  - resCode
+  - resMessage
+  # info is expected for a successful response
+properties:
+  resCode:
+    type: integer
+    description: Response code (e.g., 1 for success).
+  resMessage:
+    type: string
+    description: Response message.
+  info:
+    type: object
+    nullable: true # Can be null if an error occurs or no info found
+    description: Contains detailed partner and contract party information.
+    properties:
+      PartnerInfo:
+        type: object
+        description: Information about the partner (e.g., doctor, clinic).
+        properties:
+          id:
+            type: integer
+            description: Unique identifier of the partner.
+          nationalNumber:
+            type: string
+            description: National number of the partner.
+          partnerName:
+            type: string
+            description: Full name of the partner.
+          typeId:
+            type: integer
+            description: Identifier for the partner type.
+          name:
+            type: string
+            description: First name or general name of the partner entity.
+          typeName:
+            type: string
+            description: Name of the partner type (e.g., "پزشک عمومی").
+          lastName:
+            type: string
+            description: Last name of the partner (if applicable).
+          fixPhoneNo:
+            type: string
+            description: Fixed-line phone number of the partner.
+      contractPartyInfo:
+        type: object
+        description: Information about the contracting party associated with the partner.
+        properties:
+          id:
+            type: integer
+            description: Unique identifier of the contract party.
+          name:
+            type: string
+            description: First name of the contract party representative or entity.
+          lastName:
+            type: string
+            description: Last name of the contract party representative.
+          nationalNumber:
+            type: string
+            description: National number of the contract party representative.
+          gender:
+            type: string
+            description: Gender of the contract party representative (M/F).
+          type:
+            type: string
+            description: Type of the contract party (e.g., "مطب").
+          cellPhoneNo:
+            type: integer # output_43.json says long
+            format: int64
+            description: Mobile phone number of the contract party. 

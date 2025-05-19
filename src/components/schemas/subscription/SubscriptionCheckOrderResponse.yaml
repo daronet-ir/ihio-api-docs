@@ -1,0 +1,36 @@
+type: object
+properties:
+  resCode:
+    type: integer
+    description: Response code
+  resMessage:
+    type: string
+    description: Response message
+  info:
+    type: object
+    properties:
+      isAllowed:
+        type: boolean
+        description: Indicates if the order is allowed
+      hasContract:
+        type: boolean
+        description: Indicates if a contract exists
+      message:
+        $ref: './ResponseMessageDetails.yaml'
+        description: Detailed message object
+      checkCode:
+        type: string
+        description: Check code associated with the process
+      maxCoveredCount:
+        type: integer
+        format: int32
+        description: Maximum covered count for the item
+    # required: # Add if these fields are always present in info
+    #   - isAllowed
+    #   - hasContract
+    #   - message
+    #   - checkCode
+required:
+  - resCode
+  - resMessage
+  # - info # Info itself might be optional on error

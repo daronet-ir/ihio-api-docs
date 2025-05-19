@@ -1,0 +1,18 @@
+type: object
+required:
+  - cpartySessionId
+  - citizenSessionId
+  - trackingCode
+  - subInfoWrapper
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID from authentication
+  citizenSessionId:
+    type: string
+    description: Citizen session ID
+  trackingCode:
+    type: string
+    description: Tracking code for the delivery
+  subInfoWrapper:
+    $ref: './SubInfoDeliverWrapper.yaml' # Use the new deliver-specific wrapper 

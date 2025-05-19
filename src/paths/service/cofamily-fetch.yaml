@@ -1,0 +1,51 @@
+post:
+  tags:
+    - Service Management
+  summary: Fetch Co-Family Services
+  description: Retrieve a list of services in the same family based on service national number
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/service/CoFamilyServiceFetchRequest.yaml
+  responses:
+    '200':
+      description: |-
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/service/CoFamilyServiceFetchResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful operation
+              value:
+                resCode: 1
+                resMessage: "Success"
+                info: []
+            invalidInput:
+              summary: Invalid input for serviceNN
+              description: "Error when serviceNN field is null or invalid."
+              value:
+                resCode: -28221
+                message: "Invalid serviceNN input."
+            servicesNotFound:
+              summary: No co-family services found
+              description: "Error when no services are found for the provided serviceNN."
+              value:
+                resCode: -28114
+                message: "No co-family services found for the provided serviceNN."
+    # '-27221':
+    #   description: Invalid input data - genCode field is null, empty or contains non-numeric characters
+    # '-27116':
+    #   description: No products found for the provided generic code 

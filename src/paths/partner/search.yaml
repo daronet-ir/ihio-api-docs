@@ -1,0 +1,55 @@
+post:
+  summary: Search Partners by Criteria
+  tags:
+    - Partner Management
+  description: Search for partners (doctors, clinics, etc.) based on specific criteria like medical system ID, visit date, and expertise.
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/partner/PartnerCriteriaSearchRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/partner/PartnerCriteriaSearchResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successfully found partners
+              value:
+                resCode: 1
+                resMessage: "عملیات با موفقیت انجام شد."
+                info:
+                  - name: "نام"
+                    lastName: "نام خانوادگی"
+                    cellphoneNumber: 9123456789
+                    partnerType: "پزشک"
+                    contractPartyType: "مطب"
+                    address: "آدرس نمونه"
+                    licenseType: "پروانه مطب"
+                    nomedicalSystem: 12345
+                    image: "(base64 encoded string)"
+                    partnerContractingPartyId: 101
+            notFound:
+              summary: Partner not found for given criteria
+              value:
+                resCode: 0
+                resMessage: ".دشن \nتفای \n یلاصرا \nماظن هرامش اب یراکمه کرش تاعلاطا"
+            validationError:
+              summary: Validation error in request parameters
+              value:
+                resCode: -2231
+                resMessage: ".تسین ربتعم هدش لاسرا یدورو تاعلاطا \n:دهد خر ریز دراوم زا یکی \n:حیضوت \n \nnull\nnomedicalSystem·\n.تسا \n ربارب \nدلیف \n \nnomedicalSystem < 1·\n \n \nvisitDate·\n.تسا \n یلاخ هتشر کی \n ربارب \nدلیف \n \nvisitDate·\n.تسا8 \n فلاخم \nدلیف لوط \n \nnull\nexpertiseGrade·\n.تسا \n ربارب \nدلیف \n \nexpertiseGrade·\n.دشابن  حیحص \nدلیف راتخاس" 

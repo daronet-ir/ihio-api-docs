@@ -1,0 +1,16 @@
+type: object
+required:
+  - cpartySessionId
+  - citizenSessionId
+  - receiptPartnerId
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID received from user authentication or two-factor authentication service
+  citizenSessionId:
+    type: string
+    description: Citizen session ID received from citizen session creation service
+  receiptPartnerId:
+    type: integer
+    description: ID of the partner through whom we want to receive the SAMAD code
+    example: 15345 

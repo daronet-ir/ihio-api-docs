@@ -1,0 +1,50 @@
+type: object
+properties:
+  resCode:
+    type: integer
+    description: Response code, 1 for success
+  resMessage:
+    type: string
+    description: Response message
+  info:
+    type: object
+    properties:
+      printTemplate:
+        type: string
+        description: HTML template for printing the bill
+      printData:
+        type: object
+        description: Data to be used with the print template
+        properties:
+          billId:
+            type: string
+            description: Unique identifier for the bill
+          billDate:
+            type: string
+            description: Date when the bill was created
+          partnerName:
+            type: string
+            description: Name of the partner
+          patientName:
+            type: string
+            description: Name of the patient
+          items:
+            type: array
+            description: List of items in the bill
+            items:
+              type: object
+              properties:
+                description:
+                  type: string
+                  description: Description of the item
+                quantity:
+                  type: integer
+                  description: Quantity of the item
+                price:
+                  type: number
+                  format: double
+                  description: Price of the item
+          totalAmount:
+            type: number
+            format: double
+            description: Total amount of the bill 

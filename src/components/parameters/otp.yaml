@@ -1,0 +1,6 @@
+name: otp
+in: header
+schema:
+  type: integer
+required: true
+description: One-time password code 

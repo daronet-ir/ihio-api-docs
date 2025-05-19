@@ -1,0 +1,10 @@
+type: object
+properties:
+  service:
+    $ref: './SubInfoDeliverService.yaml' # Points to the deliver-specific service schema
+  otherServices:
+    type: array
+    items:
+      $ref: './SubInfoOtherService.yaml' # Reuses the same otherServices schema
+# required:
+#  - service 

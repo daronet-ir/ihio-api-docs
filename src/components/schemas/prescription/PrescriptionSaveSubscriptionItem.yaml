@@ -1,0 +1,9 @@
+type: object
+description: An item representing a subscription to be saved as part of a prescription.
+required:
+  - checkCode
+properties:
+  checkCode:
+    type: string
+    description: "کد چک اعتبار نسخه تجویز (Prescription validation check code) obtained from subscription check services."
+    example: "1670000000000000000000000000001" # Example format, actual value from API 

@@ -1,0 +1,13 @@
+type: object
+description: A simple status object with a result code and message.
+properties:
+  resCode:
+    type: integer
+    format: int32
+    description: Result code of the nested operation/status.
+  resMessage:
+    type: string
+    description: Result message of the nested operation/status.
+required:
+  - resCode
+  - resMessage 

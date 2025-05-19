@@ -1,0 +1,61 @@
+type: object
+properties:
+  resCode:
+    type: integer
+    description: Response code (1 for success)
+  resMessage:
+    type: string
+    description: Response message
+  info:
+    type: object
+    properties:
+      sessionId:
+        type: string
+        description: Generated session string
+      accessNodes:
+        type: array
+        description: User access levels to different parts of the system
+        items:
+          type: string
+      additionalProperties:
+        type: array
+        description: Additional partner properties and their values
+        items:
+          type: string
+      userId:
+        type: integer
+        description: User ID
+      contractingPartyLicense:
+        type: array
+        description: License type and partner license number
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            noMedicalSystem:
+              type: integer
+      cellPhone:
+        type: string
+        description: User mobile number
+      fullName:
+        type: string
+        description: Partner full name
+      gender:
+        type: string
+        description: Gender (M for male, F for female)
+      partnerName:
+        type: string
+        description: Partner name
+      partnerNN:
+        type: string
+        description: Partner national number
+      partnerId:
+        type: integer
+        description: Partner ID
+      cPartyId:
+        type: integer
+        description: Colleague ID
+      isTwoStep:
+        type: boolean
+        description: Two-step authentication status 

@@ -1,0 +1,74 @@
+type: object
+description: Details of a delivered subscription item within a referenced prescription.
+properties:
+  description:
+    type: string
+    description: Description of the delivered item.
+    example: "سرم شستشو 0.5 لیتر"
+  numberOfDelivered:
+    type: integer
+    description: Quantity of the item delivered.
+    example: 2
+  deliverDate:
+    type: string
+    description: Date and time of delivery.
+    format: date-time # Assuming, example is "1398/07/05/ 17:58:51"
+    nullable: true
+    example: "1398/07/05 17:58:51"
+  serviceDescription:
+    type: string
+    description: Description of the service/medication.
+    example: "سرم نرمال سالین 0.9 درصد نیم لیتری"
+  serviceFullName:
+    type: string
+    description: Full name of the service/medication.
+    example: "سرم نرمال سالین 0.9 درصد نیم لیتری"
+  serviceInterfaceName:
+    type: string
+    description: Interface name for the service.
+    example: "NormalSaline0.9%0.5L"
+  serviceGenericCode:
+    type: string
+    nullable: true
+    description: Generic code of the service.
+    example: "IRC12345"
+  serviceNationalNumber:
+    type: string
+    nullable: true
+    description: National number of the service.
+    example: "777123"
+  serviceShortName:
+    type: string
+    description: Short name of the service.
+    example: "سرم شستشو"
+  patientPayment:
+    type: number
+    format: double
+    description: Amount paid by the patient.
+    example: 0.0
+  amount:
+    type: number
+    format: double
+    description: Total amount for the item.
+    example: 50000.0
+  delivery:
+    type: string # Could be an enum if specific values are known
+    description: Delivery method or status.
+    example: "تحویل حضوری"
+  prescriber:
+    type: string
+    nullable: true
+    description: Prescribing doctor's name or ID.
+    example: "دکتر رضایی"
+  typeId:
+    type: integer
+    description: Type ID of the service.
+    example: 1
+  ihioBasePrice:
+    type: integer
+    description: IHIO base price for the service.
+    example: 25000
+  checkCode:
+    type: string
+    description: The check code associated with this specific delivered item, if applicable.
+    example: "CHKCDE123456789012345"

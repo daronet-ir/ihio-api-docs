@@ -1,0 +1,115 @@
+# Authentication paths
+/service/auth/token/fetch:
+  $ref: './auth/token.yaml'
+/service/auth/session/cparty/open:
+  $ref: './auth/cparty-session.yaml'
+/service/auth/session/citizen/open:
+  $ref: './auth/citizen-session.yaml'
+/service/auth/session/cparty/otp/check:
+  $ref: './auth/otp-check.yaml'
+
+# SAMAD paths
+/service/samad/electronic/generate:
+  $ref: './samad/generate.yaml'
+/service/samad/electronic/generate/reference:
+  $ref: './samad/generate-reference.yaml'
+/service/samad/ordered/search:
+  $ref: './samad/search.yaml'
+/service/samad/delivered/search:
+  $ref: './samad/delivered-search.yaml'
+/service/samad/paper/generate:
+  $ref: './samad/paper-generate.yaml'
+
+# Service paths
+/service/service/search/quick:
+  $ref: './service/quick-search.yaml'
+/service/service/cofamily/fetch/servicenn:
+  $ref: './service/cofamily-fetch.yaml'
+
+# Product paths
+/service/product/fetch:
+  $ref: './product/fetch.yaml'
+/service/product/search/irc/generic:
+  $ref: './product/search-generic.yaml'
+/service/product/search/quick/irc:
+  $ref: './product/quick-search-irc.yaml'
+/service/product/search/quick/combination:
+  $ref: './product/quick-search-combination.yaml'
+/service/product/search/quick/generic:
+  $ref: './product/quick-search-generic.yaml'
+/service/product/irc/cofamily/fetch/generic:
+  $ref: './product/cofamily-fetch-generic.yaml'
+
+# Subscription paths
+/service/subscription/check/order:
+  $ref: './subscription/check-order.yaml'
+/service/subscription/check/deliver:
+  $ref: './subscription/check-deliver.yaml'
+/service/subscription/check/deliver/price:
+  $ref: './subscription/check-deliver-price.yaml'
+/service/subscription/check/paper:
+  $ref: './subscription/check-paper.yaml'
+/service/subscription/check/paper/price:
+  $ref: './subscription/check-paper-price.yaml'
+/service/subscription/inquery/uid:
+  $ref: './subscription/inquery-uid.yaml'
+/service/subscription/reactive/uid:
+  $ref: './subscription/reactive-uid.yaml'
+
+# Prescription paths
+/service/prescription/save:
+  $ref: './prescription/save.yaml'
+/service/prescription/update:
+  $ref: './prescription/update.yaml'
+/service/prescription/deliver:
+  $ref: './prescription/deliver.yaml'
+/service/prescription/deliver/confirm:
+  $ref: './prescription/deliver-confirm.yaml'
+/service/prescription/delivered/delete:
+  $ref: './prescription/delivered-delete.yaml'
+/service/prescription/delivered/fetch:
+  $ref: './prescription/delivered-fetch.yaml'
+/service/prescription/fetch/samad:
+  $ref: './prescription/fetch-samad.yaml'
+/service/prescription/fetch/reference/printcode:
+  $ref: './prescription/fetch-reference-printcode.yaml'
+/service/prescription/fetch/printcode:
+  $ref: './prescription/fetch-printcode.yaml'
+/service/prescription/paper/order:
+  $ref: './prescription/paper-order.yaml'
+/service/prescription/paper/deliver:
+  $ref: './prescription/paper-deliver.yaml'
+/service/prescription/paper/deliver/confirm:
+  $ref: './prescription/paper-deliver-confirm.yaml'
+
+# Deliver paths
+/service/deliver/queue/fetch:
+  $ref: './deliver/queue-fetch.yaml'
+/service/deliver/queue/prescription/send:
+  $ref: './deliver/queue-prescription-send.yaml'
+
+# Partner paths
+/service/partner/fetch/partnerid:
+  $ref: './partner/fetch-partnerid.yaml'
+/service/partner/fetch:
+  $ref: './partner/fetch.yaml'
+/service/partner/search:
+  $ref: './partner/search.yaml'
+/service/partner/familyphysician/delete:
+  $ref: './partner/familyphysician-delete.yaml'
+/service/partner/familyphysician/save:
+  $ref: './partner/familyphysician-save.yaml'
+
+# Bill paths
+/service/bill/check/send:
+  $ref: './bill/check-send.yaml'
+/service/bill/info/fetch:
+  $ref: './bill/info-fetch.yaml'
+
+# Print paths
+/service/print/bill:
+  $ref: './print/bill.yaml'
+/service/print/deliver:
+  $ref: './print/deliver.yaml'
+/service/print/order:
+  $ref: './print/order.yaml' 

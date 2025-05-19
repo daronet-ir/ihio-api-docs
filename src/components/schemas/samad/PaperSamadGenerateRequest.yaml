@@ -1,0 +1,41 @@
+type: object
+required:
+  - cpartySessionId
+  - citizenSessionId
+  - paperInfoWrapper
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID received from user authentication or two-factor authentication service
+  citizenSessionId:
+    type: string
+    description: Citizen session ID received from citizen session creation service
+  paperInfoWrapper:
+    type: object
+    description: Wrapper for paper prescription information.
+    required:
+      - nomedicalSystem
+      - visitDate
+      - expertiseGrade
+      - paperImage
+      - "partnerContractingPartyId "
+    properties:
+      nomedicalSystem:
+        type: integer
+        description: Medical system number (Not related to physician system number. Fixed value based on agreement).
+        example: 123
+      visitDate:
+        type: integer
+        description: Visit date (format YYYYMMDD).
+        example: 13980707
+      expertiseGrade:
+        type: string
+        description: Expertise grade (refer to base information section for possible values, e.g., General Practitioner, Specialist).
+      paperImage:
+        type: string
+        format: byte
+        description: Base64 encoded image of the paper prescription written by the doctor.
+      "partnerContractingPartyId ":
+        type: integer
+        description: Partner sub-ID (PK of T_PARTNER_CONTRACTING_PARTY table) received from partner information retrieval service.
+        example: 15345 

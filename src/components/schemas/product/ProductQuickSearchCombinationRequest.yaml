@@ -1,0 +1,27 @@
+type: object
+required:
+  - cpartySessionId
+  - citizenSessionId
+  - searchClause
+  - productType
+  - maxResultCount
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID received from user authentication or two-factor authentication service.
+  citizenSessionId:
+    type: string
+    description: Citizen session ID received from citizen session creation service.
+  searchClause:
+    type: string
+    description: The search term (part of product name) to query for.
+    example: "Amoxi"
+  productType:
+    type: string
+    description: Type of product to search for.
+    enum: ["G", "I"] # G: Generic, I: IRC
+    example: "G"
+  maxResultCount:
+    type: integer
+    description: Maximum number of results to return.
+    example: 10 

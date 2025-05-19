@@ -1,0 +1,19 @@
+type: object
+required:
+  - cpartySessionId
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID from authentication
+  searchText:
+    type: string
+    description: Text to search for in partner names
+  partnerType:
+    type: string
+    description: Type of partner to search for
+  pageIndex:
+    type: integer
+    description: Page index for pagination (starting from 1)
+  pageSize:
+    type: integer
+    description: Number of items per page 

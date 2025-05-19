@@ -1,0 +1,25 @@
+type: object
+properties:
+  fullName:
+    type: string
+    description: Full name of the product.
+  shortName:
+    type: string
+    description: Short name of the product.
+  nationalNumber:
+    type: string
+    description: IRC (National Product Code) of the product.
+  genericCode:
+    type: string
+    description: Generic code of the product.
+  interfaceName:
+    type: string
+    description: Interface name for the product.
+  description:
+    type: string
+    description: Description of the product.
+  NORepeat: # Exact casing from output_12.json
+    type: integer
+    description: Number of repeats allowed or similar metric.
+  state:
+    $ref: './ProductState.yaml' 

@@ -1,0 +1,28 @@
+type: object
+properties:
+  resCode:
+    type: integer
+    description: Response code (e.g., 1 for success)
+  resMessage:
+    type: string
+    description: Response message
+  info:
+    type: object
+    properties:
+      trackingCode:
+        type: string
+        description: Tracking code for the saved prescription.
+      sequenceNumber:
+        type: integer
+        format: int32
+        description: Sequence number associated with the save operation.
+      message:
+        $ref: './PrescriptionResponseMessageDetails.yaml'
+        description: Detailed informational and snack messages.
+    required:
+      - trackingCode
+      # sequenceNumber and message might be optional on certain errors, to be confirmed
+required:
+  - resCode
+  - resMessage
+  # - info # Info itself might be optional on error

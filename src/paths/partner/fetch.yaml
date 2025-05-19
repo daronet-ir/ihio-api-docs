@@ -1,0 +1,77 @@
+post:
+  summary: Fetch Partner Information by NationalNumber/PrintCode
+  tags:
+    - Partner Management
+  description: Retrieve detailed partner and associated contract party information using National Number and/or Print Code.
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/partner/PartnerInfoFetchRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation. The `resCode` indicates the outcome.
+        See examples for details on `resCode` values and corresponding messages.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/partner/PartnerInfoFetchResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successfully fetched partner information
+              value:
+                resCode: 1
+                resMessage: "اطلاعات شریک کاری و مرکز طرف قرارداد با موفقیت دریافت شد."
+                info:
+                  PartnerInfo:
+                    id: 654894
+                    nationalNumber: "0071234567"
+                    partnerName: "دکتر محمد رضایی"
+                    typeId: 221
+                    name: "محمد"
+                    typeName: "پزشک عمومی"
+                    lastName: "رضایی"
+                    fixPhoneNo: "02188776655"
+                  contractPartyInfo:
+                    id: 10203
+                    name: "مرکز بهداشتی"
+                    lastName: "سلامت"
+                    nationalNumber: "1122334455"
+                    gender: "M"
+                    type: "مرکز درمانی"
+                    cellPhoneNo: 9121112233
+            validationError:
+              summary: Invalid input parameters
+              value:
+                resCode: -17220
+                resMessage: ".تسین ربتعم هدش لاسرا یدورو تاعلاطا"
+            forgedPrintCode:
+              summary: Forged or invalid print code
+              value:
+                resCode: -17221
+                resMessage: ".تسا یلعج هدش لاسرا پاچ هسانش"
+            printCodeNotFound:
+              summary: Print code not found for any prescription
+              value:
+                resCode: -17247
+                resMessage: ".دشن تفای هخسن چیه یارب هدش لاسرا پاچ هسانش"
+            doctorNotFound:
+              summary: Doctor not found for the given criteria
+              value:
+                resCode: -17248
+                resMessage: ".دشن تفای کشزپ"
+            contractorNotFound:
+              summary: Contractor (pharmacy/center) not found
+              value:
+                resCode: -17249
+                resMessage: ".دشن تفای همانراک"
+            # Add other error codes like -17246 if exact message is known 

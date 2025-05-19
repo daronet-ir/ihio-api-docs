@@ -1,0 +1,13 @@
+type: object
+description: Request to fetch details of a specific delivered prescription using its check code.
+required:
+  - cpartySessionId
+  - checkCode
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID from authentication of the calling party (e.g., pharmacy).
+  checkCode:
+    type: string
+    description: The check code of the specific delivered prescription to fetch.
+# Removed citizenSessionId, fromDate, toDate, pageIndex, pageSize as output_35.json indicates a specific fetch by checkCode. 

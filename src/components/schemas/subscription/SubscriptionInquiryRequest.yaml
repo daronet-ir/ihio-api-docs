@@ -1,0 +1,24 @@
+type: object
+required:
+  - cpartySessionId
+  - citizenSessionId
+  - checkCode
+  - count
+  - uId
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID for the contracting party
+  citizenSessionId:
+    type: string
+    description: Citizen session ID
+  checkCode:
+    type: string
+    description: Check code related to the inquiry
+  count:
+    type: integer
+    format: int32
+    description: Count related to the inquiry
+  uId:
+    type: string
+    description: UID of the subscription to inquire about 

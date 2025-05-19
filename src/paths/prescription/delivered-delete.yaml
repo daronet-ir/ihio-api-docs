@@ -1,0 +1,103 @@
+post:
+  tags:
+    - Prescription Management
+  summary: Delete Delivered Prescription
+  description: Delete a prescription that has already been delivered
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/prescription/PrescriptionDeliveredDeleteRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/common/SuccessResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful operation
+              value:
+                resCode: 1 # Consistent success code
+                resMessage: "عملیات حذف با موفقیت انجام شد."
+            invalidCheckCodeFormatOrValue:
+              summary: Invalid check code format or value
+              description: "Error when checkCode format is invalid, null, or doesn't meet criteria."
+              value:
+                resCode: -16211
+                resMessage: ".دشاب \nمنی \nحیحص \nلاسرا کچدک \n:دهد خر ریز دراوم زا یکی \n:حیضوت \n \n checkCode·\n.دشاب یلاخ \nدلیف \n \nnull\ncheckCode·\n.دشاب \n ربارب \n دلیف \ncheckCode·\n \n.دشابن حیحص \n راتخاس"
+            checkCodeNotForPartner:
+              summary: Check code not for this partner
+              description: "Error when check code does not belong to the partner/pharmacy."
+              value:
+                resCode: -16212
+                resMessage: ".دشاب \nراکی \nمنی \n رشکی \n نی\nا هب قلعتم \nلاسرا کچدک"
+            checkCodeNotFound:
+              summary: Check code not found
+              description: "Error when the provided check code is not found."
+              value:
+                resCode: -16213
+                resMessage: ".دشاب \nیمن \nراکمه \n نی\nا هب قلعتم \nلاسرا کچدک"
+            checkCodeNotDelivered:
+              summary: Check code not delivered
+              description: "Error when the check code corresponds to a prescription that has not been marked as delivered."
+              value:
+                resCode: -16214 # Was checkCodeNotForDeliveredPrescription
+                resMessage: ".دشاب \nیمن \nهدش هئارا هخسن هب قلعتم \nلاسرا کچدک"
+            deliveredPrescriptionInfoNotFound: # Was deliveredPrescriptionNotFound
+              summary: Delivered prescription information not found
+              description: Information for the delivered prescription associated with the check code not found.
+              value:
+                resCode: -16301
+                resMessage: ".دشن \nتفای \nی اهدش هئارا هخسن تاعلاطا"
+            cannotDeleteNonPharmacyType:
+              summary: Cannot delete, prescription type not pharmacy
+              description: "Error when attempting to delete a delivered prescription that is not of pharmacy type."
+              value:
+                resCode: -16401
+                resMessage: "درادن دوجو کشزپ عون زا \nیراکشرش \nیارب هدش هئارا هخسن فذح ناکما"
+            prescriptionAlreadyDeleted:
+              summary: Prescription already deleted
+              description: "Error when the prescription has already been previously deleted."
+              value:
+                resCode: -16402
+                resMessage: '.تسا هدش فذح %s لبق رد هخسن'
+            deletionNotAllowedYet:
+              summary: Deletion not allowed yet (e.g. too soon)
+              value:
+                resCode: -16402
+                resMessage: '.تسا هدش فذح \%s لبق رد هخسن'
+            deletionWindowExceeded:
+              summary: Deletion window exceeded
+              description: Prescription deletion is only allowed up to 10 days after delivery.
+              value:
+                resCode: -16403
+                resMessage: ".دشاب \nیم \nریذپ ناکما هزور 10 ات اهنت هدش هئارا هخسن فذح"
+            # Removing other specific -16404, -16405, -16406 as they are very specific and the general ErrorResponse covers them.
+            # Ensure the old commented-out block below this is also removed by the edit.
+    # '-16211':
+    #   description: Invalid check code
+    # '-16214':
+    #   description: Check code does not belong to a delivered prescription
+    # '-16301':
+    #   description: Delivered prescription not found
+    # '-16403':
+    #   description: Prescription deletion is only allowed up to 10 days after delivery
+    # '-16404':
+    #   description: Prescription cannot be deleted due to processing
+    # '-16405':
+    #   description: Cannot delete prescription due to another prescription registration for this person
+    # '-16406':
+    #   description: Cannot delete prescription due to another prescription delivery for this person 

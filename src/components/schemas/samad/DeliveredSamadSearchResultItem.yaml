@@ -1,0 +1,60 @@
+type: object
+properties:
+  age:
+    type: integer
+    description: Age of the person
+  deliveredDate:
+    type: string
+    description: |
+      Date when the SAMAD code was delivered (Format: YYYY/MM/DD HH:MM:SS)
+    example: "1398/07/04 11:39:40"
+  gender:
+    type: string
+    description: Gender of the person.
+    enum: ["M", "F"]
+  lastName:
+    type: string
+    description: Last name
+  name:
+    type: string
+    description: First name
+  nationalNumber:
+    type: string
+    description: National number
+  picture:
+    type: string
+    description: Picture data
+  productName:
+    type: string
+    description: Insurance product name
+  samadStatus:
+    type: string
+    description: Status of the SAMAD code
+  trackingCode:
+    type: string
+    description: Tracking code
+  rowNum:
+    type: integer
+    description: Row number
+  prescriptionType:
+    type: string
+    description: Type of prescription.
+    enum: ["P", "E"] # P:Paper, E:Electronic
+  sequenceNumber:
+    type: integer
+    description: Sequence number
+  checkCode:
+    type: string
+    description: Check code
+  relationType:
+    type: string
+    description: Relation type.
+    enum: ["R"] # R:Responsible
+  validTo:
+    type: string
+    description: Validity end date
+    example: "1402/03/16"
+  dto:
+    type: string
+    description: Date To (DTO) - End date related to the item
+    example: "1402/03/16" 

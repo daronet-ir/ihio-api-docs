@@ -1,0 +1,42 @@
+type: object
+required:
+  - cpartySessionId
+  - fromDate
+  - toDate
+  # nationalNumber is optional
+  # status is optional
+  # index is optional
+  # count is optional
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID received from user authentication or two-factor authentication service
+  nationalNumber:
+    type: string
+    description: National number to search for (optional).
+    example: "007..."
+  status:
+    type: string
+    description: Status to filter by (optional).
+    enum: ["D", "O", "R"] # D:Delivered, O:Order, R:Register
+  fromDate:
+    type: string
+    description: Start date for search range (YYYYMMDD).
+    example: "13980101"
+    pattern: '^\\d{8}$'
+  toDate:
+    type: string
+    description: End date for search range (YYYYMMDD).
+    example: "13981212"
+    pattern: '^\\d{8}$'
+  index:
+    type: integer
+    description: Page index for pagination (optional, defaults to 0 if not provided).
+    default: 0
+    minimum: 0
+  count:
+    type: integer
+    description: Number of items per page (optional, defaults to system default, e.g., 50 if not provided).
+    default: 50 # Assuming a default, adjust if known
+    minimum: 1
+    maximum: 100 # Assuming a max, adjust if known 

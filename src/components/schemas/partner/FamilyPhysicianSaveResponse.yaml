@@ -1,0 +1,39 @@
+type: object
+description: Response for the family physician save/assignment operation.
+required:
+  - resCode
+  - resMessage
+properties:
+  resCode:
+    type: integer
+    description: Response code (e.g., 1 for success).
+  resMessage:
+    type: string
+    description: Response message.
+  info:
+    type: object
+    nullable: true
+    description: Additional information, including UI messages.
+    properties:
+      message:
+        type: object
+        properties:
+          snackMessage:
+            type: array
+            items:
+              type: object
+              properties:
+                text:
+                  type: string
+                  description: The message text to display.
+                type:
+                  type: string
+                  description: Type of message (e.g., I for Info, W for Warning, E for Error).
+                  example: "I"
+          infoMessage:
+            type: array
+            # The example in output_44.json shows this as an empty array.
+            # Define as a generic array, specific item type can be added if known.
+            items:
+              type: object # Or a more specific type if the structure of items becomes known
+            description: Additional informational messages, structure may vary or be empty. 

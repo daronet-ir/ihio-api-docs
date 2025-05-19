@@ -1,0 +1,18 @@
+type: object
+description: Response schema for fetching referenced prescriptions by print code.
+properties:
+  resCode:
+    type: integer
+    description: Response code (e.g., 1 for success).
+  resMessage:
+    type: string
+    description: Response message.
+  info:
+    type: array
+    description: List of referenced prescription details.
+    items:
+      $ref: './ReferencePrescriptionInfo.yaml'
+# required:
+  # - resCode
+  # - resMessage
+  # - info # Info might be empty array on success with no references, or not present on total failure 

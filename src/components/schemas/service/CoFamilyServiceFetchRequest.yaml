@@ -1,0 +1,16 @@
+type: object
+required:
+  - cpartySessionId
+  - citizenSessionId
+  - serviceNN
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID received from user authentication or two-factor authentication service
+  citizenSessionId:
+    type: string
+    description: Citizen session ID received from citizen session creation service
+  serviceNN:
+    type: integer
+    format: int64
+    description: National number of the service (serviceNN)

@@ -1,0 +1,30 @@
+type: object
+description: Detailed information about a referenced prescription.
+properties:
+  creationDate:
+    type: string
+    description: Creation date and time of the reference prescription.
+    example: "1398/07/05 17:58:51"
+  partnerName:
+    type: string
+    description: Name of the partner (e.g., doctor, clinic) for the reference.
+    example: "دکتر مرجع"
+  partnerPhone:
+    type: string
+    nullable: true
+    description: Phone number of the partner.
+    example: "02199999999"
+  contractPartyName:
+    type: string
+    description: Name of the contract party (insurer) for the reference.
+    example: "بیمه پایه مرجع"
+  referenceSamadOwner_Id: # Note: field name from output_34.json
+    type: integer
+    format: int64
+    description: SAMAD Owner ID related to the reference.
+    example: 1234567890
+  subscriptionInfos:
+    type: array
+    description: List of subscription items in the referenced prescription.
+    items:
+      $ref: './ReferenceSubscriptionInfoItem.yaml' 

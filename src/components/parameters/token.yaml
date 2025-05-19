@@ -1,0 +1,6 @@
+name: token
+in: header
+schema:
+  type: string
+required: true
+description: Token received from token fetch service 

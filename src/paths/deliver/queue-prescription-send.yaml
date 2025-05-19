@@ -1,0 +1,83 @@
+post:
+  summary: Send Prescription to Delivery Queue
+  tags:
+    - Delivery Management
+  description: Send a prescription to the delivery queue
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/deliver/DeliverQueuePrescriptionSendRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome:
+        - `1`: Successfully sent to queue.
+        Refer to the examples for details on different error `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf: # Ensure oneOf includes ErrorResponse
+              - $ref: ../../components/schemas/common/SuccessResponse.yaml
+              - $ref: ../../components/schemas/ErrorResponse.yaml
+          examples:
+            success:
+              summary: Successfully sent to delivery queue
+              value:
+                resCode: 1
+                resMessage: "اطلاعات نسخه جهت الصاق به صف ارسال گردید."
+            invalidTrackingCode:
+              summary: Invalid Tracking Code (referred to as Print Code in some error messages)
+              description: "Error when Tracking Code is invalid (format, null, length) or doesn't meet criteria."
+              value:
+                resCode: -25241
+                resMessage: ".\nتسین ربتعم هدش لاسرا  پاچ هرامش \n:دهد خر ریز دراوم زا یکی \n:حیضوت \n \n printCode·\n.دشاب یلاخ \nدلیف \n \nnull\n printCode·\n.دشاب \n ربارب \nدلیف \n \n printCode·\n.دشابن یمقر22 \nیا \n20\n یا5 \nدلیفprintCode·\n.دشابن ربتعم \n راتخاس"
+            trackingCodeAuthFailed:
+              summary: Tracking Code authentication failed or session invalid
+              description: The Tracking Code provided is not authenticated or the session is invalid.
+              value:
+                resCode: -25242
+                resMessage: ".\nتسین تسشن \nنیا هب قلعتم پاچ هسانش \nی اوتحم"
+            prescriptionNotFoundForTrackingCode:
+              summary: Prescription not found for Tracking Code
+              description: No prescription record found for the given Tracking Code.
+              value:
+                resCode: -25301
+                resMessage: ".دشاب \nیمن \nهدش \nهمیب \nناینب \nاب طبترم \nیریگهر /پاچ هسانش"
+            prescriptionArchived:
+              summary: Prescription is archived
+              description: The prescription is archived and cannot be sent to the queue.
+              value:
+                resCode: -25302
+                resMessage: ".دشن \nتفای \nی اهخسن \nرزیر"
+            sendToQueueNotPossible:
+              summary: Sending to queue not possible (e.g., already sent)
+              description: The prescription cannot be sent to the queue, possibly due to its current state (e.g., already sent, already delivered).
+              value:
+                resCode: -25303
+                resMessage: ".درادن دوجو ددجم لاسرا ناکما و دراد رارق \nلیوحت فص رد \nرضاح لاح رد هخسن"
+            alreadyRequestedOrSent:
+              summary: Prescription already requested or sent to queue
+              description: The prescription has already been requested or is already in the delivery queue.
+              value:
+                resCode: -25401
+                resMessage: ".تسا هدشن تساوخرد \nیریگهر /پاچ هسانش \nارب یی اهنتمدخ"
+            pharmacyAccessDenied:
+              summary: Pharmacy access denied for this prescription
+              description: Access to this prescription is denied for the current pharmacy.
+              value:
+                resCode: -25402
+                resMessage: ".درادن ار هخسن نیا هب یسرتسد ناکما همانراک یرازفا راتشون رد"
+            generalError:
+              summary: General error
+              description: A general or unexpected error occurred.
+              value:
+                resCode: -25941
+                resMessage: ".دیریگب سامت هناماس ربهار اب اطفل .یلخاد یاطخ" 

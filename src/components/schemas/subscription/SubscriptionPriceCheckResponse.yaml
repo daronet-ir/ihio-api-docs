@@ -1,0 +1,18 @@
+type: object
+properties:
+  resCode:
+    type: integer
+    description: Response code
+  resMessage:
+    type: string
+    description: Response message
+  info:
+    type: object
+    properties:
+      price:
+        type: integer
+        description: Calculated price
+      currency:
+        type: string
+        description: Currency of the price (e.g., IRR)
+        default: IRR

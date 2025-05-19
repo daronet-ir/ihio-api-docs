@@ -1,0 +1,6 @@
+name: clientAgentInfo
+in: header
+schema:
+  type: string
+required: true
+description: User browser information 

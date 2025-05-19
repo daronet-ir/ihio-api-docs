@@ -1,0 +1,83 @@
+post:
+  tags:
+    - Prescription Management
+  summary: Fetch Prescription by SAMAD Code
+  description: Retrieve a prescription using its SAMAD code
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/prescription/PrescriptionFetchSamadRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/prescription/PrescriptionFetchSamadResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful prescription fetch by SAMAD code
+              value:
+                resCode: 1 # Assuming 1 for success
+                resMessage: "Prescription fetched successfully."
+                info:
+                  creationDate: "1398/07/05 17:58:51"
+                  subscriptionInfos: [] # Keep example brief, or add one item
+                  partnerName: "نام پزشک نمونه"
+                  partnerPhone: "02188888888"
+                  contractPartyName: "بیمه سلامت"
+            invalidSamadCodeFormatOrValue:
+              summary: Invalid SAMAD code format or value
+              description: "Error when SAMAD code is invalid (format, null, length) or doesn't meet criteria."
+              value:
+                resCode: -16241 # Updated from -21241
+                resMessage: ".\nتسین ربتعم هدش لاسرا  دامس هرامش \n:دهد خر ریز دراوم زا یکی \n:حیضوت \n \n samadCode·\n.دشاب یلاخ \nدلیف \n \nnull\n samadCode·\n.دشاب \n ربارب \nدلیف \n \n samadCode·\n.دشابن یمقر 18 \nیا 16 \n دلیف \nsamadCode·\n \n.دشابن ربتعم \n راتخاس"
+            samadCodeAuthFailed:
+              summary: SAMAD code authentication failed or session invalid
+              description: "Error when SAMAD code is not authenticated or the session is invalid."
+              value:
+                resCode: -16242
+                resMessage: ".\nتسین تسشن \nنیا هب قلعتم دامس هسانش \nی اوتحم"
+            prescriptionNotFoundForSamad:
+              summary: Prescription not found for SAMAD code
+              description: No prescription found matching the provided SAMAD code.
+              value:
+                resCode: -16301 # Updated from -21301
+                resMessage: ".دشاب \nیمن \nهدش \nهمیب \nناینب \nاب طبترم \nیریگهر /پاچ هسانش"
+            dataFault:
+              summary: Data fault or temporary error
+              description: "A temporary issue or data inconsistency prevented fetching the prescription."
+              value:
+                resCode: -16360
+                resMessage: ".\nدیریگب سامت هماناماس رد افطل .تمدخ \nتفایرد \nیلخاد \nیاطخ"
+            samadCodeForWrongType:
+              summary: SAMAD code for wrong prescription type
+              description: "The SAMAD code is for a different type of prescription (e.g., paper) than expected."
+              value:
+                resCode: -16401
+                resMessage: ".تسا هدشن تفای دامسدک اب یتمدخ"
+            prescriptionNotForPartner:
+              summary: Prescription not for requesting partner
+              description: "The prescription is not associated with the requesting partner/pharmacy."
+              value:
+                resCode: -16402
+                resMessage: ".دشاب \nراکی \nمن \n رشکی \n نیا هب قلعتم رظن دروم \nهخسن"
+            # Removed invalidInput (-21201) as it was not in output_32.json
+    # '-21201':
+    #   description: Invalid input data
+    # '-21241':
+    #   description: Invalid SAMAD code
+    # '-21301':
+    #   description: Prescription not found 

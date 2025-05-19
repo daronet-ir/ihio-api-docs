@@ -1,0 +1,109 @@
+# Authentication schemas
+TokenRequest:
+  $ref: './auth/TokenRequest.yaml'
+TokenResponse:
+  $ref: './auth/TokenResponse.yaml'
+SessionRequest:
+  $ref: './auth/SessionRequest.yaml'
+SessionResponse:
+  $ref: './auth/SessionResponse.yaml'
+CitizenSessionRequest:
+  $ref: './auth/CitizenSessionRequest.yaml'
+CitizenSessionResponse:
+  $ref: './auth/CitizenSessionResponse.yaml'
+OtpCheckRequest:
+  $ref: './auth/OtpCheckRequest.yaml'
+OtpCheckResponse:
+  $ref: './auth/OtpCheckResponse.yaml'
+
+# Message schemas
+MessageContent:
+  $ref: './common/MessageContent.yaml'
+Message:
+  $ref: './common/Message.yaml'
+MessageInfo:
+  $ref: './common/MessageInfo.yaml'
+
+# SAMAD schemas
+SamadGenerateRequest:
+  $ref: './samad/SamadGenerateRequest.yaml'
+SamadGenerateResponse:
+  $ref: './samad/SamadGenerateResponse.yaml'
+ReferenceGenerateRequest:
+  $ref: './samad/ReferenceGenerateRequest.yaml'
+SamadSearchRequest:
+  $ref: './samad/SamadSearchRequest.yaml'
+SamadSearchResponse:
+  $ref: './samad/SamadSearchResponse.yaml'
+SamadSearchResultItem:
+  $ref: './samad/SamadSearchResultItem.yaml'
+
+# Service schemas
+CoFamilyServiceFetchRequest:
+  $ref: './service/CoFamilyServiceFetchRequest.yaml'
+ServiceInfo:
+  $ref: './service/ServiceInfo.yaml'
+ServiceState:
+  $ref: './service/ServiceState.yaml'
+ServiceSearchRequest:
+  $ref: './service/ServiceSearchRequest.yaml'
+ServiceSearchResponse:
+  $ref: './service/ServiceSearchResponse.yaml'
+ServiceSearchResultItem:
+  $ref: './service/ServiceSearchResultItem.yaml'
+
+# Product schemas
+ProductInfo:
+  $ref: './product/ProductInfo.yaml'
+ProductState:
+  $ref: './product/ProductState.yaml'
+CoFamilyProductFetchResponse:
+  $ref: './product/CoFamilyProductFetchResponse.yaml'
+ProductFetchRequest:
+  $ref: './product/ProductFetchRequest.yaml'
+ProductFetchResponse:
+  $ref: './product/ProductFetchResponse.yaml'
+ProductSearchRequest:
+  $ref: './product/ProductSearchRequest.yaml'
+ProductSearchResponse:
+  $ref: './product/ProductSearchResponse.yaml'
+ProductSearchResultItem:
+  $ref: './product/ProductSearchResultItem.yaml'
+
+# Subscription schemas
+SubscriptionInfo:
+  $ref: './subscription/SubscriptionInfo.yaml'
+SubscriptionInfoWrapper:
+  $ref: './subscription/SubscriptionInfoWrapper.yaml'
+SubscriptionCheckOrderRequest:
+  $ref: './subscription/SubscriptionCheckOrderRequest.yaml'
+SubscriptionCheckOrderResponse:
+  $ref: './subscription/SubscriptionCheckOrderResponse.yaml'
+SubscriptionPriceCheckRequest:
+  $ref: './subscription/SubscriptionPriceCheckRequest.yaml'
+SubscriptionPriceCheckResponse:
+  $ref: './subscription/SubscriptionPriceCheckResponse.yaml'
+SubscriptionInquiryRequest:
+  $ref: './subscription/SubscriptionInquiryRequest.yaml'
+SubscriptionInquiryResponse:
+  $ref: './subscription/SubscriptionInquiryResponse.yaml'
+SubscriptionReactiveRequest:
+  $ref: './subscription/SubscriptionReactiveRequest.yaml'
+SubscriptionReactiveResponse:
+  $ref: './subscription/SubscriptionReactiveResponse.yaml'
+
+# Prescription schemas
+PrescriptionItem:
+  $ref: './prescription/PrescriptionItem.yaml'
+PrescriptionSaveRequest:
+  $ref: './prescription/PrescriptionSaveRequest.yaml'
+PrescriptionSaveResponse:
+  $ref: './prescription/PrescriptionSaveResponse.yaml'
+PrescriptionUpdateRequest:
+  $ref: './prescription/PrescriptionUpdateRequest.yaml'
+PrescriptionUpdateResponse:
+  $ref: './prescription/PrescriptionUpdateResponse.yaml'
+PrescriptionDeliverRequest:
+  $ref: './prescription/PrescriptionDeliverRequest.yaml'
+PrescriptionDeliverResponse:
+  $ref: './prescription/PrescriptionDeliverResponse.yaml' 

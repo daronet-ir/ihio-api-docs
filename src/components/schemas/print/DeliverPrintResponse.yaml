@@ -1,0 +1,48 @@
+type: object
+properties:
+  resCode:
+    type: integer
+    description: Response code, 1 for success
+  resMessage:
+    type: string
+    description: Response message
+  info:
+    type: object
+    properties:
+      printTemplate:
+        type: string
+        description: HTML template for printing the delivery receipt
+      printData:
+        type: object
+        description: Data to be used with the print template
+        properties:
+          deliveryId:
+            type: string
+            description: Unique identifier for the delivery
+          deliveryDate:
+            type: string
+            description: Date when the prescription was delivered
+          partnerName:
+            type: string
+            description: Name of the partner who delivered the prescription
+          patientName:
+            type: string
+            description: Name of the patient
+          patientNationalNumber:
+            type: string
+            description: National number of the patient
+          samadCode:
+            type: string
+            description: SAMAD code of the prescription
+          items:
+            type: array
+            description: List of items in the delivered prescription
+            items:
+              type: object
+              properties:
+                productName:
+                  type: string
+                  description: Name of the product
+                quantity:
+                  type: integer
+                  description: Quantity of the product delivered 

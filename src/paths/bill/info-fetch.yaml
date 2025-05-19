@@ -1,0 +1,72 @@
+post:
+  summary: Fetch Bill Information by Year and Month
+  tags:
+    - Billing
+  description: Retrieve a list of bill information for a cParty (contracting party) for a specified year and month.
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/bill/BillInfoFetchRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: ../../components/schemas/bill/BillInfoFetchResponse.yaml
+              - $ref: ../../components/schemas/ErrorResponse.yaml # For generic errors
+          examples:
+            success:
+              summary: Successful retrieval of bill information
+              value:
+                resCode: 1
+                resMessage: ".دش ماجنا تیقفوم اب تايلمع"
+                info: [
+                  {
+                    "billId": 277,
+                    "billType": "XYZ123",
+                    "billTypeName": "نوع صورتحساب نمونه",
+                    "billCycle": "139912",
+                    "description": "توضیحات نمونه برای صورتحساب",
+                    "billInfo": {
+                      "productName": "نام محصول نمونه",
+                      " specialAccount": "Y",
+                      " type": "VISIT",
+                      "count": 5,
+                      "orgPart": 75000.0
+                    }
+                  }
+                ]
+            noBillInfoFound:
+              summary: No bill information found for the period
+              value:
+                resCode: -1250
+                resMessage: ".دشن تفایراک ی کیرش هدش باختنا هرود یارب بصحتوص تاعلاطا"
+                info: [] # Or null, depending on API behavior
+            invalidInput:
+              summary: Invalid input parameters (year/month)
+              value:
+                resCode: -1102
+                resMessage: ".تسین ربتعم هدش لاسرا یدورو تاعلاطا \n:دهد خر ریز دراوم زا یکی \n:حیضوت \n \nnull year \n  \n.تسا \n ربارب \n دلیف \n year <= 1300 , year >= 1500 \n  \nnull month \n  \n.تسا \n ربارب \n دلیف \n Month < 1, month > 12 \n "
+            internalError:
+              summary: Internal server error
+              value:
+                resCode: -1249
+                resMessage: ".دیریگب سامت هناماس ربهار اب اطفل .یلخاد یاطخ"
+    default:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: ../../components/schemas/ErrorResponse.yaml 

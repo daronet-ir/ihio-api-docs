@@ -1,0 +1,52 @@
+post:
+  summary: Fetch Delivery Queue
+  tags:
+    - Delivery Management
+  description: Retrieve the queue of prescriptions waiting for delivery
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/deliver/DeliverQueueFetchRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/deliver/DeliverQueueFetchResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successfully fetched delivery queue
+              description: A list of prescriptions currently in the delivery queue for the authenticated party.
+              value:
+                resCode: 1 # Assuming 1 for general success if items are present or queue is empty but accessible
+                resMessage: "اطلاعات صف با موفقیت دریافت شد."
+                info:
+                  - trackingCode: "TRK12345XYZ"
+                    memberNN: "0012345678"
+                    fullName: "علی رضایی"
+                    gender: "M"
+                    picture: "U0FNRVRIQVRIQVRMT09LU0xJS0VBUFJJVFVSRUJPVVRUSEVSRS4uLg=="
+                  - trackingCode: "TRK67890ABC"
+                    memberNN: "0098765432"
+                    fullName: "فاطمه محمدی"
+                    gender: "F"
+                    picture: "QU5PVEhFUlBIT1RPVkVSSFRFREUuLi4="
+            noDataInQueue:
+              summary: No data in delivery queue
+              description: The delivery queue is currently empty for the authenticated party.
+              value:
+                resCode: -26301 # output_40 shows this resCode for empty queue
+                resMessage: "داده ای در صف ارسال به لیویت وجود ندارد" # Message from output_40

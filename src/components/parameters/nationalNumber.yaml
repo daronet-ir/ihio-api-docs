@@ -1,0 +1,8 @@
+name: nationalNumber
+in: query
+required: true
+schema:
+  type: string
+  pattern: '^[0-9]{10}$'
+description: National number of the citizen
+example: "1234567890" 

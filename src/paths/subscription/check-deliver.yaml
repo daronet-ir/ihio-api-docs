@@ -1,0 +1,70 @@
+post:
+  tags:
+    - Subscription Management
+  summary: Check Subscription for Delivery
+  description: Check if a subscription can be delivered
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/subscription/SubscriptionCheckDeliverRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/subscription/SubscriptionCheckDeliverResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            successAllowed:
+              summary: Successful check, delivery allowed
+              value:
+                resCode: 1
+                resMessage: "Delivery check successful."
+                info:
+                  isAllowed: true
+                  hasContract: true
+                  shouldSendToEsalat: true
+                  message: {}
+                  checkCode: "DELCHK123"
+                  priceInfo: {totalPrice: 100.0, coveredPrice: 80.0, payablePrice: 20.0, discountAmount: 0.0}
+                  maxCoveredCount: 5
+            successNotAllowed:
+              summary: Successful check, delivery not allowed
+              value:
+                resCode: 1 
+                resMessage: "Delivery check performed."
+                info:
+                  isAllowed: false
+                  hasContract: false
+                  shouldSendToEsalat: false
+                  message: { reason: "Item not covered for delivery" }
+                  checkCode: "DELCHK456"
+                  priceInfo: {}
+                  maxCoveredCount: 0
+            invalidTrackingCode:
+              summary: Invalid Tracking Code
+              value:
+                resCode: -24111 # From output_18.json
+                message: "Tracking code is invalid or not found."
+            serviceNotDeliverable:
+              summary: Service Not Deliverable
+              value:
+                resCode: -24113 # From output_18.json
+                message: "The specified service/product is not deliverable under this subscription."
+            generalInvalidInput:
+              summary: General Invalid Input
+              value:
+                resCode: -24221 # From output_18.json
+                message: "Invalid input data provided for delivery check." 

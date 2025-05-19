@@ -1,0 +1,78 @@
+post:
+  tags:
+    - Subscription Management
+  summary: Check Subscription Delivery Price
+  description: Check the delivery price for a subscription item
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/subscription/SubscriptionPriceCheckRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/subscription/SubscriptionCheckDeliverResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful price check
+              value:
+                # This response structure is now from SubscriptionCheckDeliverResponse
+                resCode: 1 # Assuming 1 for success
+                resMessage: "Price check successful."
+                info:
+                  isAllowed: true
+                  hasContract: true
+                  shouldSendToEsalat: true
+                  message: { detail: "Price calculated based on provided basePrice." }
+                  checkCode: "CHECK789"
+                  priceInfo: { totalPrice: 120.0, coveredPrice: 90.0, payablePrice: 30.0, discountAmount: 0.0 }
+                  maxCoveredCount: 3
+            invalidBasePrice:
+              summary: Invalid basePrice input
+              value:
+                resCode: -14201 # From output_19.json
+                message: "Invalid basePrice provided (e.g., null, out of range)."
+            invalidCheckCode:
+              summary: Invalid checkCode
+              value:
+                resCode: -14212 # From output_19.json
+                message: "Provided checkCode is invalid or not found."
+            # Add other relevant error examples from -14213 to -14217 if distinct cases exist
+            invalidInput:
+              summary: Invalid input data
+              description: Invalid input data
+              value:
+                resCode: -23211
+                message: Invalid input data
+            internalError:
+              summary: Internal processing error
+              description: Internal error processing request - contact system administrator
+              value:
+                resCode: -23407
+                message: Internal error processing request - contact system administrator
+            serviceNotAvailable:
+              summary: Service/Product not available for subscription
+              description: Service/Product is not available for subscription
+              value:
+                resCode: -23113
+                message: Service/Product is not available for subscription
+    # '-23211':
+    #   description: Invalid input data
+    # '-23407':
+    #   description: Internal error processing request - contact system administrator
+    # '-23113':
+    #   description: Service/Product is not available for subscription 

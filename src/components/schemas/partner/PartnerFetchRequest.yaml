@@ -1,0 +1,7 @@
+type: object
+required:
+  - cpartySessionId
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID from authentication 

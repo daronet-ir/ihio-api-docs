@@ -1,0 +1,102 @@
+type: object
+description: Details of a subscription item within a referenced prescription.
+properties:
+  checkCode:
+    type: string
+    nullable: true # Params for subscriptionInfos shows checkCode as string
+    description: Check code of the subscription item.
+  description:
+    type: string
+    nullable: true
+    description: Description of the subscription item.
+    example: "قرص استامینوفن 500mg"
+  numberOfRequest:
+    type: integer # Params for subscriptionInfos shows this as int
+    description: Number of items requested.
+    example: 30
+  serviceId:
+    type: integer
+    description: Unique identifier for the service/medication.
+    example: 789123
+  serviceDescription:
+    type: string
+    nullable: true
+    description: Description of the service/medication.
+    example: "استامینوفن 500 میلی گرم قرص"
+  serviceFullName:
+    type: string
+    nullable: true
+    description: Full name of the service/medication.
+    example: "استامینوفن 500 میلی گرم قرص"
+  serviceInterfaceName:
+    type: string
+    nullable: true
+    description: Interface name for the service.
+    example: "Acetaminophen500mgTab"
+  serviceGenericCode:
+    type: string
+    nullable: true
+    description: Generic code of the service.
+    example: "IRC45678"
+  serviceNationalNumber:
+    type: string
+    nullable: true
+    description: National number of the service.
+    example: "123456"
+  serviceShortName:
+    type: string
+    nullable: true
+    description: Short name of the service.
+    example: "استامینوفن 500"
+  countOfReference:
+    type: integer
+    nullable: true
+    description: Count of references for this item.
+    example: 1
+  typeId:
+    type: integer # Service typeId
+    description: Type ID of the service.
+    example: 1
+  ihioBasePrice:
+    type: integer
+    nullable: true
+    description: IHIO base price for the service.
+    example: 10000
+  prescriptionId:
+    type: integer
+    description: Identifier of the prescription this item belongs to.
+    example: 987654321
+  samadId:
+    type: integer
+    description: SAMAD identifier related to this item.
+    example: 112233445
+  status:
+    type: string
+    nullable: true
+    description: Status of the subscription item.
+    example: "فعال"
+  consumption:
+    type: string
+    nullable: true
+    description: Consumption instructions or details.
+    example: "هر 8 ساعت یک عدد"
+  consumptionSNOMEDCode:
+    type: string
+    nullable: true
+    description: SNOMED code for consumption, if applicable.
+    example: "123456789"
+  numberOfPeriod:
+    type: integer # Params for subscriptionInfos shows this as int
+    nullable: true
+    description: Number of periods for the subscription item.
+    example: 1
+  shape:
+    type: string
+    nullable: true
+    description: Shape or form of the medication (e.g., tablet, capsule).
+    example: "قرص"
+  subscriptionDeliveredInfos:
+    type: array
+    description: List of delivered items for this subscription.
+    items:
+      $ref: './ReferenceSubscriptionDeliveredInfoItem.yaml' 

@@ -1,0 +1,99 @@
+type: object
+description: Detailed information for a counterparty session.
+properties:
+  sessionId:
+    type: string
+    description: Unique session identifier.
+  accessNodes:
+    type: array
+    items:
+      type: string
+    description: List of access nodes available to the user (e.g., specific services or modules).
+    example: ["HDK", "HDK_User"]
+  additionalProperties: # Note: This field name can be confusing with the JSON Schema keyword.
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the property.
+        value:
+          type: string # Or consider a more flexible type if values can be boolean/integer.
+          description: Value of the property.
+    description: Array of additional key-value pair properties related to the session or user.
+    example:
+      - name: "HDK_MAX_COUNT_SAMAD"
+        value: "10"
+      - name: "HDK_HasGenerateSamadCode"
+        value: "Y"
+  userId:
+    type: integer
+    format: int64 # Assuming it can be a large number
+    description: Unique identifier for the user.
+  contractingPartyLicense:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the license.
+        noMedicalSystem:
+          type: integer
+          description: Medical system number associated with the license.
+    description: List of licenses held by the contracting party.
+  internalId:
+    type: integer
+    format: int64
+    description: Internal identifier related to the user or session. # From detailed params
+  cellPhone:
+    type: string
+    description: User's registered cell phone number.
+  fullName:
+    type: string
+    description: User's full name.
+  gender:
+    type: string
+    description: User's gender.
+    enum: ["M", "F"] # M for Male, F for Female
+  partnerName:
+    type: string
+    description: Name of the partner associated with the session.
+  siamCode:
+    type: string
+    description: SIAMA code related to the user or partner. # From main response structure
+  partnerNN:
+    type: string
+    description: Partner's National Number or an equivalent identifier.
+  cPartyNN:
+    type: string
+    description: Counterparty's National Number or an equivalent identifier. # From main response structure
+  partnerId:
+    type: integer
+    format: int64
+    description: Unique identifier for the partner.
+  cPartyId:
+    type: integer
+    format: int64
+    description: Unique identifier for the counterparty.
+  isTwoStep:
+    type: boolean
+    description: Indicates if two-step authentication is enabled or required for the session.
+required:
+  - sessionId
+  # - accessNodes # Making optional as [] is a valid empty state
+  # - additionalProperties # Making optional
+  - userId
+  # - contractingPartyLicense # Making optional
+  # - internalId # From detailed, might be optional
+  - cellPhone
+  - fullName
+  - gender
+  - partnerName
+  - siamCode # Added to required as it's in main structure
+  - partnerNN
+  - cPartyNN # Added to required as it's in main structure
+  - partnerId
+  - cPartyId
+  - isTwoStep 

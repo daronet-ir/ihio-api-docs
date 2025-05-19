@@ -1,0 +1,45 @@
+openapi: 3.0.0
+info:
+  title: IHIO API
+  description: Iranian Health Insurance Organization (IHIO) API Documentation
+  version: '1.0'
+servers:
+  - url: http://webapi.ihio.gov.ir/erx-core/v3
+    description: Production Server
+  - url: http://test.ihio.gov.ir/erx-core/v3
+    description: Test Server
+
+tags:
+  - name: Authentication
+    description: Endpoints related to authentication and session management.
+  - name: SAMAD
+    description: Endpoints related to SAMAD services.
+  - name: Service Management
+    description: Endpoints for managing services.
+  - name: Product Management
+    description: Endpoints for managing products.
+  - name: Subscription Management
+    description: Endpoints for managing subscriptions.
+  - name: Prescription Management
+    description: Endpoints for managing prescriptions.
+  - name: Delivery Management
+    description: Endpoints for managing deliveries.
+  - name: Partner Management
+    description: Endpoints for managing partners.
+  - name: Billing
+    description: Endpoints related to billing.
+  - name: Printing
+    description: Endpoints related to printing documents.
+
+paths:
+  $ref: './paths/index.yaml'
+
+components:
+  schemas:
+    $ref: './components/schemas/index.yaml'
+  parameters:
+    $ref: './components/parameters/index.yaml'
+  headers:
+    $ref: './components/headers/index.yaml'
+  responses:
+    $ref: './components/responses/index.yaml' 

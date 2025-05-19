@@ -1,0 +1,4 @@
+.venv/
+convert_to_json.ipynb
+endpoints.json
+bundle.yaml

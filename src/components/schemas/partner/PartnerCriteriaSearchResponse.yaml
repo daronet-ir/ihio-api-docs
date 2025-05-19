@@ -1,0 +1,52 @@
+type: object
+description: Response containing a list of partners matching the search criteria.
+required:
+  - resCode
+  - resMessage
+  # info can be null or empty array if no partners found for some resCodes, but typically present for resCode 1
+properties:
+  resCode:
+    type: integer
+    description: Response code (e.g., 1 for success, 0 if not found).
+  resMessage:
+    type: string
+    description: Response message.
+  info:
+    type: array
+    nullable: true
+    description: List of partner details.
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+          description: First name of the partner.
+        lastName:
+          type: string
+          description: Last name of the partner.
+        cellphoneNumber:
+          type: integer # output_42.json says long, OpenAPI uses integer with format for long
+          format: int64
+          description: Mobile phone number of the partner.
+        partnerType:
+          type: string
+          description: Type of the partner (e.g., "پزشک").
+        contractPartyType:
+          type: string
+          description: Type of the contracting party (e.g., "مطب").
+        address:
+          type: string
+          description: Address of the partner.
+        licenseType:
+          type: string
+          description: License type (e.g., "پروانه مطب").
+        nomedicalSystem:
+          type: integer
+          description: Medical system code (کد نظام پزشکی) of the partner.
+        image:
+          type: string
+          format: byte # Indicates Base64 encoded content
+          description: Base64 encoded image of the partner.
+        partnerContractingPartyId:
+          type: integer
+          description: Identifier for the partner's contracting party entity. 

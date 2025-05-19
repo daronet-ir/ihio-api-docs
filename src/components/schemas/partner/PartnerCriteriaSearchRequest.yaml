@@ -1,0 +1,27 @@
+type: object
+description: Request to search for partners based on specific criteria.
+required:
+  - cpartySessionId
+  - citizenSessionId
+  - nomedicalSystem
+  - visitDate
+  - expertiseGrade
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID from authentication of the calling party.
+  citizenSessionId:
+    type: string
+    description: Session ID of the citizen/patient, used for context in some partner searches.
+  nomedicalSystem:
+    type: integer
+    description: Medical system code (کد نظام پزشکی) of the partner to search for.
+    example: 123
+  visitDate:
+    type: integer # Assuming YYYYMMDD
+    description: Visit date in YYYYMMDD format, used to determine active partners or for context.
+    example: 13980101
+  expertiseGrade:
+    type: string
+    description: Comma-separated list of expertise/grades to filter by (e.g., "doctor", "midwife").
+    example: "doctor,midwife" 

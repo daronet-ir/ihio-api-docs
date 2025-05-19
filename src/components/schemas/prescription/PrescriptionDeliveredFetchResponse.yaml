@@ -1,0 +1,62 @@
+type: object
+description: Response schema for fetching details of a specific delivered prescription.
+properties:
+  resCode:
+    type: integer
+    description: Response code (e.g., 1 for success).
+  resMessage:
+    type: string
+    description: Response message.
+  info:
+    type: object
+    description: Detailed information about the fetched delivered prescription.
+    properties:
+      orderedDate:
+        type: string
+        format: date-time # Assuming format
+        nullable: true
+        description: Date and time the original prescription was ordered.
+      deliveredDate:
+        type: string
+        format: date-time # Assuming format
+        nullable: true
+        description: Date and time this prescription/item was delivered.
+      samadCode:
+        type: string
+        nullable: true
+        description: SAMAD code of the original prescription.
+      typeId:
+        type: integer
+        nullable: true
+        description: Overall type ID of the prescription.
+      totalAmount:
+        type: number
+        format: double
+        nullable: true
+        description: Total amount for the delivered prescription.
+      totalPatientPayment:
+        type: number
+        format: double
+        nullable: true
+        description: Total amount paid by the patient.
+      isVisitSimultaneous:
+        type: boolean
+        nullable: true
+        description: Indicates if the visit was simultaneous with the prescription order.
+      orderPartnerInfo:
+        $ref: './OrderPartnerInfo.yaml'
+      subscriptionDeliveredInfos:
+        type: array
+        description: List of delivered items that have a reference to an original order item.
+        items:
+          $ref: './SubscriptionDeliveredInfoItemSharedDetail.yaml'
+      subscriptionDeliveredInfosWithNoReference:
+        type: array
+        description: List of delivered items that do not have a reference to an original order item.
+        items:
+          $ref: './SubscriptionDeliveredInfoItemSharedDetail.yaml'
+    # Most fields within info seem optional based on potential variations
+# required:
+  # - resCode
+  # - resMessage
+  # - info # Info itself might be optional on total failure 

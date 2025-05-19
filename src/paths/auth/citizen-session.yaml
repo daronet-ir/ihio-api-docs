@@ -1,0 +1,87 @@
+post:
+  tags:
+    - Authentication
+  summary: Create Citizen Session
+  description: Create a new session for a citizen
+  parameters:
+    - $ref: '../../components/headers/terminalId.yaml'
+    - $ref: '../../components/headers/token.yaml'
+    - $ref: '../../components/headers/clientIPAddress.yaml'
+    - $ref: '../../components/headers/clientAgentInfo.yaml'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/auth/CitizenSessionRequest.yaml'
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/auth/CitizenSessionResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful operation
+              value:
+                resCode: 1 # Standard success code
+                resMessage: "Citizen session opened successfully."
+                info:
+                  citizenSessionId: "cit_sess_123abc789xyz"
+                  isCovered: true
+                  coverageReferenceInternalOwnerId: 1001
+                  age: 30
+                  birthDate: "1993-04-15"
+                  countOfFamilyMember: 3
+                  gender: "M"
+                  geoInfo: "{\"province\":\"Tehran\",\"city\":\"Tehran\"}" # Example JSON string
+                  lastName: "Yazdani"
+                  lifeStatus: "Alive"
+                  name: "Ali"
+                  memberImage: "base64encodedstring..."
+                  productName: "Salamat Insurance Plan A"
+                  registrationStatus: "Active"
+                  relationType: "R"
+                  responsibleFullName: "Mohammad Yazdani"
+                  responsibleNN: "007..."
+                  zipCode: "1234567890"
+                  nationalNumber: "008..."
+                  accountValidto: "2025-12-31"
+                  issuerType: "I"
+                  productId: 205
+                  isReferenceable: true
+                  cellPhoneNumber: "09123456789"
+                  maritalStatus: "M"
+                  familyPhysician: "{\"name\":\"Dr. Ahmadi\",\"code\":\"D456\"}" # Example JSON string
+                  message:
+                    infoMessage: ["Welcome Ali Yazdani!"]
+                    snackMessage: [
+                      {
+                        "type": "I",
+                        "text": "Your session is now active."
+                      }
+                    ]
+                  # specialAccount will be added to CitizenSessionResponse.yaml schema first
+                  specialAccount: "ACC12345"
+            invalidNationalNumber:
+              summary: Invalid national number format
+              description: Invalid national number format
+              value:
+                resCode: -14221
+                resMessage: Invalid national number format
+            eligibilityError:
+              summary: Eligibility service error
+              description: Eligibility service error
+              value:
+                resCode: -14507
+                resMessage: Eligibility service error
+    # '14221':
+    #   description: Invalid national number format
+    # '14507':
+    #   description: Eligibility service error 

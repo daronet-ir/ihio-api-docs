@@ -1,0 +1,14 @@
+type: object
+description: Request to generate a printable version of a specific bill.
+required:
+  - cpartySessionId
+  - billId
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID from authentication of the calling party.
+  billId:
+    type: integer
+    format: int64 # Bill IDs can sometimes be long
+    description: Identifier of the bill to be printed.
+    minimum: 1 

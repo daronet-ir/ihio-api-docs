@@ -1,0 +1,16 @@
+type: object
+description: A single message item, typically used in arrays for info or snackbar messages.
+properties:
+  text:
+    type: string
+    description: The content of the message.
+    example: "عملیات با موفقیت انجام شد."
+  type:
+    type: string
+    description: "Type of the message (e.g., I for Info, W for Warning, E for Error, S for Success)."
+    example: "I"
+# required:
+#   - text
+#   - type
+# Making them not strictly required at item level as API might omit one sometimes,
+# but generally both are expected for a meaningful message. 

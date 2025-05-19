@@ -1,0 +1,65 @@
+post:
+  summary: Save Family Physician Assignment
+  tags:
+    - Partner Management
+  description: Assigns a family physician to a citizen, or updates the existing assignment.
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/partner/FamilyPhysicianSaveRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        `resCode: 1` indicates success. See examples for details.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: ../../components/schemas/partner/FamilyPhysicianSaveResponse.yaml
+              - $ref: ../../components/schemas/ErrorResponse.yaml
+          examples:
+            success:
+              summary: Successfully assigned family physician
+              value:
+                resCode: 1
+                resMessage: ".دش ماجنا تیقفوم اب تلامع" # "Operation completed successfully."
+                info:
+                  message:
+                    snackMessage:
+                      - text: ".دش ماجنا تیقفوم اب نکشزپ هب هدش همیب باستنا"
+                        type: "I"
+                    infoMessage: []
+            citizenNotFound:
+              summary: Citizen not found
+              value:
+                resCode: -23101
+                resMessage: ".دشن تفای یزوسرم نتملاع یارب یدورو یاه هداد اب یهاوخمه"
+            invalidDoctorID:
+              summary: Invalid doctor ID
+              value:
+                resCode: -23103
+                resMessage: ".تسین ربتعم کشزپ دک"
+            doctorCannotBeFamilyPhysician:
+              summary: Selected doctor cannot be a family physician
+              value:
+                resCode: -23234
+                resMessage: ".دشاب هداوناخ کشزپ تناوت یمن باختنا کشزپ"
+            generalError:
+              summary: General error
+              value:
+                resCode: -23999 # Example from another endpoint, adjust if output_44.json specifies a different general error
+                resMessage: ".دیریگب سامت هناماس ربهار اب اطفل .یلخاد یاطخ"
+    default:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: ../../components/schemas/ErrorResponse.yaml 

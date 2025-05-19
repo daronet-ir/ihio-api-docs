@@ -1,0 +1,23 @@
+type: object
+properties:
+  resCode:
+    type: integer
+    description: Response code, 1 for success
+  resMessage:
+    type: string
+    description: Response message
+  info:
+    type: object
+    properties:
+      sequenceNumber:
+        type: integer
+        description: Sequence number of delivered prescriptions
+      checkCode:
+        type: string
+        description: Check code for printing the prescription
+      trackingCode:
+        type: string
+        description: Tracking code for the prescription
+      message:
+        type: object
+        description: Messages related to prescription delivery 

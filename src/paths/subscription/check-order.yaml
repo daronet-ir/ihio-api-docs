@@ -1,0 +1,75 @@
+post:
+  tags:
+    - Subscription Management
+  summary: Check Subscription for Order
+  description: Check if a subscription order can be fulfilled
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/subscription/SubscriptionCheckOrderRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/subscription/SubscriptionCheckOrderResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful operation, order allowed
+              value:
+                resCode: 1 # Assuming 1 for success based on similar patterns
+                resMessage: "Operation successful."
+                info:
+                  isAllowed: true
+                  hasContract: true # Example value
+                  message: {}
+                  checkCode: "CHK12345"
+                  maxCoveredCount: 10
+            notAllowed:
+              summary: Operation successful, but order not allowed
+              value:
+                resCode: 1 # Still a successful API call
+                resMessage: "Checked successfully."
+                info:
+                  isAllowed: false
+                  hasContract: false # Example value
+                  message: { "reason": "Exceeded limit" }
+                  checkCode: "CHK54321"
+                  maxCoveredCount: 0
+            invalidSamadCode:
+              summary: Invalid SAMAD code
+              description: The provided SAMAD code is invalid or not found.
+              value:
+                resCode: -23111 # From output_17.json
+                message: "Invalid SAMAD code."
+            serviceNotCovered:
+              summary: Service not covered
+              description: The service requested is not covered under the subscription.
+              value:
+                resCode: -23113 # From output_17.json (and was already in file)
+                message: "Service not covered by subscription."
+            invalidInputData:
+              summary: Invalid input data
+              description: General invalid input data.
+              value:
+                resCode: -23221 # From output_17.json
+                message: "Invalid input data provided."
+            citizenSessionError:
+              summary: Citizen session error
+              description: Error related to the citizen session ID.
+              value:
+                resCode: -23222 # From output_17.json
+                message: "Citizen session ID is invalid or expired."

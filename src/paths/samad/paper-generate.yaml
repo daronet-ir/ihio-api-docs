@@ -1,0 +1,78 @@
+post:
+  tags:
+    - SAMAD
+  summary: Generate Paper SAMAD Code
+  description: Generate a SAMAD code for a paper prescription
+  parameters:
+    - $ref: '../../components/headers/terminalId.yaml'
+    - $ref: '../../components/headers/token.yaml'
+    - $ref: '../../components/headers/clientIPAddress.yaml'
+    - $ref: '../../components/headers/clientAgentInfo.yaml'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/samad/PaperSamadGenerateRequest.yaml'
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/samad/SamadGenerateResponse.yaml' # Reuses common SAMAD generation response
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful paper SAMAD code generation
+              value:
+                resCode: 1
+                resMessage: "Paper SAMAD code generated successfully."
+                info:
+                  message:
+                    infoMessage: []
+                    snackMessage:
+                      -
+                        type: "I"
+                        text: "Paper SAMAD YYYYYYY generated."
+                  samadCode: "SAMADPAPERXXXXX"
+            validationError:
+              summary: Invalid input data for paperInfoWrapper
+              description: One or more fields in paperInfoWrapper are invalid (e.g., missing, incorrect format, out of range).
+              value:
+                resCode: -22231 # From output_8.json
+                resMessage: "Invalid input data. Please check paperInfoWrapper fields. Examples: nomedicalSystem <= 0 or missing, visitDate invalid format or missing, expertiseGrade missing, paperImage missing, partnerContractingPartyId <=0 or missing."
+            samadGenPropNotSet:
+              summary: SAMAD generation property not set
+              description: SAMAD code generation property not set for the specified partner.
+              value:
+                resCode: -22413 # From output_8.json
+                resMessage: "SAMAD code generation property not set for the specified partner."
+            partnerInfoError:
+              summary: Partner information incomplete
+              description: Partner information (e.g., contracting party) is incomplete or missing.
+              value:
+                resCode: -22333 # From output_8.json
+                resMessage: "Partner information is incomplete."
+            dailyLimitReached:
+              summary: Daily SAMAD limit reached
+              description: Daily SAMAD code generation limit reached for the insured person.
+              value:
+                resCode: -22415 # From output_8.json
+                resMessage: "Daily SAMAD code generation limit reached for the insured person."
+            prescriptionSavingError:
+              summary: Error saving paper prescription
+              description: An error occurred while saving the paper prescription details.
+              value:
+                resCode: -22833 # From output_8.json
+                resMessage: "Error saving paper prescription details. Cannot register paper prescription after electronic prescription for the same day/specialty."
+            permissionDenied:
+              summary: Permission denied by online system
+              description: Permission not granted by the online processing system.
+              value:
+                resCode: -22888 # From output_8.json
+                resMessage: "Permission not granted by the online processing system." 

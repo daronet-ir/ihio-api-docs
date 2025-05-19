@@ -1,0 +1,94 @@
+type: object
+properties:
+  resCode:
+    type: integer
+    description: Response code (1 for success)
+  resMessage:
+    type: string
+    description: Response message
+  info:
+    type: object
+    properties:
+      citizenSessionId:
+        type: string
+        description: Generated citizen session string
+      isCovered:
+        type: boolean
+        description: Whether the citizen is covered by insurance
+      coverageReferenceInternalOwnerId:
+        type: integer
+        description: Insurance service identifier
+      age:
+        type: integer
+        description: Citizen's age
+      birthDate:
+        type: string
+        description: Citizen's birth date
+      countOfFamilyMember:
+        type: integer
+        description: Number of family members
+      gender:
+        type: string
+        description: Gender (M for male, F for female)
+      geoInfo:
+        type: string
+        description: Geographic location information (JSON string expected).
+      lastName:
+        type: string
+        description: Citizen's last name
+      lifeStatus:
+        type: string
+        description: Death date if applicable
+      name:
+        type: string
+        description: Citizen's first name
+      memberImage:
+        type: string
+        description: Insured person's image data
+      productName:
+        type: string
+        description: Insurance service name
+      registrationStatus:
+        type: string
+        description: Insured person's identity status
+      relationType:
+        type: string
+        description: Relationship with guardian (R:Guardian, C:Child, S:Spouse, T:Sister, F:Father, M:Mother, B:Brother, O:Other)
+      responsibleFullName:
+        type: string
+        description: Guardian's full name
+      responsibleNN:
+        type: string
+        description: Guardian's national number
+      zipCode:
+        type: string
+        description: Postal code
+      nationalNumber:
+        type: string
+        description: Citizen's national number
+      accountValidto:
+        type: string
+        description: Service validity
+      issuerType:
+        type: string
+        description: Insurance issuer type (I:Health Insurance, T:Social Security, B:Bista(Free), M:Unknown)
+      productId:
+        type: integer
+        description: Fund identifier
+      isReferenceable:
+        type: boolean
+        description: Whether the citizen can be referenced
+      cellPhoneNumber:
+        type: string
+        description: Mobile phone number
+      maritalStatus:
+        type: string
+        description: Marital status (S:Single, M:Married)
+      familyPhysician:
+        type: string
+        description: Insured person's family physician (JSON string expected).
+      message:
+        $ref: '../common/Message.yaml'
+      specialAccount:
+        type: string
+        description: Special account identifier for the citizen. 

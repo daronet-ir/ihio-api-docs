@@ -1,0 +1,17 @@
+type: object
+properties:
+  resCode:
+    type: integer
+    description: Response code (1 for success)
+  resMessage:
+    type: string
+    description: Response message
+  info:
+    type: object
+    properties:
+      message:
+        $ref: '../common/Message.yaml'
+      samadCode:
+        type: string
+        description: Generated SAMAD code
+        example: "218832105840419810" 

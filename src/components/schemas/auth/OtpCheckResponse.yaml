@@ -1,0 +1,14 @@
+type: object
+properties:
+  resCode:
+    type: integer
+    description: Response code (1 for success)
+  resMessage:
+    type: string
+    description: Response message
+  info:
+    type: object
+    properties:
+      sessionId:
+        type: string
+        description: Generated session string 

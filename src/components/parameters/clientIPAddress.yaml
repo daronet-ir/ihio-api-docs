@@ -1,0 +1,6 @@
+name: clientIPAddress
+in: header
+schema:
+  type: string
+required: true
+description: User IP address 

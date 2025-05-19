@@ -1,0 +1,20 @@
+type: object
+required:
+  - cpartySessionId
+  - citizenSessionId
+  - searchClause
+  - maxResultCount
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID received from user authentication or two-factor authentication service
+  citizenSessionId:
+    type: string
+    description: Citizen session ID received from citizen session creation service
+  searchClause:
+    type: string
+    description: Search term for finding products
+  maxResultCount:
+    type: integer
+    format: int32
+    description: Maximum number of results to return 

@@ -1,0 +1,6 @@
+type: object
+properties:
+  productInfo:
+    $ref: '../product/ProductInfo.yaml' # Adjusted path
+  serviceInfo:
+    $ref: '../service/ServiceInfo.yaml'   # Adjusted path 

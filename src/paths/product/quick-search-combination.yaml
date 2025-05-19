@@ -1,0 +1,64 @@
+post:
+  tags:
+    - Product Management
+  summary: Quick Search Products by Combination Name
+  description: Quickly search for products using their combination name (generic or IRC based on productType)
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/product/ProductQuickSearchCombinationRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/product/ProductQuickSearchIRCResponse.yaml' # Reusing IRC response structure
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful quick search by combination
+              value:
+                resCode: 1
+                resMessage: "عملیات با موفقیت انجام شد"
+                info:
+                  -
+                    fullName: "TINYPHEN 125mg|(...)"
+                    shortName: "ACETAMINOPHEN 125mg TINYPHEN (-5952)"
+                    nationalNumber: "2157131736861839" # IRC
+                    genericCode: "00522"
+                    interfaceName: "ACETAMINOPHEN 125mg TINYPHEN (-5952)"
+                    description: "ACETAMINOPHEN TABLET, FOR SOLUTION ORAL 125 mg"
+                    NORepeat: 1
+                    state:
+                      isCovered: true
+                      shape: "TABLET"
+            noProductFound:
+              summary: No product found
+              description: No medicine found for the given criteria.
+              value:
+                resCode: -29115
+                resMessage: ".دشن تفای ییوراد"
+            internalError:
+              summary: Internal server error
+              description: Internal system error, please contact system admin.
+              value:
+                resCode: -29116
+                resMessage: ".دیریگب سامت هناماس ربهار اب ،هناماس یلخاد یاطخ"
+            invalidInput:
+              summary: Invalid input specifications
+              description: Input specifications are not valid (e.g., maxResultCount <= 0, null productType, etc.).
+              value:
+                resCode: -29201
+                resMessage: ".تسین ربتعم هدش لاسرا یدورو تاصخشم"

@@ -1,0 +1,13 @@
+type: object
+description: Represents a UID and its count for prescription delivery.
+properties:
+  uId:
+    type: string
+    description: The unique identifier (UID) of the item.
+  count:
+    type: integer
+    format: int32
+    description: The count of the item associated with this UID.
+required:
+  - uId
+  - count 

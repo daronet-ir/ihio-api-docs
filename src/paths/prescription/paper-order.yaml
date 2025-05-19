@@ -1,0 +1,88 @@
+post:
+  tags:
+    - Prescription Management
+  summary: Order Paper Prescription
+  description: Create an order for a paper-based prescription
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/prescription/PrescriptionSaveRequest.yaml # Request is same as e-prescription save
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/prescription/PaperPrescriptionOrderResponse.yaml' # Changed to specific paper order response
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful paper prescription order
+              value:
+                resCode: 1 # Assuming 1 for overall success
+                resMessage: "Paper prescription ordered successfully."
+                info:
+                  sequenceNumber: 1
+                  checkCode: "PAPERCHK123"
+                  trackingCode: "PAPERTRK789"
+                  message: { detail: "Order for paper prescription created." }
+            invalidCheckCode:
+              summary: Invalid CheckCode for paper order
+              description: One or more checkCodes provided are invalid, not for paper, or mismatch.
+              value:
+                resCode: -77211 # Example
+                resMessage: "Invalid checkCode for paper order."
+            itemsNotGeneric:
+              summary: Items not generic
+              description: Cannot create paper order, prescription items must be generic.
+              value:
+                resCode: -77217
+                resMessage: "Prescription items must be generic for paper order."
+            invalidSamadCode:
+              summary: Invalid SamadCode for paper order
+              description: The samadCode is invalid, not found, or has other issues for paper order.
+              value:
+                resCode: -77241 # Example
+                resMessage: "Invalid samadCode for paper order."
+            alreadyUsedOrProcessed:
+              summary: SamadCode or CheckCode Already Used/Processed for paper order
+              value:
+                resCode: -77270 # or -77271
+                resMessage: "SamadCode or CheckCode already processed for paper order."
+            internalProcessingError:
+              summary: Internal Processing Error for paper order
+              value:
+                resCode: -77407
+                resMessage: "Internal error processing paper prescription order."
+            subscriptionServiceError:
+              summary: Subscription Service Error for paper order
+              value:
+                resCode: -77555
+                resMessage: "Error with subscription service during paper order."
+    # Error codes from output_28.json for reference:
+    # -77211: Invalid checkCode (format, null, empty)
+    # -77212: checkCode status not 'delivered'
+    # -77213: checkCode not for paper prescription
+    # -77214: checkCode not related to patient
+    # -77215: checkCode not related to doctor
+    # -77216: checkCode not related to prescription date
+    # -77217: Items must be generic for paper order
+    # -77221: Confirmed request data not available
+    # -77236: checkCode not related to samadCode
+    # -77241: Invalid samadCode (format, null, empty, length)
+    # ... many samadCode issues ...
+    # -77270: samadCode already used
+    # -77271: checkCode already processed
+    # -77407: Internal processing error
+    # -77555: Subscription service error 

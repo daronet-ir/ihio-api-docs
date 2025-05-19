@@ -1,0 +1,14 @@
+type: object
+description: Contains arrays of detailed info and snack messages related to the prescription save operation.
+properties:
+  infoMessage:
+    type: array
+    items:
+      $ref: './ResponseMessageItem.yaml'
+    description: Array of informational messages.
+  snackMessage:
+    type: array
+    items:
+      $ref: './ResponseMessageItem.yaml'
+    description: Array of snackbar-style messages.
+# Add required for infoMessage/snackMessage if they are always present, even if empty arrays. 

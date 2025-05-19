@@ -1,0 +1,55 @@
+post:
+  tags:
+    - Authentication
+  summary: Verify Two-Factor Authentication
+  description: Verify the OTP code for two-factor authentication
+  parameters:
+    - $ref: '../../components/headers/terminalId.yaml'
+    - $ref: '../../components/headers/token.yaml'
+    - $ref: '../../components/headers/clientIPAddress.yaml'
+    - $ref: '../../components/headers/clientAgentInfo.yaml'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/auth/OtpCheckRequest.yaml'
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/auth/OtpCheckResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful OTP verification
+              value:
+                resCode: 1
+                resMessage: "OTP verification successful."
+                info:
+                  sessionId: "new_session_id_after_otp_check_xxxx"
+            invalidOtpFormat:
+              summary: Invalid OTP format or value
+              description: OTP less than or equal to 0, or other format issues.
+              value:
+                resCode: -31231
+                resMessage: "Invalid OTP format or value provided."
+            incorrectOtp:
+              summary: Incorrect OTP
+              description: The provided OTP does not match the expected value.
+              value:
+                resCode: -31646
+                resMessage: "Incorrect OTP. Please try again."
+            otpExpiredOrInvalidSession:
+              summary: OTP expired or cpartySessionId invalid
+              description: The OTP may have expired, or the cpartySessionId is no longer valid.
+              value:
+                resCode: -31647
+                resMessage: "OTP has expired or the session is invalid."
+# ... any other specific error codes from output_3.json could be added here 

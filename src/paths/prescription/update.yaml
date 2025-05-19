@@ -1,0 +1,109 @@
+post:
+  tags:
+    - Prescription Management
+  summary: Update Prescription
+  description: Update an existing electronic prescription
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/prescription/PrescriptionUpdateRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/prescription/PrescriptionUpdateResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful prescription update
+              value:
+                resCode: 1 # Assuming 1 for overall success
+                resMessage: "Prescription updated successfully."
+                info:
+                  trackingCode: "TRKUPDT12345"
+                  message:
+                    infoMessage: []
+                    snackMessage: [
+                      { "text": "Updated!", "type": "SUCCESS" }
+                    ]
+            prescriptionNotFound:
+              summary: Prescription not found or not updatable by user
+              value:
+                resCode: -8211 
+                resMessage: "Prescription not found or cannot be updated by this user."
+            invalidCheckCodeAdd:
+              summary: Invalid CheckCode in subscriptions (add/update list)
+              description: One or more checkCodes in the 'subscriptions' array are invalid.
+              value:
+                resCode: -8212 # Example
+                resMessage: "Invalid checkCode in subscriptions list."
+            invalidCheckCodeDelete:
+              summary: Invalid CheckCode in deleteSubscriptions
+              description: One or more checkCodes in the 'deleteSubscriptions' array are invalid or not found in prescription.
+              value:
+                resCode: -8221 # or -8272
+                resMessage: "Invalid checkCode in deleteSubscriptions list."
+            invalidSamadCode:
+              summary: Invalid SamadCode for update
+              description: The samadCode is invalid, not found, or its status prevents update.
+              value:
+                resCode: -8241 # Example
+                resMessage: "Invalid samadCode for update."
+            noItemsAfterUpdate:
+              summary: Update results in no items
+              description: The update operation would result in a prescription with no items.
+              value:
+                resCode: -8273
+                resMessage: "Update would result in an empty prescription."
+            internalProcessingError:
+              summary: Internal Processing Error during update
+              description: An internal error occurred while updating the prescription.
+              value:
+                resCode: -8407
+                resMessage: "Internal error processing prescription update."
+            subscriptionServiceInteractionError:
+              summary: Subscription Service Interaction Error during update
+              description: An error occurred while interacting with the subscription service during update.
+              value:
+                resCode: -8555
+                resMessage: "Error with subscription service during update."
+    # Full list of error codes from output_25.json for reference:
+    # -8211: Update error, prescription not found for user.
+    # -8212: Invalid checkCode in subscriptions (format, null, empty).
+    # -8213: checkCode in subscriptions status not 'delivered'.
+    # ... many more for subscriptions array items ...
+    # -8221: Invalid checkCode in deleteSubscriptions (format, null, empty).
+    # ... many more for deleteSubscriptions array items ...
+    # -8236: checkCode in subscriptions not related to samadCode.
+    # -8237: checkCode in deleteSubscriptions not related to samadCode.
+    # -8241: Invalid samadCode (format, null, empty, length).
+    # -8243: samadCode not found.
+    # -8244: samadCode is archived.
+    # -8245: Error fetching details from other systems (for samadCode).
+    # -8246: samadCode status prevents update.
+    # ... many more samadCode issues ...
+    # -8270: samadCode already used in another confirmed prescription.
+    # -8271: checkCode in subscriptions already processed.
+    # -8272: checkCode in deleteSubscriptions not found in current prescription.
+    # -8273: Update leads to no items in prescription.
+    # -8407: Internal processing error.
+    # -8555: Subscription service error.
+    # '-26211':
+    #   description: Invalid input data
+    # '-26407':
+    #   description: Internal error processing request - contact system administrator
+    # '-26115':
+    #   description: Prescription not found or cannot be updated 

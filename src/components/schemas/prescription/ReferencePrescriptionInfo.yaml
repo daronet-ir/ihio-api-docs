@@ -1,0 +1,7 @@
+type: object
+description: Wrapper for the actual reference prescription information.
+properties:
+  referencePrescriptionInfo:
+    $ref: './ActualReferencePrescriptionInfo.yaml'
+required:
+  - referencePrescriptionInfo 

@@ -1,0 +1,83 @@
+type: object
+description: Details of a delivered subscription item that has a reference to an original order item.
+properties:
+  numberOfDelivered:
+    type: number
+    format: double
+    description: Quantity of the item delivered.
+  numberOfRequest:
+    type: number
+    format: double
+    nullable: true
+    description: Original quantity requested for this item.
+  numberOfPeriod:
+    type: number
+    format: double
+    nullable: true
+    description: Original number of periods for this item.
+  description:
+    type: string
+    nullable: true
+    description: Description of the delivered item.
+  amount:
+    type: number
+    format: double
+    nullable: true
+    description: Total amount for the delivered item.
+  patientPayment:
+    type: number
+    format: double
+    nullable: true
+    description: Amount paid by the patient for the delivered item.
+  consumption:
+    type: string
+    nullable: true
+    description: Consumption method.
+  consumptionSNOMEDCode:
+    type: string
+    nullable: true
+    description: SNOMED code for consumption.
+  consumptionInstruction:
+    type: string
+    nullable: true
+    description: Consumption instructions.
+  shape:
+    type: string
+    nullable: true
+    description: Shape of the medicine.
+  bulkId:
+    type: integer
+    nullable: true
+    description: Bulk ID, if applicable.
+  serviceFullName:
+    type: string
+    nullable: true
+    description: Full name of the delivered service/item.
+  serviceShortName:
+    type: string
+    nullable: true
+    description: Short name of the delivered service/item.
+  serviceInterfaceName:
+    type: string
+    nullable: true
+    description: Interface name of the delivered service/item.
+  serviceGenericCode:
+    type: string
+    nullable: true
+    description: Generic code of the actual delivered service/item.
+  serviceNationalNumber:
+    type: string
+    nullable: true
+    description: National number (IRC/GTIN) of the actual delivered service/item.
+  serviceDescription:
+    type: string
+    nullable: true
+    description: Description of the delivered service/item.
+  serviceOrderGenericCode:
+    type: string
+    nullable: true
+    description: Generic code of the originally ordered service/item (reference).
+  serviceOrderNationalNumber:
+    type: string
+    nullable: true
+    description: National number of the originally ordered service/item (reference). 

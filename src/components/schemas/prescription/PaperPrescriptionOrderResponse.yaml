@@ -1,0 +1,34 @@
+type: object
+description: Response schema for a paper prescription order.
+properties:
+  resCode:
+    type: integer
+    description: Response code (e.g., 1 for success).
+  resMessage:
+    type: string
+    description: Response message.
+  info:
+    type: object
+    properties:
+      sequenceNumber:
+        type: integer
+        format: int32
+        description: Sequence number for the paper order transaction.
+      checkCode:
+        type: string
+        description: Check code associated with the paper order.
+      trackingCode:
+        type: string
+        description: Tracking code for the paper order.
+      message:
+        $ref: './PrescriptionResponseMessageDetails.yaml' # Reusing generic flexible message schema
+        description: Detailed messages or additional information related to the paper order.
+    # required: 
+      # - sequenceNumber
+      # - checkCode
+      # - trackingCode
+      # - message # Depending on whether these are always present in info
+# required:
+  # - resCode
+  # - resMessage
+  # - info # Info itself might be optional on overall error 

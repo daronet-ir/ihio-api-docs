@@ -1,0 +1,24 @@
+type: object
+required:
+  - cpartySessionId
+  - citizenSessionId
+  - samadCode # Different from deliver/price which uses trackingCode
+  - checkCode
+  - basePrice
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID for the contracting party
+  citizenSessionId:
+    type: string
+    description: Citizen session ID
+  samadCode:
+    type: string
+    description: SAMAD code related to the paper prescription/order
+  checkCode:
+    type: string
+    description: Check code obtained from a previous step
+  basePrice:
+    type: integer
+    format: int32
+    description: Base price to be checked/considered for paper item 

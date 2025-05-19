@@ -1,0 +1,6 @@
+name: cpartySessionId
+in: query
+required: true
+schema:
+  type: string
+description: Session ID received from user authentication or two-factor authentication service 

@@ -1,0 +1,108 @@
+post:
+  tags:
+    - Prescription Management
+  summary: Deliver Paper Prescription
+  description: Mark a paper prescription as delivered
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/prescription/PaperPrescriptionDeliverRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/prescription/PaperPrescriptionDeliverResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful paper prescription delivery
+              value:
+                resCode: 1 # Assuming 1 for success as per other files
+                resMessage: "عملیات با موفقیت انجام شد" # Generic success message
+                info:
+                  sequenceNumber: 12345
+                  checkCode: "CHK789PAPER"
+                  trackingCode: "TRKXYZPAPER"
+                  message: {}
+            invalidCheckCodeFormatOrValue:
+              summary: Invalid check code format or value
+              description: "Error when checkCode format is invalid, null, or doesn't meet criteria."
+              value:
+                resCode: -78211
+                resMessage: ".دشاب \nمنی \nحیحص \nلاسرا کچدک \n:دهد خر ریز دراوم زا یکی \n:حیضوت \n \n checkCode·\n.دشاب یلاخ \nدلیف \n \nnull\ncheckCode·\n.دشاب \n ربارب \n دلیف \ncheckCode·\n \n.دشابن حیحص \n راتخاس"
+            expiredCheckCode:
+              summary: Expired check code
+              description: "Error when the provided checkCode has expired."
+              value:
+                resCode: -78212
+                resMessage: ".\nدییامن مادقا کچدک \nتفایرد هب تبسن اددجم .تسا هدش \nیضقنم \nلاسرا کچدک"
+            checkCodeNotForPaper:
+              summary: Check code not for paper prescription
+              description: "Error when the checkCode is not designated for a paper prescription."
+              value:
+                resCode: -78213
+                resMessage: ".دشاب \nمنی \nیذغاک هخسن هب قلعتم \nلاسرا کچدک"
+            checkCodeNotBelongToPartner:
+              summary: Check code does not belong to partner
+              description: Check code does not belong to this partner/pharmacy.
+              value:
+                resCode: -78214
+                resMessage: ".دشاب \nراکی \nمنی \n رشکی \n نی\nا هب قلعتم \nلاسرا کچدک"
+            paperPrescriptionNotFound:
+              summary: Paper prescription information not found
+              description: Paper prescription information not found for the given identifier.
+              value:
+                resCode: -78302
+                resMessage: ".دشن \nتفای \nیذغاک هخسن تاعلاطا"
+            duplicateServiceInList:
+              summary: Duplicate service in list
+              description: Error when a service is listed multiple times in the request.
+              value:
+                resCode: -78305
+                resMessage: ".دراد دوجو تامدخ تسرهف رد \nیرارکت تمدخ"
+            uidRequiredForDrug:
+              summary: UID required for drug
+              description: UID is required for the drug but not provided or invalid.
+              value:
+                resCode: -78411 # Updated from -78421
+                resMessage: "UID\n \n.دشاب \nیمی \nمازلا \nیوراد \nیارب لاسرا\nی \nوراد\nیارب"
+            invalidSamadCodeFormat:
+              summary: Invalid SamadCode format or value
+              description: Error when SamadCode format is invalid or does not meet criteria.
+              value:
+                resCode: -78241
+                resMessage: ".\nتسین ربتعم هدش لاسرا\n  \n دامس هرامش \n:دهد خر ریز دراوم زا یکی \n:حیضوت \n \n samadCode·\n.دشاب یلاخ \nدلیف \n \nnull\n samadCode·\n.دشاب \n ربارب \nدلیف \n \n samadCode·\n.دشابن یمقر 18 \nیا 16 \n دلیف \n samadCode·\n \n.دشابن ربتعم \n راتخاس"
+            # For example, a common UID validation error:
+            uidInvalidFormat:
+              summary: UID invalid format
+              description: The format of the provided UID is invalid.
+              value:
+                resCode: -78412
+                resMessage: "UID\\n \\n.دشاب \\nیمن \\nربتعم \\nیلاسرا \\nیلاسرا \\nوراد \\nیارب"
+    # '-78211':
+    #   description: Invalid check code
+    # '-78214':
+    #   description: Check code does not belong to this partner
+    # '-78302':
+    #   description: Paper prescription information not found
+    # '-78305':
+    #   description: Duplicate service in the list
+    # '-78421':
+    #   description: UID is required for the drug
+    # '-78422':
+    #   description: Invalid UID
+    # '-78424':
+    #   description: Invalid UID count 

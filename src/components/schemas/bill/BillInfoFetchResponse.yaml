@@ -1,0 +1,54 @@
+type: object
+description: Response containing bill information for the specified period.
+required:
+  - resCode
+  - resMessage
+properties:
+  resCode:
+    type: integer
+    description: Response code (e.g., 1 for success).
+  resMessage:
+    type: string
+    description: Response message.
+  info:
+    type: array
+    nullable: true # info can be an empty array or null if no bills found or an error occurs
+    description: List of bill details for the requested period.
+    items:
+      type: object
+      properties:
+        billId:
+          type: integer
+          description: Unique identifier of the bill.
+        billType:
+          type: string
+          description: Type of the bill (e.g., code or category).
+        billTypeName:
+          type: string
+          description: Descriptive name for the bill type.
+        billCycle:
+          type: string
+          description: Billing cycle information (e.g., YYYYMM).
+        description:
+          type: string
+          description: Additional description or notes for the bill.
+        billInfo:
+          type: object
+          description: Detailed information about the bill's contents.
+          properties:
+            productName:
+              type: string
+              description: Name of the product or service.
+            ' specialAccount': # Key has a leading space
+              type: string
+              description: Information about any special account related to the bill item.
+            ' type': # Key has a leading space
+              type: string
+              description: Type of the bill item (e.g., VISIT, SERVICE).
+            count:
+              type: integer
+              description: Quantity or count of the item.
+            orgPart:
+              type: number
+              format: double
+              description: Organizational part or share in the cost. 

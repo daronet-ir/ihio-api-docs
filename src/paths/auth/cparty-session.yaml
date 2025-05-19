@@ -1,0 +1,89 @@
+post:
+  tags:
+    - Authentication
+  summary: Open Counterparty Session
+  description: Create a new session for the user
+  parameters:
+    - $ref: '../../components/headers/terminalId.yaml'
+    - $ref: '../../components/headers/token.yaml'
+    - $ref: '../../components/headers/clientIPAddress.yaml'
+    - $ref: '../../components/headers/clientAgentInfo.yaml'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/auth/SessionRequest.yaml'
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/responses/CpartySessionSuccessResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful operation
+              value:
+                $ref: '../../components/responses/CpartySessionSuccessResponse.yaml'
+            userNoAccess:
+              summary: User has no access
+              description: User has no access to electronic prescription services
+              value:
+                resCode: -12114
+                resMessage: User has no access to electronic prescription services
+            invalidLogin:
+              summary: Invalid username or password
+              description: Invalid username or password
+              value:
+                resCode: -12201
+                resMessage: Invalid username or password
+            invalidCredentials:
+              summary: Invalid credentials
+              description: Invalid credentials
+              value:
+                resCode: -12305
+                resMessage: Invalid credentials
+            colleagueTypeUndefined:
+              summary: Colleague type not defined
+              description: Colleague type not defined
+              value:
+                resCode: -12309
+                resMessage: Colleague type not defined
+            invalidPartnerTypeOrOtp:
+              summary: Invalid partner type or two-step login
+              description: Invalid partner type or two-step login property
+              value:
+                resCode: -12310
+                resMessage: Invalid partner type or two-step login property
+            invalidPartnerType:
+              summary: Invalid partner type property
+              description: Invalid partner type property
+              value:
+                resCode: -12311
+                resMessage: Invalid partner type property
+            partnerDataNotFound:
+              summary: Partner data not found
+              description: Data not found - Partner information may have been deleted
+              value:
+                resCode: -12333
+                resMessage: Data not found - Partner information may have been deleted
+    # '12114':
+    #   description: User has no access to electronic prescription services
+    # '12201':
+    #   description: Invalid username or password
+    # '12305':
+    #   description: Invalid credentials
+    # '12309':
+    #   description: Colleague type not defined
+    # '12310':
+    #   description: Invalid partner type or two-step login property
+    # '12311':
+    #   description: Invalid partner type property
+    # '12333':
+    #   description: Data not found - Partner information may have been deleted 

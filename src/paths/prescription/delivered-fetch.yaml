@@ -1,0 +1,124 @@
+post:
+  tags:
+    - Prescription Management
+  summary: Fetch Delivered Prescription
+  description: Retrieve information about prescriptions that have been delivered
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/prescription/PrescriptionDeliveredFetchRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/prescription/PrescriptionDeliveredFetchResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successfully fetched delivered prescription details
+              value:
+                resCode: 1
+                resMessage: "اطلاعات نسخه تحویل شده با موفقیت دریافت شد."
+                info:
+                  orderedDate: "1402/10/01 10:00:00"
+                  deliveredDate: "1402/10/01 14:30:00"
+                  samadCode: "SAMAD123PRESCRIPTION"
+                  typeId: 1
+                  totalAmount: 300000.0
+                  totalPatientPayment: 60000.0
+                  isVisitSimultaneous: false
+                  orderPartnerInfo:
+                    partnerName: "دکتر معالج"
+                    partnerPhone: "02112345678"
+                    contractPartyName: "بیمه سلامت"
+                    noMedicalSystem: 98765
+                    licenseName: "متخصص اطفال"
+                  subscriptionDeliveredInfos:
+                    - numberOfDelivered: 1.0
+                      numberOfRequest: 1.0
+                      numberOfPeriod: 1.0
+                      description: "شربت آموکسی سیلین 125"
+                      amount: 150000.0
+                      patientPayment: 30000.0
+                      consumption: "هر 8 ساعت 5 سی سی"
+                      consumptionSNOMEDCode: "SCTAMX125"
+                      consumptionInstruction: "قبل از مصرف تکان دهید"
+                      shape: "SYRUP"
+                      bulkId: 101
+                      serviceFullName: "شربت آموکسی سیلین 125 میلی گرم/5 میلی لیتر"
+                      serviceShortName: "آموکسی 125 شربت"
+                      serviceInterfaceName: "Amoxicillin125mgSyrup"
+                      serviceGenericCode: "GABCDE"
+                      serviceNationalNumber: "NABCDE"
+                      serviceDescription: "شربت آنتی بیوتیک"
+                      serviceOrderGenericCode: "GABCDE-ORD"
+                      serviceOrderNationalNumber: "NABCDE-ORD"
+                  subscriptionDeliveredInfosWithNoReference:
+                    - numberOfDelivered: 2.0
+                      numberOfRequest: 2.0
+                      numberOfPeriod: 1.0
+                      description: "سرنگ انسولین BD لوئردوز"
+                      amount: 150000.0
+                      patientPayment: 30000.0
+                      consumption: "طبق دستور"
+                      consumptionSNOMEDCode: "SCTINSULINSYR"
+                      consumptionInstruction: "یکبار مصرف"
+                      shape: "SYRINGE"
+                      bulkId: 202
+                      serviceFullName: "سرنگ انسولین BD لوئردوز 0.5 سی سی"
+                      serviceShortName: "سرنگ انسولین"
+                      serviceInterfaceName: "InsulinSyringeBD0.5cc"
+                      serviceGenericCode: "GXYZ123"
+                      serviceNationalNumber: "NXYZ123"
+                      serviceDescription: "سرنگ تزریق انسولین"
+                      serviceOrderGenericCode: "GXYZ123-ORD"
+                      serviceOrderNationalNumber: "NXYZ123-ORD"
+            invalidSession:
+              summary: Invalid cpartySessionId
+              description: "Error when cpartySessionId is invalid or expired."
+              value:
+                resCode: -33212 # From output_35.json
+                resMessage: "شناسه جلسه کاری نامعتبر است." # Generic, specific from doc is complex
+            invalidCheckCode:
+              summary: Invalid CheckCode format or value
+              description: "Error when checkCode format is invalid, null, or doesn't meet criteria."
+              value:
+                resCode: -33211 # From output_35.json
+                resMessage: "کد پیگیری ارسال شده صحیح نمی باشد. ممکن است خالی باشد یا طول آن اشتباه باشد یا ساختار آن صحیح نباشد."
+            deliveredInfoNotFound:
+              summary: Delivered prescription information not found
+              description: No delivered prescription information found for the given checkCode.
+              value:
+                resCode: -33301 # From output_35.json
+                resMessage: "اطلاعات نسخه تحویل شده یافت نشد."
+            prescriptionDeleted:
+              summary: Prescription already deleted
+              description: The original prescription related to this delivery has been deleted.
+              value:
+                resCode: -33402 # From output_35.json
+                resMessage: "نسخه قبلا حذف شده است."
+            checkCodeNotForPartner:
+              summary: CheckCode not for this partner
+              description: The provided checkCode does not belong to the authenticated partner/pharmacy.
+              value:
+                resCode: -15212
+                resMessage: ".دشاب \nراکی \nمنی \n رشکی \n نیا هب قلعتم \nلاسرا کچدک"
+            prescriptionArchived:
+              summary: Prescription is archived
+              description: The original prescription related to this delivery is archived.
+              value:
+                resCode: -15313
+                resMessage: ".دشن \nتفای \nی اهخسن \nرزیر" 

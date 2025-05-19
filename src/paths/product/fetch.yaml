@@ -1,0 +1,48 @@
+post:
+  tags:
+    - Product Management
+  summary: Fetch Product Details
+  description: Retrieve product information based on its IRC code
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/product/ProductFetchRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: ../../components/schemas/product/ProductFetchResponse.yaml
+              - $ref: ../../components/schemas/ErrorResponse.yaml
+          examples:
+            success:
+              summary: Successful product fetch
+              value:
+                resCode: 1
+                resMessage: "Product fetched successfully."
+                info:
+                  genericCode: "GENERIC12345"
+            ircCodeNull:
+              summary: IRC code is null
+              description: The provided ircCode is null or empty.
+              value:
+                resCode: -21211
+                resMessage: "ircCode null است"
+            invalidIrcInfo:
+              summary: Invalid IRC information
+              description: The provided IRC information is invalid or not found.
+              value:
+                resCode: -21321
+                resMessage: "اطلاعات IRC نامعتبر است"

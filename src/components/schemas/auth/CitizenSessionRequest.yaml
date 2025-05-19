@@ -1,0 +1,12 @@
+type: object
+required:
+  - cpartySessionId
+  - nationalNumber
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID received from user authentication or two-factor authentication service
+  nationalNumber:
+    type: string
+    description: Citizen's national number
+    example: "1234567890" 

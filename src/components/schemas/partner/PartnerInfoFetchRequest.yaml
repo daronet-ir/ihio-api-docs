@@ -1,0 +1,21 @@
+type: object
+description: Request to fetch detailed partner information using National Number and/or Print Code.
+required:
+  - cpartySessionId
+  # Either nationalNumber or printCode (or both) should be provided based on API behavior.
+  # The API docs (output_43.json) imply they might be used together or one of them.
+  # Marking them as not strictly required in schema, but API logic will enforce.
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID from authentication of the calling party.
+  nationalNumber:
+    type: string
+    nullable: true # Making it nullable as one of the two might be sufficient
+    description: National number of the partner or person related to the print code.
+    example: "1234567890"
+  printCode:
+    type: string
+    nullable: true # Making it nullable as one of the two might be sufficient
+    description: Print code (e.g., from a prescription) to identify related partner(s).
+    example: "P12345" 

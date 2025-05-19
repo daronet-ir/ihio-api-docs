@@ -1,0 +1,72 @@
+post:
+  summary: Print Order
+  tags:
+    - Printing
+  description: Generate a printable version of an order
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/print/OrderPrintRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/print/OrderPrintResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successfully generated print order
+              value:
+                resCode: 1
+                resMessage: "عملیات با موفقیت انجام شد."
+                info:
+                  print: "U0FNRVRIQVRUSEVSRSBERUxJVkVSWU5PVEUuLi4="
+            invalidType:
+              summary: Invalid print type specified
+              description: "The provided 'type' is not one of the allowed values (drug, physiotherapy, test, imaging, reference, doctor)."
+              value:
+                resCode: -40201
+                resMessage: "اطلاعات ورودی ارسالی معتبر نمی باشد :دهد خر ریز دراوم زا یکی :حیضوت type .دشاب یلاخ دلیف null type .دشاب ربارب دلیف drug, physiotherapy ,test, imaging, reference, doctor type ریداقم زا یکی دلیف .دشابن"
+            invalidSamadCode:
+              summary: Invalid SAMAD Code format or value
+              description: "Error when SAMAD Code is invalid (format, null, length) or doesn't meet criteria."
+              value:
+                resCode: -40241
+                resMessage: "شماره دامس ارسالی معتبر نمی باشد :دهد خر ریز دراوم زا یکی :حیضوت samadCode .دشاب یلاخ دلیف null samadCode .دشاب ربارب دلیف samadCode .دشابن یمقر18 ای16 دلیف samadCode .دشابن ربتعم راتخاس"
+            samadCodeNotAuthenticated:
+              summary: SAMAD Code not authenticated or session invalid
+              description: The SAMAD code provided is not authenticated or the session is invalid.
+              value:
+                resCode: -40242
+                resMessage: "اوتحم ی هسانش دامس متعلق به این نشست نمی باشد."
+            prescriptionNotFoundForSamadCode:
+              summary: Prescription not found for SAMAD code
+              description: No prescription record found for the given SAMAD code.
+              value:
+                resCode: -40301
+                resMessage: "هسانش پاچ/یریگهر ارسالی مربوط به بنیاد همیب نمی باشد."
+            prescriptionArchived:
+              summary: Prescription is archived
+              description: The prescription associated with the SAMAD code is archived and cannot be printed.
+              value:
+                resCode: -40311
+                resMessage: "رزیر نسخ ی اه تفای دشن."
+            prescriptionNotFoundGeneric:
+              summary: Prescription not found (generic)
+              description: A general error indicating the prescription was not found.
+              value:
+                resCode: -40320
+                resMessage: "هخسن ی تفای دشن." 

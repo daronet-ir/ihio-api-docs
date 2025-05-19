@@ -1,0 +1,6 @@
+name: terminalId
+in: header
+schema:
+  type: integer
+required: true
+description: Terminal ID of service caller 

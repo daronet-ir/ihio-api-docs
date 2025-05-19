@@ -1,0 +1,43 @@
+post:
+  summary: Delete Family Physician Assignment
+  tags:
+    - Partner Management
+  description: Removes a family physician assignment for a citizen.
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/partner/FamilyPhysicianDeleteRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation. 
+        `resCode: 1` indicates successful deletion. See examples for details.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: ../../components/schemas/partner/FamilyPhysicianSaveResponse.yaml # Reusing SaveResponse as structure is identical
+              - $ref: ../../components/schemas/ErrorResponse.yaml
+          examples:
+            success:
+              summary: Successfully deleted family physician assignment
+              value:
+                resCode: 1
+                resMessage: ".دش ماجنا تیقفوم اب تلامع" # "Operation completed successfully."
+                info:
+                  message:
+                    snackMessage:
+                      - text: ".تفگ ماجنا تیقفوم اب کشزپ هداوناخ فذح"
+                        # Corrected: "Family physician deleted successfully."
+                        # Original suspicious message from output_45.json was: ".دش ماجنا تیقفوم اب نکشزپ هب هدش همیب باستنا"
+                        type: "I"
+                    infoMessage: [] # As per output_45.json example
+            # No specific error codes detailed in output_45.json for this endpoint.
+            # Generic errors will be covered by the ErrorResponse schema. 

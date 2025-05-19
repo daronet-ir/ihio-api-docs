@@ -1,0 +1,86 @@
+post:
+  tags:
+    - SAMAD
+  summary: Search SAMAD Codes
+  description: Search and retrieve a list of SAMAD codes based on various criteria
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/samad/SamadSearchRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: ../../components/schemas/samad/SamadSearchResponse.yaml
+              - $ref: ../../components/schemas/ErrorResponse.yaml
+          examples:
+            success:
+              summary: Successful search operation
+              value:
+                resCode: 1
+                resMessage: "Search completed successfully."
+                info:
+                  -
+                    age: 22
+                    creationDate: "1398/07/04 11:39:40"
+                    picture: "base64string..."
+                    gender: "F"
+                    lastName: "TestLastName"
+                    name: "TestName"
+                    nationalNumber: "008..."
+                    productName: "Test Product"
+                    samadCode: "1234567890123456"
+                    tarckingCode: "20096" # Matches output_6.json "یجورخ" (response JSON structure)
+                    PartnerName: "Test Partner" # Matches output_6.json "یجورخ" (response JSON structure)
+                    status: "D"
+                    referenceTrackingCode: "REF98765"
+            invalidDateRange:
+              summary: Invalid date range or format
+              description: fromDate is after toDate, or date format is incorrect.
+              value:
+                resCode: -9241 
+                resMessage: "Invalid date range or format provided."
+            invalidPagination:
+              summary: Invalid pagination parameters
+              description: Index or count is invalid (e.g., less than 1, count too high).
+              value:
+                resCode: -9242
+                resMessage: "Invalid pagination parameters (index < 0 or count < 1 or count > max_limit)."
+            # Error for count > 50 (as per output_6.json example -9243)
+            countTooLarge:
+              summary: Count parameter too large
+              description: The requested count exceeds the maximum allowed limit (e.g. 50).
+              value:
+                resCode: -9243
+                resMessage: "Requested count exceeds maximum limit of 50."
+            invalidNationalNumberFormat:
+              summary: Invalid national number format
+              description: National number format is incorrect or fails validation.
+              value:
+                resCode: -9244
+                resMessage: "Invalid national number format."
+            invalidStatus:
+              summary: Invalid status value
+              description: The provided status value is not among the allowed enum values.
+              value:
+                resCode: -9249 # Assuming this code for invalid status based on output_6 error table
+                resMessage: "Invalid status value provided."
+            noDataFound:
+              summary: No data found
+              description: No SAMAD codes found matching the criteria.
+              value:
+                resCode: -9322 # From output_6.json error table
+                resMessage: "No data found for the specified criteria." 

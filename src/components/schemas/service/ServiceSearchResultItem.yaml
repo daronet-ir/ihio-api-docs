@@ -1,0 +1,22 @@
+type: object
+properties:
+  fullName:
+    type: string
+    description: Full name of the service
+  nationalNumber:
+    type: string
+    description: National number
+  shortName:
+    type: string
+    description: Short name of the service
+  interfaceName:
+    type: string
+    description: Interface name
+  description:
+    type: string
+    description: Service description
+  NORepeat:
+    type: integer
+    description: Number of repeats allowed
+  state:
+    $ref: './ServiceState.yaml' 

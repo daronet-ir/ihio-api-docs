@@ -1,0 +1,45 @@
+type: object
+properties:
+  age:
+    type: integer
+    description: Age of the person
+  creationDate:
+    type: string
+    description: |
+      Date when the SAMAD code was created (Format: YYYY/MM/DD HH:MM:SS)
+    example: "1398/07/04 11:39:40"
+  picture:
+    type: string
+    description: Picture data
+  gender:
+    type: string
+    description: Gender of the person.
+    enum: ["M", "F"]
+  lastName:
+    type: string
+    description: Last name
+  name:
+    type: string
+    description: First name
+  nationalNumber:
+    type: string
+    description: National number
+  productName:
+    type: string
+    description: Insurance product name
+  samadCode:
+    type: string
+    description: SAMAD code
+  tarckingCode:
+    type: string
+    description: Tracking code
+  PartnerName:
+    type: string
+    description: Partner name
+  status:
+    type: string
+    description: Status of the SAMAD code.
+    enum: ["D", "O", "R"] # D:Delivered, O:Order, R:Register
+  referenceTrackingCode:
+    type: string
+    description: Reference tracking code if applicable 

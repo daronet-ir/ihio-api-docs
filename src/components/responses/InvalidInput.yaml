@@ -1,0 +1,20 @@
+description: Invalid input data
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        resCode:
+          type: integer
+          example: 1211
+        resMessage:
+          type: string
+          description: Error message describing the validation failure
+        info:
+          type: object
+          properties:
+            validationErrors:
+              type: array
+              items:
+                type: string
+              description: List of specific validation errors 

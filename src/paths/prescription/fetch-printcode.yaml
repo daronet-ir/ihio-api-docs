@@ -1,0 +1,80 @@
+post:
+  tags:
+    - Prescription Management
+  summary: Fetch Prescription by Print Code
+  description: Retrieve a prescription using its print code
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/prescription/PrescriptionFetchPrintcodeRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/prescription/PrescriptionFetchPrintcodeResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful prescription fetch by print code
+              value:
+                resCode: 1
+                resMessage: "Prescription fetched successfully using print code."
+                info:
+                  creationDate: "1398/07/05 17:58:51"
+                  subscriptionInfos: []
+                  partnerName: "نام پزشک نمونه"
+                  partnerPhone: "021YYYYYYYY"
+                  contractPartyName: "بیمه سلامت"
+                  samadCode: "SAMAD1234567890123"
+                  typeId: 1
+                  noMedicalSystem: 12345
+                  licenseName: "عمومی"
+            invalidPrintCodeFormat:
+              summary: Invalid Print Code format or value
+              description: "Error when Print Code is invalid (format, null, length) or doesn't meet criteria."
+              value:
+                resCode: -4241
+                resMessage: ".\nتسین ربتعم هدش لاسرا  پاچ هرامش \n:دهد خر ریز دراوم زا یکی \n:حیضوت \n \n printCode·\n.دشاب یلاخ \nدلیف \n \nnull\n printCode·\n.دشاب \n ربارب \nدلیف \n \n printCode·\n.دشابن یمقر 22 \nیا 20 \nیا 5 \nدلیف \nprintCode·\n.دشابن ربتعم \n راتخاس"
+            printCodeAuthFailed:
+              summary: Print Code authentication failed or session invalid
+              description: "Error when Print Code is not authenticated or the session is invalid."
+              value:
+                resCode: -4242
+                resMessage: ".\nتسین تسشن \nنیا هب قلعتم پاچ هسانش \nی اوتحم"
+            prescriptionNotFoundForPrintCode:
+              summary: Prescription not found for Print Code
+              description: No prescription found matching the provided Print Code.
+              value:
+                resCode: -4301
+                resMessage: ".دشاب \nیمن \nهدش \nهمیب \nناینب \nاب طبترم \nیریگهر /پاچ هسانش"
+            prescriptionArchived:
+              summary: Prescription is archived
+              description: The prescription associated with the print code is archived and cannot be fetched normally.
+              value:
+                resCode: -4311
+                resMessage: ".دشن \nتفای \nی اهخسن \nرزیر"
+            dataFault:
+              summary: Data fault or temporary error
+              description: "A temporary issue or data inconsistency prevented fetching the prescription."
+              value:
+                resCode: -4360
+                resMessage: ".\nدیریگب سامت هماناماس رد افطل .تمدخ \nتفایرد \nیلخاد \nیاطخ"
+            printCodeForWrongType:
+              summary: Print Code for wrong prescription type
+              description: "The Print Code is for a different type of prescription than expected."
+              value:
+                resCode: -4401
+                resMessage: ".تسا هدشن تفای پاچدک اب یتمدخ" 

@@ -1,0 +1,16 @@
+description: Successful counterparty session creation.
+type: object
+properties:
+  resCode:
+    type: integer
+    example: 1
+    description: Response code (1 for success).
+  resMessage:
+    type: string
+    description: Success message.
+  info:
+    $ref: '../schemas/auth/CpartySessionInfo.yaml'
+required:
+  - resCode
+  - resMessage
+  - info 

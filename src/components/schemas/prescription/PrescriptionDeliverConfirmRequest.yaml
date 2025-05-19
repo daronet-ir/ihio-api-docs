@@ -1,0 +1,11 @@
+type: object
+required:
+  - cpartySessionId
+  - checkCode
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID from authentication
+  checkCode:
+    type: string
+    description: Check code of the prescription to confirm delivery 

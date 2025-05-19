@@ -1,0 +1,25 @@
+type: object
+required:
+  - cpartySessionId
+  - citizenSessionId
+  - samadCode
+  - subscriptions
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID from authentication
+  citizenSessionId:
+    type: string
+    description: Citizen session ID
+  referenceFeedback:
+    type: string
+    description: Optional reference feedback from the user/system.
+    nullable: true # Assuming it can be null or omitted based on typical feedback fields
+  samadCode:
+    type: string
+    description: SAMAD code associated with the prescription.
+  subscriptions:
+    type: array
+    items:
+      $ref: './PrescriptionSaveSubscriptionItem.yaml'
+    description: List of subscription items (check codes) to be included in the save operation. 

@@ -1,0 +1,21 @@
+type: object
+required:
+  - cpartySessionId
+  - citizenSessionId
+  - printCode
+  - subscriptions
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID from authentication.
+  citizenSessionId:
+    type: string
+    description: Citizen session ID.
+  printCode:
+    type: string
+    description: The print code associated with the prescription delivery.
+  subscriptions:
+    type: array
+    items:
+      $ref: './PrescriptionDeliverSubscriptionItem.yaml'
+    description: List of subscription items being delivered.

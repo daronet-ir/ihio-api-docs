@@ -1,0 +1,29 @@
+type: object
+properties:
+  isDefault:
+    type: boolean
+    description: Whether this is the default service in the co-family
+  fullName:
+    type: string
+    description: Full name of the service
+  shortName:
+    type: string
+    description: Short name of the service
+  nationalNumber:
+    type: string # Kept as string, as serviceNN can be long but often handled as string IDs
+    description: National number of the service (ServiceNN)
+  interfaceName:
+    type: string
+    description: Interface name for the service
+  description:
+    type: string
+    description: Service description
+  state:
+    $ref: './ServiceState.yaml'
+# Add required fields if known from output_16.json parameter descriptions
+# Example:
+# required:
+#   - isDefault
+#   - fullName
+#   - nationalNumber
+#   - state 

@@ -1,0 +1,14 @@
+description: Successful operation with an additional message
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        resCode:
+          type: integer
+          description: Response code (1 for success)
+        resMessage:
+          type: string
+          description: Response message
+        info:
+          $ref: '../schemas/common/MessageContent.yaml' 

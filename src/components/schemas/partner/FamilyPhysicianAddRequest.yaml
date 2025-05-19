@@ -1,0 +1,15 @@
+type: object
+required:
+  - cpartySessionId
+  - nationalNumber
+  - physicianId
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID from authentication
+  nationalNumber:
+    type: string
+    description: National number of the patient
+  physicianId:
+    type: integer
+    description: ID of the family physician to add 

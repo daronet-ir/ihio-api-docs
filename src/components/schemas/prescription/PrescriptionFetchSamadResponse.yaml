@@ -1,0 +1,122 @@
+type: object
+properties:
+  resCode:
+    type: integer
+    description: Response code, 1 for success
+  resMessage:
+    type: string
+    description: Response message
+  info:
+    type: object
+    properties:
+      creationDate:
+        type: string
+        description: Date and time when the prescription was created
+      subscriptionInfos:
+        type: array
+        description: Prescription items information
+        items:
+          type: object
+          properties:
+            checkCode:
+              type: string
+              description: Check code of the prescription item
+            bulkId:
+              type: integer
+              description: Compound medicine ID
+            description:
+              type: string
+              description: Description
+            numberOfRequest:
+              type: integer
+              description: Number of items requested
+            consumption:
+              type: string
+              description: Consumption method
+            consumptionSNOMEDCode:
+              type: string
+              description: SNOMED code for consumption
+            typeId:
+              type: integer
+              description: Type ID
+            serviceDescription:
+              type: string
+              description: Service description
+            serviceFullName:
+              type: string
+              description: Full name of the service
+            shape:
+              type: string
+              description: Medicine shape
+            consumptionInstruction:
+              type: string
+              description: Consumption instructions
+            serviceInterfaceName:
+              type: string
+              description: Service interface name
+            serviceNationalNumber:
+              type: string
+              description: Service national number
+            serviceShortName:
+              type: string
+              description: Short name of the service
+            numberOfPeriod:
+              type: integer
+              description: Number of periods
+            status:
+              type: string
+              description: Status
+            activeFrom:
+              type: integer
+              description: Active from date
+            deliveredSubscriptionInfos:
+              type: array
+              description: Information about delivered subscriptions
+              items:
+                type: object
+                properties:
+                  description:
+                    type: string
+                    description: Description
+                  numberOfDelivered:
+                    type: integer
+                    description: Number of items delivered
+                  consumption:
+                    type: string
+                    description: Consumption method
+                  consumptionSNOMEDCode:
+                    type: string
+                    description: SNOMED code for consumption
+                  shape:
+                    type: string
+                    description: Medicine shape
+                  consumptionInstruction:
+                    type: string
+                    description: Consumption instructions
+                  serviceDescription:
+                    type: string
+                    description: Service description
+                  serviceFullName:
+                    type: string
+                    description: Full name of the service
+                  serviceInterfaceName:
+                    type: string
+                    description: Service interface name
+                  serviceNationalNumber:
+                    type: string
+                    description: Service national number
+                  serviceShortName:
+                    type: string
+                    description: Short name of the service
+                  numberOfPeriod:
+                    type: integer
+                    description: Number of periods
+      partnerName:
+        type: string
+        description: Name of the partner
+      partnerPhone:
+        type: string
+        description: Phone number of the partner
+      contractPartyName:
+        type: string
+        description: Name of the contract party 

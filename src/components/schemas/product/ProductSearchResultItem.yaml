@@ -1,0 +1,32 @@
+type: object
+properties:
+  # isDefault: # Removed, not in output_14.json
+  #   type: boolean
+  #   description: Whether this is the default product
+  fullName:
+    type: string
+    description: Full name of the product
+  shortName:
+    type: string
+    description: Short name of the product
+  nationalNumber:
+    type: string
+    description: IRC (National Product Code) of the product.
+  genericCode: # Added from output_14.json
+    type: string
+    description: Generic code of the product
+  interfaceName:
+    type: string
+    description: Interface name
+  description:
+    type: string
+    description: Product description
+  NORepeat: # Added from output_14.json
+    type: integer
+    format: int32 # Assuming 32-bit integer
+    description: Number of repeats allowed or similar indicator
+  # basePrice: # Removed, not in output_14.json
+  #   type: integer
+  #   description: Base price of the product
+  state:
+    $ref: './ProductState.yaml' 

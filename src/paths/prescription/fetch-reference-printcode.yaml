@@ -1,0 +1,116 @@
+post:
+  tags:
+    - Prescription Management
+  summary: Fetch Prescription by Reference Print Code
+  description: Retrieve a prescription using its reference print code
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/prescription/PrescriptionFetchReferencePrintcodeRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf: # Added oneOf for proper error handling
+              - $ref: '../../components/schemas/prescription/PrescriptionFetchReferencePrintcodeResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            successWithReferences:
+              summary: Successfully fetched reference prescriptions
+              value:
+                resCode: 1
+                resMessage: "اطلاعات نسخ مرجع با موفقیت دریافت شد."
+                info:
+                  - referencePrescriptionInfo:
+                      creationDate: "1398/07/05 17:58:51"
+                      partnerName: "پزشک عمومی محمد یریمی"
+                      partnerPhone: "02188776655"
+                      contractPartyName: "بیمه سلامت ایرانیان"
+                      referenceSamadOwner_Id: 777777
+                      subscriptionInfos:
+                        - description: "قرص سرماخوردگی بزرگسالان"
+                          numberOfRequest: 10
+                          serviceId: 101
+                          serviceDescription: "قرص سرماخوردگی بزرگسالان"
+                          serviceFullName: "قرص سرماخوردگی بزرگسالان"
+                          serviceInterfaceName: "AdultColdTab"
+                          serviceGenericCode: "G1001"
+                          serviceNationalNumber: "N1001"
+                          serviceShortName: "سرماخوردگی"
+                          countOfReference: 0
+                          typeId: 1
+                          ihioBasePrice: 5000
+                          prescriptionId: 12345
+                          samadId: 67890
+                          status: "Active"
+                          consumption: "هر 8 ساعت"
+                          consumptionSNOMEDCode: "SCT123"
+                          numberOfPeriod: 1
+                          shape: "TABLET"
+                          subscriptionDeliveredInfos:
+                            - description: "تحویل اول"
+                              numberOfDelivered: 5
+                              deliverDate: "1398/07/06 10:00:00"
+                              serviceDescription: "قرص سرماخوردگی بزرگسالان"
+                              serviceFullName: "قرص سرماخوردگی بزرگسالان"
+                              serviceInterfaceName: "AdultColdTab"
+                              serviceGenericCode: "G1001"
+                              serviceNationalNumber: "N1001"
+                              serviceShortName: "سرماخوردگی"
+                              patientPayment: 0
+                              amount: 25000
+                              delivery: "حضوری"
+                              prescriber: "دکتر یریمی"
+                              typeId: 1
+                              ihioBasePrice: 5000
+                              checkCode: "DELIVCKC111"
+            successNoReferences:
+              summary: Successfully processed but no references found
+              value:
+                resCode: 1 # Assuming 1 means success, even if data is empty
+                resMessage: "موردی برای کد چاپ ارجاعی وارد شده یافت نشد." # More specific message
+                info: []
+            invalidSession:
+              summary: Invalid cpartySessionId or citizenSessionId
+              description: "Error when cpartySessionId or citizenSessionId is invalid or expired."
+              value:
+                resCode: -35221 # From output_34.json
+                resMessage: "شناسه جلسه نامعتبر است." # Generic message, specific one from doc is complex
+            invalidPrintCode:
+              summary: Invalid Print Code format or value
+              description: "Error when Print Code is invalid (format, null, length) or doesn't meet criteria."
+              value:
+                resCode: -35222 # From output_34.json
+                resMessage: "کد چاپ ارسال شده صحیح نمی باشد و یا خالی می باشد و یا طول آن اشتباه می باشد." # From output_34.json for -35222
+            prescriptionNotFound:
+              summary: Prescription not found for Print Code
+              description: No prescription data found matching the provided Print Code.
+              value:
+                resCode: -35301 # From output_34.json
+                resMessage: "نسخه ای برای کد چاپ ارسال شده یافت نشد." # From output_34.json for -35301
+            prescriptionReturned:
+              summary: Prescription has been returned
+              description: The prescription associated with the print code has been returned.
+              value:
+                resCode: -35302 # From output_34.json
+                resMessage: "نسخه ارسال شده جهت بررسی عودت شده است." # From output_34.json for -35302
+            referencePrescriptionNotFound:
+              summary: Reference prescription not found
+              description: No reference prescription found for the given details.
+              value:
+                resCode: -35304 # From output_34.json
+                resMessage: "نسخه ی مرجع یافت نشد." # From output_34.json for -35304
+            # -31340 samadOwnerIdMismatch and -31360 dataFault from original spec are not in output_34
+            # It's better to use error codes observed in the actual API responses. 

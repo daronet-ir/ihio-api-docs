@@ -1,0 +1,9 @@
+type: object
+properties:
+  text:
+    type: string
+    description: Message text
+  type:
+    type: string
+    description: Message type (I:Info, W:Warning, E:Error)
+    enum: [I, W, E] 

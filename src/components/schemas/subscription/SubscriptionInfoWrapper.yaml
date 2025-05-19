@@ -1,0 +1,13 @@
+type: object
+properties:
+  nationalNumber:
+    type: string
+    description: National number of the subscribed item
+  type:
+    type: string
+    description: Type of the subscribed item (SERVICE or PRODUCT)
+  mode:
+    type: string
+    description: Mode of the subscribed item (ELECTRONIC, PAPER, PHYSICAL)
+  info:
+    $ref: './SubscriptionInfo.yaml' 

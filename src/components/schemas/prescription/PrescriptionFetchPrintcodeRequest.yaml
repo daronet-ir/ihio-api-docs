@@ -1,0 +1,15 @@
+type: object
+required:
+  - cpartySessionId
+  - citizenSessionId
+  - printCode
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID from authentication
+  citizenSessionId:
+    type: string
+    description: Citizen session ID
+  printCode:
+    type: string
+    description: Print code of the prescription to fetch 

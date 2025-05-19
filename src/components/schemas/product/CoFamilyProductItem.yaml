@@ -1,0 +1,26 @@
+type: object
+properties:
+  isDefault:
+    type: boolean
+    description: Whether this is the default product in the co-family
+  fullName:
+    type: string
+    description: Full name of the product
+  shortName:
+    type: string
+    description: Short name of the product
+  nationalNumber:
+    type: string
+    description: IRC (National Product Code) of the product.
+  interfaceName:
+    type: string
+    description: Interface name
+  description:
+    type: string
+    description: Product description
+  basePrice:
+    type: integer
+    format: int32 # Assuming 32-bit integer
+    description: Base price of the product
+  state:
+    $ref: './ProductState.yaml' # Assuming ProductState.yaml is suitable 

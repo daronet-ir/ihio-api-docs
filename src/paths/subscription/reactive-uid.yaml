@@ -1,0 +1,118 @@
+post:
+  tags:
+    - Subscription Management
+  summary: Reactivate Subscription by UID
+  description: Reactivate a subscription using its UID
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/subscription/SubscriptionInquiryRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/subscription/SubscriptionInquiryResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful reactivation
+              value:
+                resCode: 1 # Assuming 1 for overall success
+                resMessage: "Reactivation successful."
+                info:
+                  resCode: 0 # Assuming 0 for successful nested info
+                  resMessage: "Subscription reactivated."
+            invalidInput:
+              summary: Invalid input data for reactivation
+              description: General invalid input data for reactivation (e.g., null/empty count, null/empty uId).
+              value:
+                resCode: -17201
+                message: "Input data validation failed for reactivation."
+            invalidCheckCode:
+              summary: Invalid CheckCode for reactivation
+              description: Provided checkCode is invalid, not found, or has an incorrect status for reactivation.
+              value:
+                resCode: -17212
+                message: "Invalid or unsuitable checkCode for reactivation."
+            checkCodeMismatch:
+              summary: CheckCode Mismatch for reactivation
+              description: The provided checkCode does not match pharmacy, patient, doctor, or prescription date for reactivation.
+              value:
+                resCode: -17214 # Example, specific codes like -17215, -17216, -17217 could also be used
+                message: "CheckCode mismatch with transaction details for reactivation."
+            archivedCheckCode:
+              summary: Archived CheckCode for reactivation
+              description: The provided checkCode has been archived and cannot be used for reactivation.
+              value:
+                resCode: -17244
+                message: "CheckCode is archived; cannot reactivate."
+            externalSystemError:
+              summary: External System Error during reactivation
+              description: Error fetching details from other systems during reactivation.
+              value:
+                resCode: -17245
+                message: "Error fetching details from external systems during reactivation, contact administrator."
+            uidNotValidForReactivation:
+              summary: UID not valid for reactivation
+              description: The provided UID is not valid for this reactivation operation.
+              value:
+                resCode: -17425
+                message: "UID is not valid for reactivation."
+            glnErrorReactivation:
+              summary: GLN Inconsistency for reactivation
+              description: GLN code is invalid or reactivation center information is inconsistent.
+              value:
+                resCode: -17426
+                message: "GLN code invalid or inconsistent reactivation center information."
+            dataNotAvailableReactivation:
+              summary: Data Not Available for reactivation
+              description: Confirmed request data is not available for the reactivation.
+              value:
+                resCode: -17423
+                message: "Confirmed request data is not available for reactivation."
+            subscriptionServiceErrorReactivation:
+              summary: Subscription Service Error during reactivation
+              description: A general error occurred in the subscription service during reactivation.
+              value:
+                resCode: -17555
+                message: "Subscription service error during reactivation."
+    # Error code comments based on output_23.json
+    # '-17201':
+    #   description: Invalid input data for reactivation
+    # '-17212':
+    #   description: Invalid checkCode for reactivation
+    # '-17213':
+    #   description: checkCode status not 'delivered' for reactivation context
+    # '-17214':
+    #   description: checkCode not for this pharmacy (reactivation context)
+    # '-17215':
+    #   description: checkCode not related to patient (reactivation context)
+    # '-17216':
+    #   description: checkCode not related to doctor (reactivation context)
+    # '-17217':
+    #   description: checkCode not related to prescription date (reactivation context)
+    # '-17244':
+    #   description: checkCode is archived (reactivation context)
+    # '-17245':
+    #   description: Error fetching details from other systems (reactivation context)
+    # '-17423':
+    #   description: Confirmed request data is not available (reactivation context)
+    # '-17425':
+    #   description: UID not valid for reactivation
+    # '-17426':
+    #   description: GLN code invalid or inconsistent reactivation center information
+    # '-17555':
+    #   description: Subscription service error (reactivation context) 

@@ -1,0 +1,59 @@
+post:
+  summary: Fetch Associated Partners
+  tags:
+    - Partner Management
+  description: Retrieve a list of partners (e.g., doctors, clinics) associated with the authenticated calling party session.
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/partner/PartnerFetchRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/partner/PartnerFetchResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successfully fetched partner information
+              value:
+                resCode: 1
+                resMessage: "اطلاعات شرکای کاری با موفقیت دریافت شد."
+                info:
+                  - id: 654894
+                    parentId: 9844
+                    partnerName: "پزشک عمومی محمد یریمی"
+                  - id: 654895
+                    parentId: 9844
+                    partnerName: "کلینیک سلامت ایرانیان"
+            noPartnersFound:
+              summary: No partner information found
+              description: No partner information found associated with the authenticated session.
+              value:
+                resCode: -24228
+                resMessage: ".دشن \nتفای \nراکمی \nرشکی \n زیچه"
+            dataFault:
+              summary: Data fault or temporary error
+              description: "A temporary issue or data inconsistency prevented fetching partner information."
+              value:
+                resCode: -24115
+                resMessage: ".دیریگب سامت هماناماس رد افطل .یلخاد یاطخ"
+            invalidPartnerInfo:
+              summary: Invalid partner information
+              description: "The provided partner information is invalid or does not meet requirements."
+              value:
+                resCode: -24222
+                resMessage: ".تسا ربتعمریغ یراکمه کرش تاعلاطا" 

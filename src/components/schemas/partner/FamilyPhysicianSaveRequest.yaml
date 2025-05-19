@@ -1,0 +1,12 @@
+type: object
+description: Request to save/assign a family physician to a citizen.
+required:
+  - cpartySessionId
+  - citizenSessionId
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID from authentication of the calling party.
+  citizenSessionId:
+    type: string
+    description: Session ID of the citizen/patient. 

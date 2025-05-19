@@ -1,0 +1,71 @@
+post:
+  tags:
+    - Service Management
+  summary: Quick Search for Service
+  description: Search for services based on various criteria
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/service/ServiceSearchRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: ../../components/schemas/service/ServiceSearchResponse.yaml
+              - $ref: ../../components/schemas/ErrorResponse.yaml
+          examples:
+            success:
+              summary: Successful service search
+              value:
+                resCode: 1
+                resMessage: "Service search completed successfully."
+                info:
+                  -
+                    fullName: "Anti-Tissue Transglutamiase IgA Test"
+                    nationalNumber: "803625" # Service's national code
+                    shortName: "Transglutamias Test"
+                    interfaceName: "Transglutamias_IgA_803625"
+                    description: "Anti-Tissue Transglutamiase (IgA, IgG) Test"
+                    NORepeat: 1 # Matches casing from output_9.json
+                    state:
+                      isCovered: true
+                  -
+                    fullName: "Another Service Full Name"
+                    nationalNumber: "SvcCode002"
+                    shortName: "Another Svc"
+                    interfaceName: "Another_Svc_Intf"
+                    description: "Description for another service."
+                    NORepeat: 0
+                    state:
+                      isCovered: false
+            invalidInput:
+              summary: Invalid input parameters
+              description: One or more input parameters are invalid (e.g., searchClause null, serviceTypeId out of range, maxResultCount <= 0).
+              value:
+                resCode: -20211 # From output_9.json
+                resMessage: "Invalid input. Check searchClause, serviceTypeId (must be 2-6), or maxResultCount (must be > 0)."
+            noServiceFound:
+              summary: No service found
+              description: No services match the search criteria for the given basic insurance.
+              value:
+                resCode: -20401 # From output_9.json
+                resMessage: "No service found matching the criteria for the patient's basic insurance."
+            serviceInfoIncomplete:
+              summary: Service information incomplete
+              description: Information for the found service is incomplete.
+              value:
+                resCode: -20114 # From output_9.json
+                resMessage: "Service information is incomplete." 

@@ -1,0 +1,48 @@
+post:
+  summary: Print Bill
+  tags:
+    - Printing
+  description: Generate a printable version of a bill using its ID.
+  parameters:
+    - $ref: ../../components/parameters/terminalId.yaml
+    - $ref: ../../components/parameters/token.yaml
+    - $ref: ../../components/parameters/clientIPAddress.yaml
+    - $ref: ../../components/parameters/clientAgentInfo.yaml
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../components/schemas/print/BillPrintRequest.yaml
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/print/OrderPrintResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successfully generated print for bill
+              value:
+                resCode: 1
+                resMessage: "عملیات با موفقیت انجام شد."
+                info:
+                  print: "U0FNRVRIQVRUSEVSRSBCSUxMLi4u"
+            invalidBillId:
+              summary: Invalid Bill ID
+              description: "Error when billId is null, not a positive integer, or otherwise invalid."
+              value:
+                resCode: -42211
+                resMessage: ".دشاب \nمنی \nحیحص \nباسح تروص هسانش \n:دهد خر ریز دراوم زا یکی \n:حیضوت \n \nnull\n billId·\n.دشاب \n ربارب \nدلیف \n \nbillId·\n \n.دشاب 1 \nزا رتمک ایاهیدوبن ددع \n  \nدلیف \n رادقم"
+            billNotFound:
+              summary: Bill information not found
+              description: No bill information found for the provided billId.
+              value:
+                resCode: -42301
+                resMessage: ".دشن \nتفای   باسحتوص تاعلاطا" 

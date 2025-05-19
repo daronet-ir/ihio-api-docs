@@ -1,0 +1,18 @@
+type: object
+required:
+  - cpartySessionId
+  - citizenSessionId
+  - samadCode
+  - subInfoWrapper
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID for the contracting party
+  citizenSessionId:
+    type: string
+    description: Citizen session ID
+  samadCode:
+    type: string
+    description: SAMAD code for the prescription/order
+  subInfoWrapper:
+    $ref: './SubInfoWrapper.yaml'

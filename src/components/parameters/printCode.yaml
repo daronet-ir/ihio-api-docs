@@ -1,0 +1,8 @@
+name: printCode
+in: header
+schema:
+  type: string
+  pattern: '^[0-9]{5}$'
+  example: "58210"
+required: true
+description: Print code 

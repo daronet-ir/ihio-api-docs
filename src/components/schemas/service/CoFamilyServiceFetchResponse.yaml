@@ -1,0 +1,16 @@
+type: object
+properties:
+  resCode:
+    type: integer
+    description: Response code (e.g., 1 for success)
+  resMessage:
+    type: string
+    description: Response message
+  info:
+    type: array
+    items:
+      $ref: './CoFamilyServiceItem.yaml'
+required:
+  - resCode
+  - resMessage
+  # - info # Info might be optional if no co-family services are found but resCode is still success 

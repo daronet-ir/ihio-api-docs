@@ -1,0 +1,17 @@
+# Common error responses
+InvalidInput:
+  $ref: './InvalidInput.yaml'
+AccessDenied:
+  $ref: './AccessDenied.yaml'
+InvalidToken:
+  $ref: './InvalidToken.yaml'
+ServiceError:
+  $ref: './ServiceError.yaml'
+NotFound:
+  $ref: './NotFound.yaml'
+
+# Common success responses
+Success:
+  $ref: './Success.yaml'
+SuccessWithMessage:
+  $ref: './SuccessWithMessage.yaml' 

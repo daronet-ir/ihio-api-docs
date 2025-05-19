@@ -1,0 +1,18 @@
+type: object
+description: Request to fetch bill information for a specific year and month.
+required:
+  - cpartySessionId
+  - year
+  - month
+properties:
+  cpartySessionId:
+    type: string
+    description: Session ID from authentication of the calling party.
+  year:
+    type: integer
+    description: The year for which to fetch bill information (e.g., 1399).
+    example: 1399
+  month:
+    type: integer
+    description: The month for which to fetch bill information (1-12).
+    example: 12 

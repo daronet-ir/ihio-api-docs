@@ -1,0 +1,10 @@
+type: object
+properties:
+  service:
+    $ref: './SubInfoPaperService.yaml'
+  otherServices:
+    type: array
+    items:
+      $ref: './SubInfoOtherService.yaml' # Reuses existing schema
+# required: 
+#   - service 

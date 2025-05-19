@@ -1,0 +1,29 @@
+type: object
+properties:
+  resCode:
+    type: integer
+    description: Response code (e.g., 1 for success).
+  resMessage:
+    type: string
+    description: Response message.
+  info:
+    type: object
+    properties:
+      sequenceNumber:
+        type: integer
+        format: int32
+        description: Sequence number for the delivery transaction.
+      checkCode:
+        type: string
+        description: Check code associated with the delivery, possibly for confirmation or reference.
+      message:
+        $ref: './PrescriptionResponseMessageDetails.yaml' # Reusing generic flexible message schema
+        description: Detailed messages or additional information related to the delivery.
+    # required: 
+      # - sequenceNumber
+      # - checkCode
+      # - message # Depending on whether these are always present in info
+# required:
+  # - resCode
+  # - resMessage
+  # - info # Info itself might be optional on overall error 

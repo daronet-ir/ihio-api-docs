@@ -1,0 +1,72 @@
+post:
+  tags:
+    - Authentication
+  summary: Fetch Authentication Token
+  description: Get an authentication token for accessing other services
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/auth/TokenRequest.yaml'
+  responses:
+    '200':
+      description: |
+        Standard response for the operation.
+        The `resCode` field in the JSON response body indicates the specific outcome.
+        Refer to the examples for details on different `resCode` values.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../../components/schemas/auth/TokenResponse.yaml'
+              - $ref: '../../components/schemas/ErrorResponse.yaml'
+          examples:
+            success:
+              summary: Successful operation
+              value:
+                # Example of a successful TokenResponse
+                # Ensure it includes a success resCode if applicable
+                resCode: 0 # Or appropriate success code
+                # ... other fields from TokenResponse ...
+                exampleToken: "your-auth-token-here"
+            invalidInput:
+              summary: Invalid input data
+              description: Invalid input data
+              value:
+                resCode: 1211
+                message: Invalid input data
+            accessDenied:
+              summary: Access denied
+              description: Access denied
+              value:
+                resCode: 1940
+                message: Access denied
+            terminalIdNotAllowed:
+              summary: Terminal ID access not allowed
+              description: Terminal ID access not allowed
+              value:
+                resCode: 1943
+                message: Terminal ID access not allowed
+            invalidInputOrTerminalId:
+              summary: Invalid input data or terminal ID
+              description: Invalid input data or terminal ID
+              value:
+                resCode: 1946
+                message: Invalid input data or terminal ID
+            authServiceError:
+              summary: Authentication service error
+              description: Authentication service error
+              value:
+                resCode: 1947
+                message: Authentication service error
+    # '1211':
+    #   description: Invalid input data
+    # '1940':
+    #   description: Access denied
+    # '1943':
+    #   description: Terminal ID access not allowed
+    # '1946':
+    #   description: Invalid input data or terminal ID
+    # '1947':
+    #   description: Authentication service error 
