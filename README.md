@@ -30,4 +30,5 @@ redocly build-docs src/openapi.yaml --output IHIO-API-3.07.1.html
 
 این دستور یک فایل `IHIO-API-3.07.1.html` در دایرکتوری اصلی ایجاد می‌کند.
 
-یک نسخه از پیش تولید شده از این مستندات HTML نیز در این مخزن موجود است.
+مستندات HTML به طور خودکار ساخته و از طریق GitHub Pages منتشر می‌شود.
+می‌توانید مستندات منتشر شده را در [اینجا](https://daronet-ir.github.io/ihio-api-docs/) مشاهده کنید.
